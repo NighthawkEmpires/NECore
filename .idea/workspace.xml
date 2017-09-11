@@ -36,8 +36,8 @@
       <file leaf-file-name="NECore.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/NECore.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="71" column="39" lean-forward="true" selection-start-line="71" selection-start-column="39" selection-end-line="71" selection-end-column="39" />
+            <state relative-caret-position="561">
+              <caret line="79" column="0" lean-forward="true" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -142,6 +142,9 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode />
+    </option>
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -537,7 +540,14 @@
       <option name="project" value="LOCAL" />
       <updated>1505110383900</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="SQL">
+      <created>1505110461756</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1505110461756</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -577,7 +587,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Switched to MySQL" />
-    <option name="LAST_COMMIT_MESSAGE" value="Switched to MySQL" />
+    <MESSAGE value="SQL" />
+    <option name="LAST_COMMIT_MESSAGE" value="SQL" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -947,8 +958,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/NECore.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="71" column="39" lean-forward="true" selection-start-line="71" selection-start-column="39" selection-end-line="71" selection-end-column="39" />
+        <state relative-caret-position="561">
+          <caret line="79" column="0" lean-forward="true" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
           <folding />
         </state>
       </provider>
