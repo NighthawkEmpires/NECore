@@ -1,16 +1,16 @@
 package net.nighthawkempires.core.users;
 
-import com.google.common.collect.Lists;
 import net.nighthawkempires.core.NECore;
 import net.nighthawkempires.core.file.FileManager;
 import net.nighthawkempires.core.file.FileType;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.text.DateFormat;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class UserLoader {
 
@@ -27,16 +27,30 @@ public class UserLoader {
     }
 
     public void load() {
-        getUser().setName(Bukkit.getOfflinePlayer(getUser().getUUID()).getName());
-        getUser().setDisplayName(getPlayerFile().getString("display-name", getUser().getName()));
-        getUser().setJoinDate(getPlayerFile().getString("join-date", new SimpleDateFormat("MM/dd/yyyy").format(new Date())));
-        getUser().setServers((getPlayerFile().isSet("servers") ? getPlayerFile().getStringList("servers") : Lists.newArrayList()));
-        getUser().setAddress((Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(getUser().getUUID())) ? Bukkit.getPlayer(getUser().getUUID()).getAddress().toString()
-                : getPlayerFile().getString("address", "")));
-        getUser().setBalance(getPlayerFile().getDouble("balance"));
-        getUser().setDeaths(getPlayerFile().getInt("deaths"));
-        getUser().setKills(getPlayerFile().getInt("kills"));
-        getUser().setTokens(getPlayerFile().getInt("tokens"));
+        if (NECore.getSettings().useSQL) {
+            try {
+                PreparedStatement statement = NECore.getMySQL().getConnection().prepareStatement("SELECT * FROM global_data WHERE uuid='" + getUser().getUUID().toString() + "'");
+                ResultSet results = statement.executeQuery();
+                results.next();
+                getUser().setName(Bukkit.getOfflinePlayer(getUser().getUUID()).getName());
+                getUser().setDisplayName(results.getString("display_name"));
+                getUser().setJoinDate(results.getString("join_date"));
+                getUser().setAddress((Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(getUser().getUUID())) ? Bukkit.getPlayer(getUser().getUUID()).getAddress().toString() : results.getString("address")));
+                getUser().setHub(Boolean.valueOf(results.getString("hub")));
+                getUser().setSurvival(Boolean.valueOf(results.getString("survival")));
+                getUser().setTokens(results.getInt("tokens"));
+                NECore.getLoggers().info("Loaded User " + getUser().getUUID().toString() + ": " + Bukkit.getOfflinePlayer(getUser().getUUID()).getName() + ".");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            getUser().setName(Bukkit.getOfflinePlayer(getUser().getUUID()).getName());
+            getUser().setDisplayName(getPlayerFile().getString("display-name", getUser().getName()));
+            getUser().setJoinDate(getPlayerFile().getString("join-date", new SimpleDateFormat("MM/dd/yyyy").format(new Date())));
+            getUser().setAddress((Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(getUser().getUUID())) ? Bukkit.getPlayer(getUser().getUUID()).getAddress().toString()
+                    : getPlayerFile().getString("address", "")));
+            getUser().setTokens(getPlayerFile().getInt("tokens"));
+        }
     }
 
     public FileConfiguration getPlayerFile() {

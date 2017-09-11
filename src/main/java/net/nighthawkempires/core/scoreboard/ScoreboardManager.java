@@ -3,7 +3,6 @@ package net.nighthawkempires.core.scoreboard;
 import com.google.common.collect.Lists;
 
 import net.nighthawkempires.core.NECore;
-import net.nighthawkempires.core.scoreboard.def.KillScoreboards;
 import net.nighthawkempires.core.scoreboard.def.NameScoreboards;
 import net.nighthawkempires.core.users.User;
 import org.bukkit.Bukkit;
@@ -19,7 +18,6 @@ public class ScoreboardManager {
         scoreboards = Lists.newArrayList();
 
         scoreboards.add(new NameScoreboards());
-        scoreboards.add(new KillScoreboards());
     }
 
     public void addScoreboard(Scoreboards scoreboards) {

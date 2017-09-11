@@ -5,11 +5,9 @@ import java.util.UUID;
 
 public class User {
 
-    private double balance;
-    private int deaths;
+    private boolean hub;
+    private boolean survival;
     private int tokens;
-    private int kills;
-    private List<String> servers;
     private String address;
     private String displayName;
     private String joinDate;
@@ -20,32 +18,20 @@ public class User {
         this.uuid = uuid;
     }
 
-    public double getBalance() {
-        return balance;
+    public boolean hub() {
+        return hub;
     }
 
-    public void addBalance(double amount) {
-        this.balance = balance + amount;
+    public void setHub(boolean hub) {
+        this.hub = hub;
     }
 
-    public void removeBalance(double amount) {
-        this.balance = balance - amount;
+    public boolean survival() {
+        return survival;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    public int getDeaths() {
-        return deaths;
-    }
-
-    public void addDeath() {
-        deaths++;
-    }
-
-    public void setDeaths(int deaths) {
-        this.deaths = deaths;
+    public void setSurvival(boolean survival) {
+        this.survival = survival;
     }
 
     public int getTokens() {
@@ -62,26 +48,6 @@ public class User {
 
     public void setTokens(int tokens) {
         this.tokens = tokens;
-    }
-
-    public int getKills() {
-        return kills;
-    }
-
-    public void addKill() {
-        kills++;
-    }
-
-    public void setKills(int kills) {
-        this.kills = kills;
-    }
-
-    public List<String> getServers() {
-        return servers;
-    }
-
-    public void setServers(List<String> servers) {
-        this.servers = servers;
     }
 
     public String getAddress() {

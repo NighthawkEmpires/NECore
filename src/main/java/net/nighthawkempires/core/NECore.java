@@ -81,6 +81,7 @@ public class NECore extends JavaPlugin {
     public void onDisable() {
         announcementManager.saveAnnouncements();
         getFileManager().saveFiles();
+        getMySQL().closeConnection();
     }
 
     public void registerListeners() {

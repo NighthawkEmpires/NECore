@@ -77,6 +77,7 @@ public class UserManager {
                 if (set.next()) {
                     return true;
                 }
+                return false;
             } catch (SQLException e) {
                 e.printStackTrace();
             }

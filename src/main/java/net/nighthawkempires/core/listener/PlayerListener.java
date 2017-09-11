@@ -23,13 +23,6 @@ public class PlayerListener implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         User user = new User(player.getUniqueId());
-        Server server = Server.HUB;
-
-        if (NECore.getSettings().server.equals(Server.HUB)) {
-            server = Server.HUB;
-        } else if (NECore.getSettings().server.equals(Server.NS)) {
-            server = Server.NS;
-        }
 
         if (getUserManager().userLoaded(player.getUniqueId())) {
             getUserManager().saveUser(getUserManager().getUser(player.getUniqueId()));
@@ -41,14 +34,25 @@ public class PlayerListener implements Listener {
             getUserManager().loadUser(user);
         }
 
-        if (!user.getServers().contains(server.getName().toLowerCase())) {
-            for (Player players : Bukkit.getOnlinePlayers()) {
-                players.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Welcome " + ChatColor.BLUE + "" + ChatColor.BOLD + player.getName() + ChatColor.GRAY + ""
-                        + ChatColor.BOLD + " to" + ChatColor.DARK_BLUE + "" + ChatColor.BOLD + " Nighthawk" + ChatColor.DARK_RED + "" + ChatColor.BOLD + " Survival"
-                        + ChatColor.GRAY + "" + ChatColor.BOLD + ".");
+        if (NECore.getSettings().server.equals(Server.HUB)) {
+            if (!user.hub()) {
+                for (Player players : Bukkit.getOnlinePlayers()) {
+                    players.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Welcome " + ChatColor.BLUE + "" + ChatColor.BOLD + player.getName() + ChatColor.GRAY + ""
+                            + ChatColor.BOLD + " to our " + ChatColor.RED + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "HUB" + ChatColor.GRAY + "" + ChatColor.BOLD + ".");
+                }
+                player.sendMessage(Lang.CHAT_TAG.getServerChatTag() + ChatColor.GRAY + "Welcome to our Server! Type " + ChatColor.RED + "/help " + ChatColor.GRAY + "to get started!");
+                user.setHub(true);
             }
-            player.sendMessage(Lang.CHAT_TAG.getServerChatTag() + ChatColor.GRAY + "Welcome to our Server! Type " + ChatColor.RED + "/help " + ChatColor.GRAY + "to get started!");
-            user.getServers().add(server.getName().toLowerCase());
+        } else if (NECore.getSettings().server.equals(Server.NS)) {
+            if (!user.survival()) {
+                for (Player players : Bukkit.getOnlinePlayers()) {
+                    players.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Welcome " + ChatColor.BLUE + "" + ChatColor.BOLD + player.getName() + ChatColor.GRAY + ""
+                            + ChatColor.BOLD + " to" + ChatColor.DARK_BLUE + "" + ChatColor.BOLD + " Nighthawk" + ChatColor.DARK_RED + "" + ChatColor.BOLD + " Survival"
+                            + ChatColor.GRAY + "" + ChatColor.BOLD + ".");
+                }
+                player.sendMessage(Lang.CHAT_TAG.getServerChatTag() + ChatColor.GRAY + "Welcome to our Server! Type " + ChatColor.RED + "/help " + ChatColor.GRAY + "to get started!");
+                user.setSurvival(true);
+            }
         }
 
         String joinMessage;

@@ -1,6 +1,7 @@
 package net.nighthawkempires.core.file;
 
 import com.google.common.collect.Maps;
+import net.nighthawkempires.core.NECore;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -238,6 +239,12 @@ public class FileManager {
         try {
             if (configMap.containsKey(name)) {
                 configMap.get(name).save(fileMap.get(configMap.get(name)));
+            }
+
+            if (clear) {
+                fileMap.remove(configMap.get(name));
+                configMap.remove(name);
+                NECore.getLoggers().info("Cleared Player's Files");
             }
         } catch (Exception ignored) {}
     }

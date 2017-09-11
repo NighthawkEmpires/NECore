@@ -30,51 +30,46 @@ public class UserCreator {
     public void create() {
         if (NECore.getSettings().useSQL) {
             try {
-                PreparedStatement statement = NECore.getMySQL().getConnection().prepareStatement("SELECT * FROM global_data WHERE UUID=?");
+                PreparedStatement statement = NECore.getMySQL().getConnection().prepareStatement("SELECT * FROM global_data WHERE uuid=?");
                 statement.setString(1, getUser().getUUID().toString());
                 ResultSet results = statement.executeQuery();
                 results.next();
                 if (!NECore.getUserManager().userExists(getUser().getUUID())) {
                     PreparedStatement insert = NECore.getMySQL().getConnection().prepareStatement("INSERT INTO global_data(" +
-                            "uuid,name,display-name,join-date,address,hub,survival,balance,kills,deaths,tokens,group,permissions,status,donor) VALUE (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                            "uuid,name,display_name,join_date,address,hub,survival,tokens) VALUE (?,?,?,?,?,?,?,?)");
                     insert.setString(1, getUser().getUUID().toString());
                     insert.setString(2, Bukkit.getOfflinePlayer(getUser().getUUID()).getName());
                     insert.setString(3, Bukkit.getOfflinePlayer(getUser().getUUID()).getName());
                     insert.setString(4, new SimpleDateFormat("MM/dd/yyyy").format(new Date()));
-                    insert.setString(5, "");
+                    insert.setString(5, (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(getUser().getUUID())) ? Bukkit.getPlayer(getUser().getUUID()).getAddress().toString() : ""));
                     insert.setString(6, "false");
-                    insert.setString();
+                    insert.setString(7, "false");
+                    insert.setInt(8, 10);
+                    insert.executeUpdate();
+                    NECore.getLoggers().info("Created User " + getUser().getUUID().toString() + ": " + Bukkit.getOfflinePlayer(getUser().getUUID()).getName() + ".");
                 }
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
             getPlayerFile().set("name", Bukkit.getOfflinePlayer(getUser().getUUID()).getName());
-            savePlayerFile();
             getPlayerFile().set("address", (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(user.getUUID()))
                     ? Bukkit.getPlayer(user.getUUID()).getAddress().toString() : ""));
-            savePlayerFile();
-            getPlayerFile().set("servers", Lists.newArrayList());
-            savePlayerFile();
-            getPlayerFile().set("balance", 500.00);
-            savePlayerFile();
-            getPlayerFile().set("deaths", 0);
-            savePlayerFile();
-            getPlayerFile().set("kills", 0);
-            savePlayerFile();
             getPlayerFile().set("tokens", 10);
-            savePlayerFile();
+            savePlayerFile(true);
         }
     }
 
     public FileConfiguration getPlayerFile() {
+        savePlayerFile(true);
         if (!fileManager.isFileLoaded(user.getUUID().toString())) {
             fileManager.loadFile(user.getUUID().toString(), FileType.PLAYER_FILE);
         }
         return fileManager.getFile(user.getUUID().toString());
     }
 
-    public void savePlayerFile() {
-        fileManager.saveFile(user.getUUID().toString(), false);
+    public void savePlayerFile(boolean clear) {
+        fileManager.saveFile(user.getUUID().toString(), clear);
     }
 }

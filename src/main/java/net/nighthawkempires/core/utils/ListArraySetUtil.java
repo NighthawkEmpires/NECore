@@ -34,4 +34,27 @@ public class ListArraySetUtil {
         }
         return materials;
     }
+
+    public static String stringListToString(List<String> list) {
+        StringBuilder builder = new StringBuilder();
+        if (list.isEmpty()) {
+            return "";
+        } else {
+            for (String string : list) {
+                builder.append(string).append(", ");
+            }
+            return builder.substring(0, builder.length() - 2);
+        }
+    }
+
+    public static List<String> stringToStringList(String string) {
+        if (string.length() == 0) {
+            return Lists.newArrayList();
+        } else {
+            List<String> list = Lists.newArrayList();
+            String[] strings = string.split(", ");
+            list.addAll(Arrays.asList(strings));
+            return list;
+        }
+    }
 }

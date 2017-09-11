@@ -69,8 +69,8 @@ public class NameScoreboards extends Scoreboards {
             objective.getScore(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + " Name" + ChatColor.GRAY + ": ").setScore(9);
             objective.getScore("     " + ChatColor.BLUE + "" + ChatColor.BOLD + player.getName()).setScore(8);
             objective.getScore(ChatColor.DARK_PURPLE + " ").setScore(7);
-            objective.getScore(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + " Balance" + ChatColor.GRAY + ": ").setScore(6);
-            objective.getScore("     " + ChatColor.GREEN + "" + ChatColor.BOLD + "$" + ChatColor.YELLOW + "" + ChatColor.BOLD + Lang.BAL_FORMAT.balance(user.getBalance())).setScore(5);
+            objective.getScore(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + " Display Name" + ChatColor.GRAY + ": ").setScore(6);
+            objective.getScore("     " + ChatColor.BLUE + "" + ChatColor.BOLD + ChatColor.translateAlternateColorCodes('&', user.getDisplayName())).setScore(5);
             objective.getScore(ChatColor.YELLOW + "  ").setScore(4);
             objective.getScore(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + " Tokens" + ChatColor.GRAY + ": ").setScore(3);
             objective.getScore("     " + ChatColor.GOLD + "" + ChatColor.BOLD + user.getTokens()).setScore(2);
@@ -80,8 +80,8 @@ public class NameScoreboards extends Scoreboards {
             objective.getScore(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + " Name" + ChatColor.GRAY + ": ").setScore(9);
             objective.getScore("     " + ChatColor.BLUE + "" + ChatColor.BOLD + player.getName()).setScore(8);
             objective.getScore(ChatColor.DARK_PURPLE + " ").setScore(7);
-            objective.getScore(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + " Date Joined" + ChatColor.GRAY + ": ").setScore(6);
-            objective.getScore("     " + ChatColor.GRAY + "" + ChatColor.BOLD + user.getJoinDate()).setScore(5);
+            objective.getScore(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + " Display Name" + ChatColor.GRAY + ": ").setScore(6);
+            objective.getScore("     " + ChatColor.BLUE + "" + ChatColor.BOLD + ChatColor.translateAlternateColorCodes('&', user.getDisplayName())).setScore(5);
             objective.getScore(ChatColor.YELLOW + "  ").setScore(4);
             objective.getScore(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + " Tokens" + ChatColor.GRAY + ": ").setScore(3);
             objective.getScore("     " + ChatColor.GOLD + "" + ChatColor.BOLD + user.getTokens()).setScore(2);

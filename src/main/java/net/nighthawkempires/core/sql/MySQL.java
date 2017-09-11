@@ -36,28 +36,6 @@ public class MySQL {
             Class.forName("com.mysql.jdbc.Driver");
             this.connection = DriverManager.getConnection("jdbc:mysql://" + this.hostname + ":" + this.port + "/" + this.database, this.user, this.password);
             NECore.getLoggers().info("Connected to MySQL.");
-
-            try {
-                PreparedStatement statement = getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS 'global_data' (" +
-                        "'uuid' VARCHAR(45)," +
-                        "'name' VARCHAR(45)," +
-                        "'display-name' VARCHAR(45)," +
-                        "'join-date' VARCHAR(45)," +
-                        "'address' VARCHAR(45)," +
-                        "'hub' VARCHAR(45)," +
-                        "'survival' VARCHAR(45)," +
-                        "'balance' INTEGER," +
-                        "'kills' INTEGER," +
-                        "'deaths' INTEGER," +
-                        "'tokens' INTEGER," +
-                        "'group' VARCHAR(45)," +
-                        "'permissions' TEXT," +
-                        "'status' VARCHAR(45)," +
-                        "'donor' VARCHAR(45)");
-                statement.executeQuery();
-            } catch (SQLException exception) {
-                exception.printStackTrace();
-            }
         } catch (SQLException exception) {
             exception.printStackTrace();
             NECore.getLoggers().warn("Could not connect to MySQL due to a SQLException.");
@@ -79,7 +57,6 @@ public class MySQL {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-
     }
 
     public void closeConnection() {
