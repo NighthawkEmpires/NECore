@@ -8,9 +8,9 @@ public abstract class Scoreboards {
 
     public abstract String getName();
 
-    public abstract int getNumber();
+    public abstract int getTaskID();
 
-    public abstract void update(Player player);
+    public abstract Scoreboard getFor(Player player);
 
     public Scoreboard getScoreboard() {
         return Bukkit.getScoreboardManager().getNewScoreboard();

@@ -1,16 +1,23 @@
 package net.nighthawkempires.core;
 
+import de.slikey.effectlib.EffectLib;
+import de.slikey.effectlib.EffectManager;
 import net.nighthawkempires.core.announcer.AnnouncementManager;
 import net.nighthawkempires.core.ban.BanManager;
 import net.nighthawkempires.core.chat.ChatManager;
 import net.nighthawkempires.core.chat.format.ChatFormat;
 import net.nighthawkempires.core.chat.tag.NameTag;
 import net.nighthawkempires.core.chat.tag.ServerTag;
+import net.nighthawkempires.core.enchantment.EnchantmentManager;
 import net.nighthawkempires.core.file.FileManager;
+import net.nighthawkempires.core.kit.KitManager;
 import net.nighthawkempires.core.listener.PlayerListener;
 import net.nighthawkempires.core.listener.PluginListener;
 import net.nighthawkempires.core.logger.Logger;
+import net.nighthawkempires.core.mute.MuteManager;
+import net.nighthawkempires.core.recipe.RecipeManager;
 import net.nighthawkempires.core.scoreboard.ScoreboardManager;
+import net.nighthawkempires.core.scoreboard.def.NameScoreboards;
 import net.nighthawkempires.core.settings.Settings;
 import net.nighthawkempires.core.sql.MySQL;
 import net.nighthawkempires.core.users.UserManager;
@@ -35,8 +42,14 @@ public class NECore extends JavaPlugin {
     private static AnnouncementManager announcementManager;
     private static PluginManager pluginManager;
     private static ScoreboardManager scoreboardManager;
+    private static EnchantmentManager enchantmentManager;
     private static BanManager banManager;
+    private static MuteManager muteManager;
     private static VolatileCodeHandler codeHandler;
+    private static RecipeManager recipeManager;
+    private static KitManager kitManager;
+    private static EffectLib effectLib;
+    private static EffectManager effectManager;
     private static MySQL sql;
     private static Logger logger;
 
@@ -52,8 +65,17 @@ public class NECore extends JavaPlugin {
         announcementManager = new AnnouncementManager();
         pluginManager = Bukkit.getPluginManager();
         scoreboardManager = new ScoreboardManager();
+        scoreboardManager.addScoreboard(new NameScoreboards());
+        enchantmentManager = new EnchantmentManager();
+        recipeManager = new RecipeManager();
         banManager = new BanManager();
+        muteManager = new MuteManager();
+        effectLib = EffectLib.instance();
+        effectManager = new EffectManager(effectLib);
+        kitManager = new KitManager();
         logger = new Logger();
+
+        kitManager.loadKits();
 
         try {
             Class.forName("net.minecraft.server.v1_12_R1.MinecraftServer");
@@ -74,14 +96,16 @@ public class NECore extends JavaPlugin {
                 sql.openConnection();
             }
         } catch (Exception e) {
-            getLoggers().warn("Could not connect to MySQL.");
+            getLoggers().warn("Could not connect to Database.");
         }
     }
 
     public void onDisable() {
+        getKitManager().saveKits();
         announcementManager.saveAnnouncements();
-        getFileManager().saveFiles();
+        enchantmentManager.unregisterEnchants();
         getMySQL().closeConnection();
+        Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> getFileManager().saveFiles(), 50);
     }
 
     public void registerListeners() {
@@ -147,5 +171,29 @@ public class NECore extends JavaPlugin {
 
     public static Logger getLoggers() {
         return logger;
+    }
+
+    public static MuteManager getMuteManager() {
+        return muteManager;
+    }
+
+    public static KitManager getKitManager() {
+        return kitManager;
+    }
+
+    public static EnchantmentManager getEnchantmentManager() {
+        return enchantmentManager;
+    }
+
+    public static RecipeManager getRecipeManager() {
+        return recipeManager;
+    }
+
+    public static EffectLib getEffectLib() {
+        return effectLib;
+    }
+
+    public static EffectManager getEffectManager() {
+        return effectManager;
     }
 }

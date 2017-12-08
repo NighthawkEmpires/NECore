@@ -35,7 +35,7 @@ public class MySQL {
 
             Class.forName("com.mysql.jdbc.Driver");
             this.connection = DriverManager.getConnection("jdbc:mysql://" + this.hostname + ":" + this.port + "/" + this.database, this.user, this.password);
-            NECore.getLoggers().info("Connected to MySQL.");
+            NECore.getLoggers().info("Connected to Database.");
         } catch (SQLException exception) {
             exception.printStackTrace();
             NECore.getLoggers().warn("Could not connect to MySQL due to a SQLException.");
@@ -46,6 +46,7 @@ public class MySQL {
     }
 
     public Connection getConnection() {
+        this.checkConnection();
         return connection;
     }
 
@@ -63,6 +64,7 @@ public class MySQL {
         if (this.connection != null) {
             try {
                 this.connection.close();
+                NECore.getLoggers().warn("Closed MySQL Connection.");
             } catch (SQLException exception) {
                 exception.printStackTrace();
             }

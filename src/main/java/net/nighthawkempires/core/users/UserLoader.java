@@ -34,11 +34,25 @@ public class UserLoader {
                 results.next();
                 getUser().setName(Bukkit.getOfflinePlayer(getUser().getUUID()).getName());
                 getUser().setDisplayName(results.getString("display_name"));
+                if (getUser().getDisplayName().equals("") || getUser().getDisplayName().equals(null)) {
+                    getUser().setDisplayName(getUser().getName());
+                }
                 getUser().setJoinDate(results.getString("join_date"));
                 getUser().setAddress((Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(getUser().getUUID())) ? Bukkit.getPlayer(getUser().getUUID()).getAddress().toString() : results.getString("address")));
                 getUser().setHub(Boolean.valueOf(results.getString("hub")));
-                getUser().setSurvival(Boolean.valueOf(results.getString("survival")));
+                getUser().setSur(Boolean.valueOf(results.getString("survival")));
                 getUser().setTokens(results.getInt("tokens"));
+                try {
+                    getUser().setPrs(Boolean.valueOf(results.getString("prison")));
+                    getUser().setFrb(Boolean.valueOf(results.getString("freebuild")));
+                    getUser().setMin(Boolean.valueOf(results.getString("minigames")));
+                    getUser().setTest(Boolean.valueOf(results.getString("test")));
+                } catch (Exception e) {
+                    getUser().setPrs(false);
+                    getUser().setFrb(false);
+                    getUser().setMin(false);
+                    getUser().setTest(false);
+                }
                 NECore.getLoggers().info("Loaded User " + getUser().getUUID().toString() + ": " + Bukkit.getOfflinePlayer(getUser().getUUID()).getName() + ".");
             } catch (SQLException e) {
                 e.printStackTrace();

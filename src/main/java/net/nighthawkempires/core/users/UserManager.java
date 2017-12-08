@@ -41,6 +41,7 @@ public class UserManager {
         } else if (userExists(uuid)) {
             loadUser(new User(uuid));
             Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> saveUser(getUser(uuid)), 100L);
+            return getUser(uuid);
         }
         return null;
     }
@@ -58,14 +59,14 @@ public class UserManager {
         if (!userExists(user.getUUID()))return;
         loader = new UserLoader(user);
         loader.load();
-        getUserMap().put(user.getUUID(), user);
+        userMap.put(user.getUUID(), user);
     }
 
     public void saveUser(User user) {
         if (!userExists(user.getUUID()))return;
         saver = new UserSaver(user);
         saver.save();
-        getUserMap().remove(user.getUUID(), user);
+        userMap.remove(user.getUUID());
     }
 
     public boolean userExists(UUID uuid) {

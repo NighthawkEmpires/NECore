@@ -2,9 +2,12 @@ package net.nighthawkempires.core.server;
 
 public class Server {
 
-    public static final Server HUB = new Server("hub");
-    public static final Server NS = new Server("nighthawksurvival");
-    public static final Server CREATIVE = new Server("creative");
+    public static final Server HUB = new Server("HUB");
+    public static final Server SUR = new Server("SUR");
+    public static final Server FRB = new Server("FRB");
+    public static final Server PRS = new Server("PRS");
+    public static final Server MIN = new Server("MIN");
+    public static final Server TEST = new Server("TEST");
 
     private String name;
 
@@ -17,7 +20,7 @@ public class Server {
     }
 
     public static Server[] values() {
-        return new Server[] { HUB, NS, CREATIVE };
+        return new Server[] { HUB, SUR, FRB, PRS, MIN, TEST };
     }
 
     public static Server valueOf(String name) {

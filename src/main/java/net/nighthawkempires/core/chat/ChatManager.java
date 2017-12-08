@@ -13,6 +13,7 @@ public class ChatManager {
 
     private ConcurrentMap<String, String> replyMap;
     private ConcurrentMap<UUID, Long> muteMap;
+    private ConcurrentMap<UUID, ChatType> chatMap;
 
     public ChatManager() {
         if (NECore.getSettings().useRedis) {
@@ -26,6 +27,7 @@ public class ChatManager {
         } else {
             replyMap = Maps.newConcurrentMap();
             muteMap = Maps.newConcurrentMap();
+            chatMap = Maps.newConcurrentMap();
         }
     }
 
@@ -82,5 +84,17 @@ public class ChatManager {
 
     public void addMute(UUID uuid) {
         muteMap.put(uuid, -1L);
+    }
+
+    public ConcurrentMap<UUID, ChatType> getChatMap() {
+        return chatMap;
+    }
+
+    public void setChatType(Player player, ChatType type) {
+        getChatMap().put(player.getUniqueId(), type);
+    }
+
+    public ChatType getChatType(Player player) {
+        return getChatMap().getOrDefault(player.getUniqueId(), ChatType.GLOBAL);
     }
 }

@@ -18,10 +18,10 @@ public class BossBarUtil {
         bars = Maps.newHashMap();
     }
 
-    public static void setPlayerBar(Player player, String title, double percent) {
+    public static void setPlayerBar(Player player, String title, double percent, BarColor color, BarStyle style) {
         BossBar bar = bars.get(player.getName());
         if (bar == null) {
-            bar = Bukkit.createBossBar(ChatColor.translateAlternateColorCodes('&', title), BarColor.RED, BarStyle.SEGMENTED_20);
+            bar = Bukkit.createBossBar(ChatColor.translateAlternateColorCodes('&', title), color, style);
             bars.put(player.getName(), bar);
         }
         bar.setTitle(ChatColor.translateAlternateColorCodes('&', title));

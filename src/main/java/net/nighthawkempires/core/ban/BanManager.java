@@ -1,93 +1,93 @@
 package net.nighthawkempires.core.ban;
 
-import com.google.common.collect.Lists;
 import net.nighthawkempires.core.NECore;
-import net.nighthawkempires.core.utils.BroadcastUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.ConfigurationSection;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
-import static net.nighthawkempires.core.NECore.getFileManager;
-import static net.nighthawkempires.core.NECore.getUserManager;
+public class   BanManager {
 
-public class BanManager {
-
-    private List<Ban> bans;
-    private List<Ban> ipbans;
-    private int taskId;
-    private int min_delay;
-
-    public BanManager() {
-        bans = Lists.newArrayList();
-        ipbans = Lists.newArrayList();
-        taskId = -1;
-        min_delay = 2;
-
-        loadBans();
-        startSaveSchedule();
-    }
-
-    public List<Ban> getBans() {
-        return bans;
-    }
-
-    public List<Ban> getIpBans() {
-        return ipbans;
-    }
-
-    public void loadBans() {
-        bans.clear();
-        ipbans.clear();
-
-        if (getFileManager().getBanFile().isSet("bans")) {
-            for (String string : getFileManager().getBanFile().getConfigurationSection("bans").getKeys(false)) {
-                ConfigurationSection section = getFileManager().getBanFile().getConfigurationSection("bans." + string);
-                getBans().add(new Ban(UUID.fromString(string), section.getString("address"), section.getString("reason"), section.getString("date"), UUID.fromString(section.getString("by"))));
+    public void ban(UUID uuid, String reason, UUID bannedBy) {
+        if (isBanned(uuid))return;
+        try {
+            PreparedStatement statement = NECore.getMySQL().getConnection().prepareStatement("SELECT * FROM bans WHERE uuid=?");
+            statement.setString(1, uuid.toString());
+            ResultSet results = statement.executeQuery();
+            results.next();
+            if (!isBanned(uuid)) {
+                PreparedStatement insert = NECore.getMySQL().getConnection().prepareStatement("INSERT INTO bans(" +
+                        "uuid,name,reason,date,banned_by) VALUE (?,?,?,?,?)");
+                insert.setString(1, uuid.toString());
+                insert.setString(2, Bukkit.getOfflinePlayer(uuid).getName());
+                insert.setString(3, reason);
+                insert.setString(4, new SimpleDateFormat("MM/dd/yyyy").format(new Date()));
+                insert.setString(5, bannedBy.toString());
+                insert.executeUpdate();
+                NECore.getLoggers().info("Banned Player " + uuid.toString() + ": " + Bukkit.getOfflinePlayer(uuid).getName() + ".");
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public void saveBans() {
-        getFileManager().getBanFile().set("bans", null);
-        getFileManager().saveBanFile();
-        for (Ban ban : getBans()) {
-            getFileManager().getBanFile().set("bans." + ban.getUUID() + ".address", ban.getAddress());
-            getFileManager().getBanFile().set("bans." + ban.getUUID() + ".reason", ban.getReason());
-            getFileManager().getBanFile().set("bans." + ban.getUUID() + ".date", ban.getDate());
-            getFileManager().getBanFile().set("bans." + ban.getUUID() + ".by", ban.getBy().toString());
-            getFileManager().saveBanFile();
+    public void unban(UUID uuid) {
+        if (!isBanned(uuid))return;
+
+        try {
+            PreparedStatement statement = NECore.getMySQL().getConnection().prepareStatement("DELETE FROM bans WHERE uuid=? limit 1");
+            statement.setString(1, uuid.toString());
+            statement.execute();
+            NECore.getLoggers().info("Unbanned Player " + uuid.toString() + ": " + Bukkit.getOfflinePlayer(uuid).getName() + ".");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public void startSaveSchedule() {
-        if (taskId != -1) Bukkit.getScheduler().cancelTask(taskId);
-
-        taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(NECore.getPlugin(), () -> {
-            saveBans();
-            loadBans();
-        }, 20*20*60*min_delay, 20*20*60*min_delay);
-    }
-
-    public void broadcastBan(UUID banned, String reason, UUID by) {
-        BroadcastUtil.broadcast(ChatColor.BLUE + Bukkit.getOfflinePlayer(banned).getName() + ChatColor.GRAY + " has been banned by " + ChatColor.BLUE + Bukkit.getOfflinePlayer(by).getName()
-                + ChatColor.GRAY + " for: " + ChatColor.RED + reason + ChatColor.GRAY + ".");
-    }
-
-    public Ban addBan(UUID banned, String reason, UUID by) {
-        Ban ban = new Ban(banned, getUserManager().getTempUser(banned).getAddress(), reason, new SimpleDateFormat("MM/dd/yyyy").format(new Date()), by);
-        return ban;
-    }
-
-    public void removeBan(UUID uuid) {
-        for (Ban ban : getBans()) {
-            if (ban.getUUID().equals(uuid)) {
-                getBans().remove(ban);
+    public boolean isBanned(UUID uuid) {
+        try {
+            PreparedStatement statement = NECore.getMySQL().getConnection().prepareStatement("SELECT * FROM bans WHERE UUID=?");
+            statement.setString(1, uuid.toString());
+            ResultSet set = statement.executeQuery();
+            if (set.next()) {
+                return true;
             }
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return false;
+    }
+
+    public String getBanInfo(UUID uuid) {
+        if (!isBanned(uuid))return "";
+        String by_uuid;
+        String reason = "";
+        String date = "";
+        String banned_by = "";
+        try {
+            PreparedStatement statement = NECore.getMySQL().getConnection().prepareStatement("SELECT * FROM bans WHERE uuid='" + uuid.toString() + "'");
+            ResultSet results = statement.executeQuery();
+            results.next();
+            by_uuid = results.getString("banned_by");
+            reason = results.getString("reason");
+            date = results.getString("date");
+            UUID by = UUID.fromString(by_uuid);
+            if (by == NECore.getSettings().consoleUUID) {
+                banned_by = NECore.getSettings().consoleDisplay;
+            } else {
+                banned_by = Bukkit.getOfflinePlayer(UUID.fromString(by_uuid)).getName();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ChatColor.translateAlternateColorCodes('&', "\n&4&l&oBANNED&7&l&o!\n   \n&8&l&oBy&7&l&o: &9&l&o" + banned_by
+                + "&r\n&8&l&oReason&7&l&o: " + reason + "&r\n&8&l&oOn&7&l&o: " + date + "&r\n&8&l&oRequest Unban&7&l&o: https://discord.gg/YevukF5");
     }
 }

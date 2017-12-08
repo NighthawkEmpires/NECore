@@ -3,6 +3,7 @@ package net.nighthawkempires.core.chat.format;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
@@ -18,6 +19,7 @@ public class ChatFormat {
 
     private List<PlayerTag> playerTags = new LinkedList<>();
     private ConcurrentMap<PlayerTag, Integer> priorityMap = Maps.newConcurrentMap();
+    private ConcurrentMap<String, Boolean> cancelMessage = Maps.newConcurrentMap();
 
     public ChatFormat add(PlayerTag playerTag) {
         priorityMap.put(playerTag, playerTag.getPriority());
@@ -70,17 +72,32 @@ public class ChatFormat {
         TextComponent ret = new TextComponent("");
         ret = getTags(ret, player, scope);
         ret.setColor(net.md_5.bungee.api.ChatColor.GRAY);
-        TextComponent next = new TextComponent(": ");
+        TextComponent next = new TextComponent("» ");
         next.setColor(net.md_5.bungee.api.ChatColor.DARK_GRAY);
         ret.addExtra(next);
         String finalMessage = ChatColor.WHITE + message;
-        if (player.hasPermission("ns.")) {
+        if (player.hasPermission("ne.colorchat")) {
             finalMessage = ChatColor.translateAlternateColorCodes('&', finalMessage);
         }
         for (BaseComponent component : TextComponent.fromLegacyText(finalMessage)) {
             ret.addExtra(component);
         }
         return ret;
+    }
+
+    public void setCancelled(String message, boolean cancelled) {
+        this.cancelMessage.put(message, cancelled);
+    }
+
+    public boolean isCancelled(String message) {
+        if (this.cancelMessage.containsKey(message) && this.cancelMessage.get(message)) {
+            return true;
+        }
+        return false;
+    }
+
+    public void clear(String message) {
+        this.cancelMessage.remove(message);
     }
 
     public String getSerializedMessage(Player player, ChatScope scope, String message) {

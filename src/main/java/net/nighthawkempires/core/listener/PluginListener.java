@@ -15,20 +15,24 @@ public class PluginListener implements Listener {
 
     @EventHandler
     public void onEnable(PluginEnableEvent event) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            NECore.getUserManager().loadUser(new User(player.getUniqueId()));
-            getScoreboardManager().setupDefaultBoard(player);
-            getScoreboardManager().startBoards(player);
+        if (event.getPlugin().equals(NECore.getPlugin())) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                NECore.getUserManager().loadUser(new User(player.getUniqueId()));
+                getScoreboardManager().setupDefaultBoard(player);
+                getScoreboardManager().startBoards(player);
+            }
         }
     }
 
     @EventHandler
     public void onDisable(PluginDisableEvent event) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            getScoreboardManager().stopBoards(player);
-        }
-        for (User user : NECore.getUserManager().getUserMap().values()) {
-            NECore.getUserManager().saveUser(user);
+        if (event.getPlugin().equals(NECore.getPlugin())) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                getScoreboardManager().stopBoards(player);
+            }
+            for (User user : NECore.getUserManager().getUserMap().values()) {
+                NECore.getUserManager().saveUser(user);
+            }
         }
     }
 }

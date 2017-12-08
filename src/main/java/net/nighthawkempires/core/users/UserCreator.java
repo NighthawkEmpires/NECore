@@ -36,7 +36,7 @@ public class UserCreator {
                 results.next();
                 if (!NECore.getUserManager().userExists(getUser().getUUID())) {
                     PreparedStatement insert = NECore.getMySQL().getConnection().prepareStatement("INSERT INTO global_data(" +
-                            "uuid,name,display_name,join_date,address,hub,survival,tokens) VALUE (?,?,?,?,?,?,?,?)");
+                            "uuid,name,display_name,join_date,address,hub,survival,tokens,prison,freebuild,minigames,test) VALUE (?,?,?,?,?,?,?,?,?,?,?,?)");
                     insert.setString(1, getUser().getUUID().toString());
                     insert.setString(2, Bukkit.getOfflinePlayer(getUser().getUUID()).getName());
                     insert.setString(3, Bukkit.getOfflinePlayer(getUser().getUUID()).getName());
@@ -45,6 +45,10 @@ public class UserCreator {
                     insert.setString(6, "false");
                     insert.setString(7, "false");
                     insert.setInt(8, 10);
+                    insert.setString(9, "false");
+                    insert.setString(10, "false");
+                    insert.setString(11,"false");
+                    insert.setString(12, "fasle");
                     insert.executeUpdate();
                     NECore.getLoggers().info("Created User " + getUser().getUUID().toString() + ": " + Bukkit.getOfflinePlayer(getUser().getUUID()).getName() + ".");
                 }

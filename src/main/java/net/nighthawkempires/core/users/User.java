@@ -1,12 +1,15 @@
 package net.nighthawkempires.core.users;
 
-import java.util.List;
 import java.util.UUID;
 
 public class User {
 
     private boolean hub;
-    private boolean survival;
+    private boolean sur;
+    private boolean prs;
+    private boolean min;
+    private boolean frb;
+    private boolean test;
     private int tokens;
     private String address;
     private String displayName;
@@ -26,12 +29,44 @@ public class User {
         this.hub = hub;
     }
 
-    public boolean survival() {
-        return survival;
+    public boolean sur() {
+        return sur;
     }
 
-    public void setSurvival(boolean survival) {
-        this.survival = survival;
+    public void setSur(boolean survival) {
+        this.sur = survival;
+    }
+
+    public boolean prs() {
+        return prs;
+    }
+
+    public void setPrs(boolean prs) {
+        this.prs = prs;
+    }
+
+    public boolean frb() {
+        return frb;
+    }
+
+    public void setFrb(boolean frb) {
+        this.frb = frb;
+    }
+
+    public boolean min() {
+        return min;
+    }
+
+    public void setMin(boolean min) {
+        this.min = min;
+    }
+
+    public boolean test() {
+        return test;
+    }
+
+    public void setTest(boolean test) {
+        this.test = test;
     }
 
     public int getTokens() {
