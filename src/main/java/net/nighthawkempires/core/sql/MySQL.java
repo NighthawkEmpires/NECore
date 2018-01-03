@@ -50,7 +50,7 @@ public class MySQL {
         return connection;
     }
 
-    private void checkConnection() {
+    public void checkConnection() {
         try {
             if (this.connection == null || this.connection.isClosed()) {
                 this.openConnection();

@@ -30,6 +30,7 @@ public class UserCreator {
     public void create() {
         if (NECore.getSettings().useSQL) {
             try {
+                NECore.getMySQL().checkConnection();
                 PreparedStatement statement = NECore.getMySQL().getConnection().prepareStatement("SELECT * FROM global_data WHERE uuid=?");
                 statement.setString(1, getUser().getUUID().toString());
                 ResultSet results = statement.executeQuery();

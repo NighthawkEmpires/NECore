@@ -70,33 +70,22 @@ public class UserManager {
     }
 
     public boolean userExists(UUID uuid) {
-        if (NECore.getSettings().useSQL) {
+        if (getSettings().useSQL) {
             try {
-                PreparedStatement statement = NECore.getMySQL().getConnection().prepareStatement("SELECT * FROM global_data WHERE UUID=?");
+                PreparedStatement statement = getMySQL().getConnection().prepareStatement("SELECT * FROM global_data WHERE UUID=?");
                 statement.setString(1, uuid.toString());
                 ResultSet set = statement.executeQuery();
-                if (set.next()) {
-                    return true;
-                }
-                return false;
+                return set.next();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
-            if (getFileManager().fileExists(uuid.toString(), FileType.PLAYER_FILE)) {
-                return true;
-            } else {
-                return false;
-            }
+            return getFileManager().fileExists(uuid.toString(), FileType.PLAYER_FILE);
         }
         return false;
     }
 
     public boolean userLoaded(UUID uuid) {
-        if (getUserMap().containsKey(uuid)) {
-            return true;
-        } else {
-            return false;
-        }
+        return getUserMap().containsKey(uuid);
     }
 }

@@ -29,6 +29,7 @@ public class UserSaver {
     public void save() {
         if (NECore.getSettings().useSQL) {
             try {
+                NECore.getMySQL().checkConnection();
                 PreparedStatement statement = NECore.getMySQL().getConnection().prepareStatement("UPDATE global_data SET name=?,display_name=?,join_date=?,address=?,hub=?,survival=?,tokens=?,prison=?,freebuild=?,minigames=?,test=? WHERE uuid=?");
                 statement.setString(1, Bukkit.getOfflinePlayer(getUser().getUUID()).getName());
                 if (!Bukkit.getOfflinePlayer(getUser().getUUID()).getName().equals(getUser().getDisplayName())) {

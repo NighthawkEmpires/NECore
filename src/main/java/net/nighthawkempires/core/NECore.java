@@ -4,13 +4,12 @@ import de.slikey.effectlib.EffectLib;
 import de.slikey.effectlib.EffectManager;
 import net.nighthawkempires.core.announcer.AnnouncementManager;
 import net.nighthawkempires.core.ban.BanManager;
-import net.nighthawkempires.core.chat.ChatManager;
 import net.nighthawkempires.core.chat.format.ChatFormat;
 import net.nighthawkempires.core.chat.tag.NameTag;
-import net.nighthawkempires.core.chat.tag.ServerTag;
 import net.nighthawkempires.core.enchantment.EnchantmentManager;
 import net.nighthawkempires.core.file.FileManager;
 import net.nighthawkempires.core.kit.KitManager;
+import net.nighthawkempires.core.library.LibraryManager;
 import net.nighthawkempires.core.listener.PlayerListener;
 import net.nighthawkempires.core.listener.PluginListener;
 import net.nighthawkempires.core.logger.Logger;
@@ -24,10 +23,12 @@ import net.nighthawkempires.core.users.UserManager;
 import net.nighthawkempires.core.volatilecode.VolatileCodeHandler;
 import net.nighthawkempires.core.volatilecode.code.VolatileCodeDisabled;
 import net.nighthawkempires.core.volatilecode.code.VolatileCode_v1_12_R1;
+import net.nighthawkempires.core.volatilecode.glow.GlowManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.inventivetalent.apihelper.APIManager;
 
 public class NECore extends JavaPlugin {
 
@@ -35,9 +36,7 @@ public class NECore extends JavaPlugin {
     private static Plugin plugin;
     private static FileManager fileManager;
     private static Settings settings;
-    private static ChatManager chatManager;
     private static ChatFormat chatFormat;
-    private static RedisCore redisCore;
     private static UserManager userManager;
     private static AnnouncementManager announcementManager;
     private static PluginManager pluginManager;
@@ -50,17 +49,21 @@ public class NECore extends JavaPlugin {
     private static KitManager kitManager;
     private static EffectLib effectLib;
     private static EffectManager effectManager;
+    private static GlowManager glowManager = new GlowManager();
+    private static LibraryManager libraryManager;
     private static MySQL sql;
     private static Logger logger;
+
+    public void onLoad() {
+        APIManager.registerAPI(glowManager, this);
+    }
 
     public void onEnable() {
         instance = this;
         plugin = this;
         fileManager = new FileManager();
         settings = new Settings();
-        chatManager = new ChatManager();
         chatFormat = new ChatFormat();
-        redisCore = (getSettings().useRedis ? new RedisCore(this) : null);
         userManager = new UserManager();
         announcementManager = new AnnouncementManager();
         pluginManager = Bukkit.getPluginManager();
@@ -72,10 +75,18 @@ public class NECore extends JavaPlugin {
         muteManager = new MuteManager();
         effectLib = EffectLib.instance();
         effectManager = new EffectManager(effectLib);
+        glowManager = new GlowManager();
         kitManager = new KitManager();
         logger = new Logger();
 
-        kitManager.loadKits();
+        try {
+            if (getSettings().useSQL) {
+                sql = new MySQL(getSettings().sqlHostname, getSettings().sqlPort, getSettings().sqlDatabase, getSettings().sqlUsername, getSettings().sqlPassword);
+                sql.openConnection();
+            }
+        } catch (Exception e) {
+            getLoggers().warn("Could not connect to Database.");
+        }
 
         try {
             Class.forName("net.minecraft.server.v1_12_R1.MinecraftServer");
@@ -86,18 +97,10 @@ public class NECore extends JavaPlugin {
             getLoggers().warn("Volatile Code disabled, compatibility lost.");
         }
 
-        getChatFormat().add(new ServerTag()).add(new NameTag());
-
+        kitManager.loadKits();
+        APIManager.initAPI(GlowManager.class);
+        getChatFormat().add(new NameTag());
         registerListeners();
-
-        try {
-            if (getSettings().useSQL) {
-                sql = new MySQL(getSettings().sqlHostname, getSettings().sqlPort, getSettings().sqlDatabase, getSettings().sqlUsername, getSettings().sqlPassword);
-                sql.openConnection();
-            }
-        } catch (Exception e) {
-            getLoggers().warn("Could not connect to Database.");
-        }
     }
 
     public void onDisable() {
@@ -105,7 +108,6 @@ public class NECore extends JavaPlugin {
         announcementManager.saveAnnouncements();
         enchantmentManager.unregisterEnchants();
         getMySQL().closeConnection();
-        Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> getFileManager().saveFiles(), 50);
     }
 
     public void registerListeners() {
@@ -129,16 +131,8 @@ public class NECore extends JavaPlugin {
         return settings;
     }
 
-    public static ChatManager getChatManager() {
-        return chatManager;
-    }
-
     public static ChatFormat getChatFormat() {
         return chatFormat;
-    }
-
-    public static RedisCore getRedisCore() {
-        return redisCore;
     }
 
     public static UserManager getUserManager() {
@@ -195,5 +189,9 @@ public class NECore extends JavaPlugin {
 
     public static EffectManager getEffectManager() {
         return effectManager;
+    }
+
+    public static GlowManager getGlowManager() {
+        return glowManager;
     }
 }

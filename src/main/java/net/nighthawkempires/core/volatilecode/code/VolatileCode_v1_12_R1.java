@@ -23,6 +23,8 @@ import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftTNTPrimed;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.*;
+import org.bukkit.entity.Entity;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.inventory.ItemFlag;
@@ -30,6 +32,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.util.Vector;
+import org.spigotmc.SpigotConfig;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -613,7 +616,7 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
     
     public ItemStack setUnbreakable(ItemStack item) {
         ItemMeta meta = item.getItemMeta();
-        meta.spigot().setUnbreakable(true);
+        meta.setUnbreakable(true);
         item.setItemMeta(meta);
         return item;
     }

@@ -4,6 +4,7 @@ public enum  FileType {
 
     CONFIG_FILE("data/empires/"),
     GUILD_FILE("data/empires/guild/"),
+    LIBRARY_FILE("data/empires/library/"),
     PLAYER_FILE("../data/empires/player/"),
     SKIN_FOLDER("../data/empires/skins/");
 

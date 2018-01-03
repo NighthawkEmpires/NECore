@@ -408,8 +408,7 @@ public class FileManager {
     }
 
     public boolean isFileLoaded(String name) {
-        if (configMap.containsKey(name))return true;
-        return false;
+        return configMap.containsKey(name);
     }
 
     public void saveAllFiles() {
@@ -428,8 +427,6 @@ public class FileManager {
     public boolean deleteFile(String name, FileType type) {
         if (fileExists(name, type)) {
             File file = new File(type.getPath() + name + ".yml");
-            fileMap.remove(configMap.get(name));
-            configMap.remove(name);
             return file.delete();
         }
         return false;

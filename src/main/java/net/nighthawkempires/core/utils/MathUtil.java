@@ -33,4 +33,18 @@ public class MathUtil {
     public static boolean lessThanEqualTo(int less, int greater) {
         return less <= greater;
     }
+
+    public static double clamp(double value, double min, double max) {
+        double realMin = Math.min(min, max);
+        double realMax = Math.max(min, max);
+        if (value < realMin) {
+            value = realMin;
+        }
+
+        if (value > realMax) {
+            value = realMax;
+        }
+
+        return value;
+    }
 }

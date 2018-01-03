@@ -1,6 +1,6 @@
 package net.nighthawkempires.core.listener;
 
-import net.nighthawkempires.core.NECore;
+import net.nighthawkempires.core.RedisCore;
 import net.nighthawkempires.core.chat.ChatScope;
 import net.nighthawkempires.core.chat.ChatType;
 import net.nighthawkempires.core.language.Lang;
@@ -10,8 +10,6 @@ import net.nighthawkempires.core.utils.BossBarUtil;
 import net.nighthawkempires.core.utils.LocationUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -27,7 +25,7 @@ import static net.nighthawkempires.core.NECore.*;
 
 public class PlayerListener implements Listener {
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         if (getUserManager().getUserMap().containsKey(player.getUniqueId())) {
@@ -45,7 +43,7 @@ public class PlayerListener implements Listener {
             getUserManager().loadUser(user);
         }
 
-        if (NECore.getSettings().server.equals(Server.HUB)) {
+        if (getSettings().server.equals(Server.HUB)) {
             if (!user.hub()) {
                 for (Player players : Bukkit.getOnlinePlayers()) {
                     players.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Welcome " + ChatColor.BLUE + "" + ChatColor.BOLD + player.getName() + ChatColor.GRAY + ""
@@ -54,7 +52,7 @@ public class PlayerListener implements Listener {
                 player.sendMessage(Lang.CHAT_TAG.getServerChatTag() + ChatColor.GRAY + "Welcome to our Server! Type " + ChatColor.RED + "/help " + ChatColor.GRAY + "to get started!");
                 user.setHub(true);
             }
-        } else if (NECore.getSettings().server.equals(Server.SUR)) {
+        } else if (getSettings().server.equals(Server.SUR)) {
             if (!user.sur()) {
                 for (Player players : Bukkit.getOnlinePlayers()) {
                     players.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Welcome " + ChatColor.BLUE + "" + ChatColor.BOLD + player.getName() + ChatColor.GRAY + ""
@@ -63,6 +61,9 @@ public class PlayerListener implements Listener {
                 }
                 player.sendMessage(Lang.CHAT_TAG.getServerChatTag() + ChatColor.GRAY + "Welcome to our Server! Type " + ChatColor.RED + "/help " + ChatColor.GRAY + "to get started!");
                 user.setSur(true);
+                if (LocationUtil.hasSpawn(player.getWorld())) {
+                    player.teleport(LocationUtil.getSpawn(player.getWorld()));
+                }
             }
             String[] motd = new String[] {
                     Lang.HEADER.getServerHeader(),
@@ -72,7 +73,7 @@ public class PlayerListener implements Listener {
                     Lang.FOOTER.getMessage(),
             };
             player.sendMessage(motd);
-        } else if (NECore.getSettings().server.equals(Server.PRS)) {
+        } else if (getSettings().server.equals(Server.PRS)) {
             if (!user.prs()) {
                 for (Player players : Bukkit.getOnlinePlayers()) {
                     players.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Welcome " + ChatColor.BLUE + "" + ChatColor.BOLD + player.getName() + ChatColor.GRAY + ""
@@ -80,8 +81,11 @@ public class PlayerListener implements Listener {
                 }
                 player.sendMessage(Lang.CHAT_TAG.getServerChatTag() + ChatColor.GRAY + "Welcome to our Server! Type " + ChatColor.RED + "/help " + ChatColor.GRAY + "to get started!");
                 user.setPrs(true);
+                if (LocationUtil.hasSpawn(player.getWorld())) {
+                    player.teleport(LocationUtil.getSpawn(player.getWorld()));
+                }
             }
-        } else if (NECore.getSettings().server.equals(Server.FRB)) {
+        } else if (getSettings().server.equals(Server.FRB)) {
             if (!user.frb()) {
                 for (Player players : Bukkit.getOnlinePlayers()) {
                     players.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Welcome " + ChatColor.BLUE + "" + ChatColor.BOLD + player.getName() + ChatColor.GRAY + ""
@@ -89,8 +93,11 @@ public class PlayerListener implements Listener {
                 }
                 player.sendMessage(Lang.CHAT_TAG.getServerChatTag() + ChatColor.GRAY + "Welcome to our Server! Type " + ChatColor.RED + "/help " + ChatColor.GRAY + "to get started!");
                 user.setFrb(true);
+                if (LocationUtil.hasSpawn(player.getWorld())) {
+                    player.teleport(LocationUtil.getSpawn(player.getWorld()));
+                }
             }
-        } else if (NECore.getSettings().server.equals(Server.MIN)) {
+        } else if (getSettings().server.equals(Server.MIN)) {
             if (!user.min()) {
                 for (Player players : Bukkit.getOnlinePlayers()) {
                     players.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Welcome " + ChatColor.BLUE + "" + ChatColor.BOLD + player.getName() + ChatColor.GRAY + ""
@@ -98,8 +105,11 @@ public class PlayerListener implements Listener {
                 }
                 player.sendMessage(Lang.CHAT_TAG.getServerChatTag() + ChatColor.GRAY + "Welcome to our Server! Type " + ChatColor.RED + "/help " + ChatColor.GRAY + "to get started!");
                 user.setMin(true);
+                if (LocationUtil.hasSpawn(player.getWorld())) {
+                    player.teleport(LocationUtil.getSpawn(player.getWorld()));
+                }
             }
-        } else if (NECore.getSettings().server.equals(Server.TEST)) {
+        } else if (getSettings().server.equals(Server.TEST)) {
             if (!user.test()) {
                 for (Player players : Bukkit.getOnlinePlayers()) {
                     players.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Welcome " + ChatColor.BLUE + "" + ChatColor.BOLD + player.getName() + ChatColor.GRAY + ""
@@ -107,6 +117,9 @@ public class PlayerListener implements Listener {
                 }
                 player.sendMessage(Lang.CHAT_TAG.getServerChatTag() + ChatColor.GRAY + "Welcome to our Server! Type " + ChatColor.RED + "/help " + ChatColor.GRAY + "to get started!");
                 user.setTest(true);
+                if (LocationUtil.hasSpawn(player.getWorld())) {
+                    player.teleport(LocationUtil.getSpawn(player.getWorld()));
+                }
             }
         }
 
@@ -122,11 +135,11 @@ public class PlayerListener implements Listener {
         getScoreboardManager().setupDefaultBoard(player);
         getScoreboardManager().startBoards(player);
         getCodeHandler().setTabMenuHeaderFooter(player, Lang.HEADER.getServerHeader() + ChatColor.RESET + "\n  ","    \n" + ChatColor.DARK_GRAY + "»» " + ChatColor.GRAY + "play.nighthawkempires.net" + ChatColor.DARK_GRAY + " ««" + "\n" + Lang.FOOTER.getMessage());
-        BossBarUtil.setPlayerBar(player, ChatColor.RED + "" + ChatColor.UNDERLINE + "**opening sale** " + ChatColor.GRAY + "store.nighthawkempires.com " + ChatColor.RED + "" + ChatColor.UNDERLINE + "**50% off**", 1.0, BarColor.RED, BarStyle.SOLID);
+        BossBarUtil.setDefaultBar(player);
         event.setJoinMessage(joinMessage);
     }
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.MONITOR)
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         User user = (getUserManager().userLoaded(player.getUniqueId()) ? getUserManager().getUser(player.getUniqueId()) : getUserManager().getTempUser(player.getUniqueId()));
@@ -151,7 +164,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        if (NECore.getChatManager().getChatType(player) == ChatType.CUSTOM) {
+        if (getChatManager().getChatType(player) == ChatType.CUSTOM) {
             return;
         }
         if (getMuteManager().isMuted(player.getUniqueId())){
@@ -165,6 +178,10 @@ public class PlayerListener implements Listener {
             return;
         }
         getChatManager().sendMessage(getChatFormat().getFormattedMessage(event.getPlayer(), ChatScope.LOCAL, event.getMessage()));
+        if (getSettings().useRedis && !getChatFormat().shouldCancelRedis(event.getPlayer())) {
+            RedisCore.redis_chat.publishAsync(RedisCore.getInstance().getServerId() + "$" +
+                    getChatFormat().getSerializedMessage(event.getPlayer(), ChatScope.CHANNEL, event.getMessage()));
+        }
         event.getRecipients().clear();
     }
 
