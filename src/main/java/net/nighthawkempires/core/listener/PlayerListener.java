@@ -173,7 +173,6 @@ public class PlayerListener implements Listener {
         }
         getChatFormat().sendMessage(getChatFormat().getFormattedMessage(event.getPlayer(), event.getMessage()));
         event.setCancelled(true);
-
         event.getRecipients().clear();
     }
 
