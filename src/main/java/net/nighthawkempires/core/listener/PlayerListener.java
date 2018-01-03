@@ -1,8 +1,5 @@
 package net.nighthawkempires.core.listener;
 
-import net.nighthawkempires.core.RedisCore;
-import net.nighthawkempires.core.chat.ChatScope;
-import net.nighthawkempires.core.chat.ChatType;
 import net.nighthawkempires.core.language.Lang;
 import net.nighthawkempires.core.server.Server;
 import net.nighthawkempires.core.users.User;
@@ -164,9 +161,6 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        if (getChatManager().getChatType(player) == ChatType.CUSTOM) {
-            return;
-        }
         if (getMuteManager().isMuted(player.getUniqueId())){
             player.sendMessage(getMuteManager().getMuteInfo(player.getUniqueId()));
             event.setCancelled(true);
@@ -177,11 +171,9 @@ public class PlayerListener implements Listener {
             getChatFormat().clear(event.getMessage());
             return;
         }
-        getChatManager().sendMessage(getChatFormat().getFormattedMessage(event.getPlayer(), ChatScope.LOCAL, event.getMessage()));
-        if (getSettings().useRedis && !getChatFormat().shouldCancelRedis(event.getPlayer())) {
-            RedisCore.redis_chat.publishAsync(RedisCore.getInstance().getServerId() + "$" +
-                    getChatFormat().getSerializedMessage(event.getPlayer(), ChatScope.CHANNEL, event.getMessage()));
-        }
+        getChatFormat().sendMessage(getChatFormat().getFormattedMessage(event.getPlayer(), event.getMessage()));
+        event.setCancelled(true);
+
         event.getRecipients().clear();
     }
 
