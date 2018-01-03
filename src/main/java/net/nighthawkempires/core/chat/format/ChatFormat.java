@@ -114,6 +114,7 @@ public class ChatFormat {
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.spigot().sendMessage(baseComponent);
         }
+        Bukkit.getConsoleSender().spigot().sendMessage(baseComponent);
     }
 
     public void setCancelled(String message, boolean cancelled) {
@@ -121,10 +122,7 @@ public class ChatFormat {
     }
 
     public boolean isCancelled(String message) {
-        if (this.cancelMessage.containsKey(message) && this.cancelMessage.get(message)) {
-            return true;
-        }
-        return false;
+        return this.cancelMessage.containsKey(message) && this.cancelMessage.get(message);
     }
 
     public void clear(String message) {
