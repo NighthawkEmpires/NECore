@@ -6,7 +6,7 @@
 
     <groupId>net.nighthawkempires</groupId>
     <artifactId>core</artifactId>
-    <version>2.41_b</version>
+    <version>1.0_a</version>
     <build>
         <plugins>
             <plugin>
@@ -43,6 +43,13 @@
             <groupId>org.bukkit</groupId>
             <artifactId>craftbukkit</artifactId>
             <version>1.12.2-R0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>2.1.2</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
