@@ -9,7 +9,6 @@ import net.nighthawkempires.core.chat.tag.NameTag;
 import net.nighthawkempires.core.enchantment.EnchantmentManager;
 import net.nighthawkempires.core.file.FileManager;
 import net.nighthawkempires.core.kit.KitManager;
-import net.nighthawkempires.core.library.LibraryManager;
 import net.nighthawkempires.core.listener.PlayerListener;
 import net.nighthawkempires.core.listener.PluginListener;
 import net.nighthawkempires.core.logger.Logger;
@@ -50,7 +49,6 @@ public class NECore extends JavaPlugin {
     private static EffectLib effectLib;
     private static EffectManager effectManager;
     private static GlowManager glowManager = new GlowManager();
-    private static LibraryManager libraryManager;
     private static MySQL sql;
     private static Logger logger;
 
