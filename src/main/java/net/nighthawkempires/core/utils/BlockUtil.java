@@ -40,4 +40,12 @@ public class BlockUtil {
     public static boolean isInteractiveBlock(ItemStack itemStack) {
         return isInteractiveBlock(itemStack.getType());
     }
+
+    public static boolean isInteractiveBlock(String string) {
+        return string.toLowerCase().contains("door") || string.toLowerCase().contains("chest") || string.toLowerCase().contains("bed") || string.toLowerCase().contains("gate")
+                || string.toLowerCase().contains("lever") || string.toLowerCase().contains("button") || string.toLowerCase().contains("diode") || string.toLowerCase().contains("comparator")
+                || string.toLowerCase().contains("minecart") || string.toLowerCase().contains("boat") || string.toLowerCase().contains("anvil") || string.toLowerCase().contains("workbench")
+                || string.toLowerCase().contains("furnace") || string.toLowerCase().contains("brewing") || string.toLowerCase().contains("jukebox") || string.toLowerCase().contains("note")
+                || string.toLowerCase().contains("shulker_box") || string.toLowerCase().contains("hopper") || string.toLowerCase().contains("dispenser") || string.toLowerCase().contains("dropper");
+    }
 }
