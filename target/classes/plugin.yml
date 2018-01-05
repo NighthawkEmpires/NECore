@@ -1,5 +1,5 @@
 name: NECore
-main: net.nighthawkempires.core.NECore
+main: net.nighthawkempirs.core.NECore
 version: 2.41_b
 depend: [EffectLib, PacketListenerApi]
 authors: [NoneVale_]

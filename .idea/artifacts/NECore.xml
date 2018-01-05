@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="NECore">
-    <output-path>$USER_HOME$/Desktop/Nighthawk Empires</output-path>
+    <output-path>$PROJECT_DIR$/../../Desktop/Nighthawk Empires</output-path>
     <root id="archive" name="NECore.jar">
       <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
       <element id="module-output" name="NECore" />

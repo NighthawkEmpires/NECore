@@ -1,9 +1,12 @@
 package net.nighthawkempires.core.language;
 
+import com.google.common.collect.Lists;
 import net.nighthawkempires.core.NECore;
 import net.nighthawkempires.core.server.Server;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+
+import java.util.List;
 
 public enum Lang {
 
@@ -182,5 +185,31 @@ public enum Lang {
 
     public String formatMSGOut(Player player, String message) {
         return ChatColor.DARK_GRAY + "<--[" + ChatColor.BLUE + player.getName() + ChatColor.DARK_GRAY + "]< " + ChatColor.GRAY + message;
+    }
+
+    public class Words {
+
+        private List<String> bannedWords;
+        private List<Integer> numbers;
+        private List<String> nameFriendly;
+
+        public Words() {
+            bannedWords = Lists.newArrayList("Ass", "Bitch", "Hoe", "Nigger", "Nigga", "Damn", "Fuck", "Dammit", "Pussy", "Cock", "Cunt", "Vagina", "Dick", "Shit", "Penis", "Staff", "Server", "Console");
+            numbers = Lists.newArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
+            nameFriendly = Lists.newArrayList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
+        }
+
+        public List<String> getBannedWords() {
+            return bannedWords;
+        }
+
+        public List<String> getNameFriendly() {
+            return nameFriendly;
+        }
+
+        public List<Integer> getNumbers() {
+            return numbers;
+        }
     }
 }

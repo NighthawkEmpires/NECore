@@ -1,110 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="NECore" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="66700adc-580a-4446-8816-b93f97616d7f" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/EffectLib_5_5.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_inventivetalent_packetlistener_api_3_6_0_SNAPSHOT.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/tag/ConsoleTag.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/events/ArmorEquipEvent.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/utils/BlockUtil.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/utils/TeamUtil.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/Attributes.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/NBTFactory.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/glow/GlowData.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/glow/GlowManager.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/reflection/ClassType.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/reflection/HandleType.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/reflection/PacketType.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/util/ItemDataUtil.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/util/ReflectionUtil.java" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/NECore.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/NECore.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Core.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/EffectLib_5_6_SNAPSHOT.xml" afterPath="" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/NECore.iml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/NECore.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/NECore.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/RedisCore.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/ChatManager.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/ChatScope.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/ChatType.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/ChatType.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/format/ChatFormat.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/format/ChatFormat.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/message/PrivateMessage.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/redis/RChatListener.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/redis/RMSGListener.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/tag/PlayerTag.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/tag/PlayerTag.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/tag/WorldTag.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/events/UserDeathEvent.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/events/UserDeathEvent.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/file/FileManager.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/file/FileManager.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/file/FileType.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/file/FileType.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/language/Lang.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/language/Lang.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/listener/PlayerListener.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/listener/PlayerListener.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/sql/MySQL.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/sql/MySQL.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/users/UserCreator.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/users/UserCreator.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/users/UserLoader.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/users/UserLoader.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/users/UserManager.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/users/UserManager.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/users/UserSaver.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/users/UserSaver.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/utils/BossBarUtil.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/utils/BossBarUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/utils/EffectUtil.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/utils/EffectUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/utils/ItemUtil.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/utils/ItemUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/utils/LocationUtil.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/utils/LocationUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/utils/MathUtil.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/utils/MathUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/utils/WorldUtil.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/utils/WorldUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/code/VolatileCode_v1_12_R1.java" afterPath="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/code/VolatileCode_v1_12_R1.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/NECore.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/RedisCore.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/announcer/Announcement.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/announcer/AnnouncementManager.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/ban/BanManager.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/chat/ChatManager.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/chat/ChatScope.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/chat/format/ChatFormat.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/chat/message/PrivateMessage.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/chat/redis/RChatListener.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/chat/redis/RMSGListener.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/chat/tag/DefaultPlayerTag.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/chat/tag/NameTag.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/chat/tag/PlayerTag.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/chat/tag/ServerTag.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/chat/tag/SpecificPlayerTag.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/chat/tag/WorldTag.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/file/FileManager.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/file/FileType.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/language/Lang.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/listener/PlayerListener.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/listener/PluginListener.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/logger/Logger.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/scoreboard/ScoreboardManager.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/scoreboard/Scoreboards.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/scoreboard/def/NameScoreboards.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/server/Server.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/settings/Settings.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/sql/MySQL$1.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/sql/MySQL.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/users/User.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/users/UserCreator.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/users/UserLoader.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/users/UserManager.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/users/UserSaver.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/utils/BossBarUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/utils/BoundingBox.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/utils/BroadcastUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/utils/ExpBarUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/utils/ItemUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/utils/ListArraySetUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/utils/LocationUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/utils/PotionUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/utils/RandomUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/utils/SoundUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/volatilecode/VolatileCodeHandler.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/volatilecode/code/VolatileCodeDisabled.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/volatilecode/code/VolatileCode_v1_12_R1.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/plugin.yml" afterPath="$PROJECT_DIR$/target/classes/plugin.yml" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+      <change beforePath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/chat/format/ChatFormat.class" afterPath="$PROJECT_DIR$/target/classes/net/nighthawkempires/core/chat/format/ChatFormat.class" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -120,23 +30,19 @@
       <file leaf-file-name="ChatFormat.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/format/ChatFormat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="447">
+            <state relative-caret-position="1666">
               <caret line="114" column="55" lean-forward="false" selection-start-line="114" selection-start-column="55" selection-end-line="114" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1888#1889#0" expanded="true" />
                 <element signature="e#1943#1944#0" expanded="true" />
-                <element signature="e#4214#4215#0" expanded="true" />
-                <element signature="e#4272#4273#0" expanded="true" />
-                <element signature="e#4516#4517#0" expanded="true" />
-                <element signature="e#4566#4567#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="core.iml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core.iml">
+      <file leaf-file-name="NECore.iml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/NECore.iml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -145,44 +51,62 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plugin.yml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="47" lean-forward="false" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NECore.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/NECore.java">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DefaultPlayerTag.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/tag/DefaultPlayerTag.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConsoleTag.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/tag/ConsoleTag.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NameTag.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/tag/NameTag.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="12" column="28" lean-forward="false" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+              <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="33" />
               <folding>
-                <element signature="e#304#305#0" expanded="true" />
-                <element signature="e#330#331#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#5146#5147#0" expanded="true" />
+                <element signature="e#5180#5181#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="16" column="31" lean-forward="false" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Lang.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/language/Lang.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1011">
+              <caret line="212" column="9" lean-forward="true" selection-start-line="212" selection-start-column="9" selection-end-line="212" selection-end-column="9" />
+              <folding>
+                <element signature="e#8454#8455#0" expanded="true" />
+                <element signature="e#8496#8497#0" expanded="true" />
+                <element signature="e#8545#8546#0" expanded="true" />
+                <element signature="e#8588#8589#0" expanded="true" />
+                <element signature="e#8633#8634#0" expanded="true" />
+                <element signature="e#8671#8672#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -211,7 +135,7 @@
       <file leaf-file-name="GlowManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/glow/GlowManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1173">
+            <state relative-caret-position="765">
               <caret line="73" column="105" lean-forward="false" selection-start-line="73" selection-start-column="105" selection-end-line="73" selection-end-column="105" />
               <folding>
                 <element signature="e#14005#14006#0" expanded="true" />
@@ -221,19 +145,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChatType.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/ChatType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Nathan Cole &lt;nonethemoose@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
@@ -250,12 +169,22 @@
         <option value="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/tag/PlayerTag.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/glow/GlowManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/format/ChatFormat.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/language/Lang.java" />
       </list>
     </option>
   </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="260" />
-    <option name="y" value="20" />
+    <option name="x" value="156" />
+    <option name="y" value="30" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
   </component>
@@ -275,8 +204,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -286,21 +214,94 @@
             </path>
             <path>
               <item name="NECore" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NECore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NECore" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NECore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NECore" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NECore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NECore" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NECore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NECore" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NECore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="chat" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NECore" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NECore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="chat" type="462c0819:PsiDirectoryNode" />
+              <item name="format" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NECore" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NECore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="chat" type="462c0819:PsiDirectoryNode" />
+              <item name="tag" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NECore" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NECore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="language" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NECore" type="b2602c69:ProjectViewProjectNode" />
+              <item name="NECore" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="NECore" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Libraries" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Desktop/Nighthawk Empires" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -409,6 +410,11 @@
       <predefined_log_file id="idea.log" enabled="true" />
     </configuration>
   </component>
+  <component name="SbtLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
@@ -423,26 +429,34 @@
       <option name="presentableId" value="Default" />
       <updated>1514449962977</updated>
     </task>
+    <task id="LOCAL-00001" summary="Add Words(Banned, Numbers, NameFriendly)">
+      <created>1515137161650</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1515137161650</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18123667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18496802" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Learn" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -454,6 +468,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -485,12 +500,30 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
+    <MESSAGE value="Add Words(Banned, Numbers, NameFriendly)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Words(Banned, Numbers, NameFriendly)" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/code/VolatileCode_v1_12_R1.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/format/ChatFormat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1666">
+          <caret line="114" column="55" lean-forward="false" selection-start-line="114" selection-start-column="55" selection-end-line="114" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1888#1889#0" expanded="true" />
+            <element signature="e#1943#1944#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NECore.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -498,9 +531,173 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/NECore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2125">
+          <caret line="194" column="1" lean-forward="false" selection-start-line="194" selection-start-column="1" selection-end-line="194" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5146#5147#0" expanded="true" />
+            <element signature="e#5180#5181#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/tag/DefaultPlayerTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/tag/NameTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="12" column="28" lean-forward="false" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+          <folding>
+            <element signature="e#304#305#0" expanded="false" />
+            <element signature="e#330#331#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/utils/BlockUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/glow/GlowData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/glow/GlowManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="73" column="105" lean-forward="false" selection-start-line="73" selection-start-column="105" selection-end-line="73" selection-end-column="105" />
+          <folding>
+            <element signature="e#14005#14006#0" expanded="true" />
+            <element signature="e#14084#14085#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-267">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/format/ChatFormat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1938">
+          <caret line="114" column="55" lean-forward="false" selection-start-line="114" selection-start-column="55" selection-end-line="114" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1888#1889#0" expanded="true" />
+            <element signature="e#1943#1944#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NECore.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/tag/DefaultPlayerTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/tag/ConsoleTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/glow/GlowData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/tag/NameTag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="12" column="28" lean-forward="false" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+          <folding>
+            <element signature="e#304#305#0" expanded="false" />
+            <element signature="e#330#331#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/utils/BlockUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/glow/GlowManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="73" column="105" lean-forward="false" selection-start-line="73" selection-start-column="105" selection-end-line="73" selection-end-column="105" />
+          <folding>
+            <element signature="e#14005#14006#0" expanded="true" />
+            <element signature="e#14084#14085#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/ChatType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/code/VolatileCode_v1_12_R1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -514,55 +711,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NECore.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/ChatScope.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/ChatManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1433">
-          <caret line="100" column="0" lean-forward="true" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/NECore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="889">
-          <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/tag/WorldTag.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/NECore.iml" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/ChatScope.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/ChatManager.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/tag/WorldTag.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/tag/ServerTag.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-153">
           <caret line="11" column="27" lean-forward="true" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
           <folding>
-            <element signature="e#369#370#0" expanded="true" />
-            <element signature="e#400#401#0" expanded="true" />
+            <element signature="e#369#370#0" expanded="false" />
+            <element signature="e#400#401#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -572,8 +731,8 @@
         <state relative-caret-position="51">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding>
-            <element signature="e#385#386#0" expanded="true" />
-            <element signature="e#473#474#0" expanded="true" />
+            <element signature="e#385#386#0" expanded="false" />
+            <element signature="e#473#474#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -607,8 +766,8 @@
         <state relative-caret-position="136">
           <caret line="12" column="28" lean-forward="false" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
           <folding>
-            <element signature="e#304#305#0" expanded="true" />
-            <element signature="e#330#331#0" expanded="true" />
+            <element signature="e#304#305#0" expanded="false" />
+            <element signature="e#330#331#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -631,7 +790,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/volatilecode/glow/GlowManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1173">
+        <state relative-caret-position="765">
           <caret line="73" column="105" lean-forward="false" selection-start-line="73" selection-start-column="105" selection-end-line="73" selection-end-column="105" />
           <folding>
             <element signature="e#14005#14006#0" expanded="true" />
@@ -642,21 +801,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/chat/format/ChatFormat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
+        <state relative-caret-position="1666">
           <caret line="114" column="55" lean-forward="false" selection-start-line="114" selection-start-column="55" selection-end-line="114" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1888#1889#0" expanded="true" />
             <element signature="e#1943#1944#0" expanded="true" />
-            <element signature="e#4214#4215#0" expanded="true" />
-            <element signature="e#4272#4273#0" expanded="true" />
-            <element signature="e#4516#4517#0" expanded="true" />
-            <element signature="e#4566#4567#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core.iml">
+    <entry file="file://$PROJECT_DIR$/NECore.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -664,10 +819,53 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/NECore.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="8" lean-forward="false" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5146#5147#0" expanded="true" />
+            <element signature="e#5180#5181#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/net/nighthawkempires/core/language/Lang.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1011">
+          <caret line="212" column="9" lean-forward="true" selection-start-line="212" selection-start-column="9" selection-end-line="212" selection-end-column="9" />
+          <folding>
+            <element signature="e#8454#8455#0" expanded="true" />
+            <element signature="e#8496#8497#0" expanded="true" />
+            <element signature="e#8545#8546#0" expanded="true" />
+            <element signature="e#8588#8589#0" expanded="true" />
+            <element signature="e#8633#8634#0" expanded="true" />
+            <element signature="e#8671#8672#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="47" lean-forward="false" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="16" column="31" lean-forward="false" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
           <folding />
         </state>
       </provider>
