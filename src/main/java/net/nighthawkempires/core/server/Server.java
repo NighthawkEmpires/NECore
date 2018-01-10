@@ -31,4 +31,27 @@ public class Server {
         }
         return null;
     }
+
+    public ServerTypes getFrom(Server server) {
+        for (ServerTypes types : ServerTypes.values()) {
+            if (types.getServer() == server) {
+                return types;
+            }
+        }
+        return ServerTypes.HUB;
+    }
+
+    public enum ServerTypes {
+        HUB(Server.HUB), SURVIVAL(Server.SUR), FREEBUILD(Server.FRB), PRISON(Server.PRS), MINIGAMES(Server.MIN), TEST(Server.TEST);
+
+        private Server server;
+
+        ServerTypes(Server server) {
+            this.server = server;
+        }
+
+        public Server getServer() {
+            return server;
+        }
+    }
 }

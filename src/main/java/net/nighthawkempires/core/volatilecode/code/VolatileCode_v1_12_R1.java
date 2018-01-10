@@ -9,6 +9,7 @@ import net.nighthawkempires.core.NECore;
 import net.nighthawkempires.core.file.FileType;
 import net.nighthawkempires.core.utils.BoundingBox;
 import net.nighthawkempires.core.volatilecode.VolatileCodeHandler;
+import net.nighthawkempires.core.volatilecode.util.ReflectionUtill;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
@@ -33,6 +34,7 @@ import org.bukkit.util.Vector;
 import java.io.File;
 import java.io.FileWriter;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -684,5 +686,13 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
     public void showItemCooldown(Player player, ItemStack item, int duration) {
         PacketPlayOutSetCooldown packet = new PacketPlayOutSetCooldown(Item.getById(item.getTypeId()), duration);
         ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
+    }
+
+    public String getItemStackInfo(ItemStack itemStack) {
+        net.minecraft.server.v1_12_R1.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(itemStack);
+        NBTTagCompound compound = new NBTTagCompound();
+        compound = nmsItemStack.save(compound);
+
+        return compound.toString();
     }
 }

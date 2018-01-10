@@ -34,10 +34,6 @@ public class ScoreboardManager {
         this.scoreboards.add(scoreboards);
     }
 
-    public void setupDefaultBoard(Player player) {
-        User user = NECore.getUserManager().getUser(player.getUniqueId());
-    }
-
     public void startBoards(Player player) {
         scoreboardMap.put(player.getUniqueId(), scoreboards);
         final int[] board = {0};

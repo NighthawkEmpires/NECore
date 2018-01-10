@@ -243,9 +243,14 @@ public class VolatileCodeDisabled implements VolatileCodeHandler{
         return null;
     }
 
-    
+
     public void showItemCooldown(Player player, ItemStack item, int duration) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public String getItemStackInfo(ItemStack itemStack) {
+        return null;
     }
 }

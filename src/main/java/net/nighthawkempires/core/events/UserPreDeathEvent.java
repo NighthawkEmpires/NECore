@@ -8,7 +8,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.entity.EntityDamageEvent;
 
-public class UserDeathEvent extends Event {
+public class UserPreDeathEvent extends Event implements Cancellable {
 
     private static HandlerList handlers = new HandlerList();
     private Player player;
@@ -16,29 +16,27 @@ public class UserDeathEvent extends Event {
     private Block blockKiller;
     private EntityDamageEvent.DamageCause damageCause;
     private UserDeathEvent.DeathType deathType;
-    private UserPreDeathEvent preDeathEvent;
+    private String deathMessage = "";
+    private boolean cancelled = false;
 
-    public UserDeathEvent(Player player, Entity entity, EntityDamageEvent.DamageCause damageCause, UserPreDeathEvent preDeathEvent) {
+    public UserPreDeathEvent(Player player, Entity entity, EntityDamageEvent.DamageCause damageCause) {
         this.player = player;
         this.entityKiller = entity;
         this.damageCause = damageCause;
         this.deathType = UserDeathEvent.DeathType.DEATH_BY_ENTITY;
-        this.preDeathEvent = preDeathEvent;
     }
 
-    public UserDeathEvent(Player player, Block block, EntityDamageEvent.DamageCause damageCause, UserPreDeathEvent preDeathEvent) {
+    public UserPreDeathEvent(Player player, Block block, EntityDamageEvent.DamageCause damageCause) {
         this.player = player;
         this.blockKiller = block;
         this.damageCause = damageCause;
         this.deathType = UserDeathEvent.DeathType.DEATH_BY_BLOCK;
-        this.preDeathEvent = preDeathEvent;
     }
 
-    public UserDeathEvent(Player player, EntityDamageEvent.DamageCause damageCause, UserPreDeathEvent preDeathEvent) {
+    public UserPreDeathEvent(Player player, EntityDamageEvent.DamageCause damageCause) {
         this.player = player;
         this.damageCause = damageCause;
         this.deathType = UserDeathEvent.DeathType.DEATH;
-        this.preDeathEvent = preDeathEvent;
     }
 
     public Player getPlayer() {
@@ -61,8 +59,12 @@ public class UserDeathEvent extends Event {
         return damageCause;
     }
 
-    public UserPreDeathEvent getPreDeathEvent() {
-        return preDeathEvent;
+    public String getDeathMessage() {
+        return deathMessage;
+    }
+
+    public void setDeathMessage(String deathMessage) {
+        this.deathMessage = deathMessage;
     }
 
     public HandlerList getHandlers() {
@@ -71,6 +73,14 @@ public class UserDeathEvent extends Event {
 
     public static HandlerList getHandlerList() {
         return handlers;
+    }
+
+    public boolean isCancelled() {
+        return cancelled;
+    }
+
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
     }
 
     public enum DeathType {

@@ -4,7 +4,9 @@ import com.google.common.collect.Maps;
 import net.nighthawkempires.core.NECore;
 import net.nighthawkempires.core.file.FileType;
 import org.bukkit.Bukkit;
+import org.bukkit.scheduler.BukkitRunnable;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,10 +17,9 @@ import static net.nighthawkempires.core.NECore.*;
 
 public class UserManager {
 
+    private final String SELECT = "SELECT * FROM global_data WHERE uuid=?";
+
     private ConcurrentMap<UUID, User> userMap;
-    private UserCreator creator;
-    private UserLoader loader;
-    private UserSaver saver;
 
     public UserManager() {
         userMap = Maps.newConcurrentMap();
@@ -39,50 +40,49 @@ public class UserManager {
         if (userLoaded(uuid)) {
             return getUser(uuid);
         } else if (userExists(uuid)) {
-            loadUser(new User(uuid));
-            Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> saveUser(getUser(uuid)), 100L);
+            userGetter(new User(uuid));
+            Bukkit.getScheduler().scheduleSyncDelayedTask(getPlugin(), () -> userSetter(getUser(uuid)), 100L);
             return getUser(uuid);
         }
         return null;
     }
 
-    public void createUser(User user) {
-        if (userExists(user.getUUID()))return;
-        creator = new UserCreator(user);
-        creator.create();
-        if (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(user.getUUID()))) {
-            loadUser(user);
-        }
-    }
-
-    public void loadUser(User user) {
-        if (!userExists(user.getUUID()))return;
-        loader = new UserLoader(user);
-        loader.load();
+    public void userGetter(User user) {
+        new UserGetter(user).run();
         userMap.put(user.getUUID(), user);
     }
 
-    public void saveUser(User user) {
-        if (!userExists(user.getUUID()))return;
-        saver = new UserSaver(user);
-        saver.save();
+    public void userSetter(User user) {
+        new UserSetter(user).run();
         userMap.remove(user.getUUID());
     }
 
     public boolean userExists(UUID uuid) {
-        if (getSettings().useSQL) {
-            try {
-                PreparedStatement statement = getMySQL().getConnection().prepareStatement("SELECT * FROM global_data WHERE UUID=?");
-                statement.setString(1, uuid.toString());
-                ResultSet set = statement.executeQuery();
-                return set.next();
-            } catch (SQLException e) {
-                e.printStackTrace();
+        Connection connection;
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+
+        try {
+            connection = NECore.getConnector().getConnection();
+
+            preparedStatement = connection.prepareStatement(SELECT);
+            preparedStatement.setString(1, uuid.toString());
+
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                preparedStatement.close();
+                resultSet.close();
+                return true;
+            } else {
+                preparedStatement.close();
+                resultSet.close();
+                return false;
             }
-        } else {
-            return getFileManager().fileExists(uuid.toString(), FileType.PLAYER_FILE);
+        } catch (SQLException exception) {
+            NECore.getLoggers().warn(NECore.getPlugin(), "Could not get user data from database.");
+            return false;
         }
-        return false;
     }
 
     public boolean userLoaded(UUID uuid) {

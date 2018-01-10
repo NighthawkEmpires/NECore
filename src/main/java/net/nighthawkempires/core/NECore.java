@@ -10,7 +10,6 @@ import net.nighthawkempires.core.enchantment.EnchantmentManager;
 import net.nighthawkempires.core.file.FileManager;
 import net.nighthawkempires.core.kit.KitManager;
 import net.nighthawkempires.core.listener.PlayerListener;
-import net.nighthawkempires.core.listener.PluginListener;
 import net.nighthawkempires.core.logger.Logger;
 import net.nighthawkempires.core.mute.MuteManager;
 import net.nighthawkempires.core.recipe.RecipeManager;
@@ -18,15 +17,20 @@ import net.nighthawkempires.core.scoreboard.ScoreboardManager;
 import net.nighthawkempires.core.scoreboard.def.NameScoreboards;
 import net.nighthawkempires.core.settings.Settings;
 import net.nighthawkempires.core.sql.MySQL;
+import net.nighthawkempires.core.sql.SQLConnector;
+import net.nighthawkempires.core.task.SQLTask;
+import net.nighthawkempires.core.users.User;
 import net.nighthawkempires.core.users.UserManager;
 import net.nighthawkempires.core.volatilecode.VolatileCodeHandler;
 import net.nighthawkempires.core.volatilecode.code.VolatileCodeDisabled;
 import net.nighthawkempires.core.volatilecode.code.VolatileCode_v1_12_R1;
 import net.nighthawkempires.core.volatilecode.glow.GlowManager;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.inventivetalent.apihelper.APIManager;
 
 public class NECore extends JavaPlugin {
@@ -51,6 +55,10 @@ public class NECore extends JavaPlugin {
     private static GlowManager glowManager = new GlowManager();
     private static MySQL sql;
     private static Logger logger;
+
+    private static SQLConnector connector;
+
+    private BukkitRunnable sqlTask;
 
     public void onLoad() {
         APIManager.registerAPI(glowManager, this);
@@ -81,10 +89,14 @@ public class NECore extends JavaPlugin {
             if (getSettings().useSQL) {
                 sql = new MySQL(getSettings().sqlHostname, getSettings().sqlPort, getSettings().sqlDatabase, getSettings().sqlUsername, getSettings().sqlPassword);
                 sql.openConnection();
+                connector = new SQLConnector(getSettings().sqlHostname, getSettings().sqlDatabase, getSettings().sqlUsername, getSettings().sqlPassword);
+                connector.getConnection();
             }
         } catch (Exception e) {
             getLoggers().warn("Could not connect to Database.");
         }
+
+        sqlTask = getSQLTask();
 
         try {
             Class.forName("net.minecraft.server.v1_12_R1.MinecraftServer");
@@ -99,18 +111,33 @@ public class NECore extends JavaPlugin {
         APIManager.initAPI(GlowManager.class);
         getChatFormat().add(new NameTag());
         registerListeners();
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            getUserManager().userGetter(new User(player.getUniqueId()));
+            getScoreboardManager().startBoards(player);
+        }
     }
 
     public void onDisable() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            getScoreboardManager().stopBoards(player);
+            getUserManager().userSetter(getUserManager().getUser(player.getUniqueId()));
+        }
+
         getKitManager().saveKits();
         announcementManager.saveAnnouncements();
         enchantmentManager.unregisterEnchants();
         getMySQL().closeConnection();
     }
 
-    public void registerListeners() {
+    private void registerListeners() {
         getPluginManager().registerEvents(new PlayerListener(), this);
-        getPluginManager().registerEvents(new PluginListener(), this);
+    }
+
+    private BukkitRunnable getSQLTask() {
+        BukkitRunnable runnable = new SQLTask();
+        runnable.runTaskTimer(this, 1200, 1200);
+        return runnable;
     }
 
     public static NECore getInstance() {
@@ -191,5 +218,9 @@ public class NECore extends JavaPlugin {
 
     public static GlowManager getGlowManager() {
         return glowManager;
+    }
+
+    public static SQLConnector getConnector() {
+        return connector;
     }
 }
