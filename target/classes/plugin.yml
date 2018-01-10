@@ -1,6 +1,0 @@
-name: NECore
-main: net.nighthawkempires.core.NECore
-version: 2.41_b
-depend: [EffectLib, PacketListenerApi]
-authors: [NoneVale_]
-description: Core plugin for Nighthawk Empires.
