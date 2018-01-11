@@ -69,7 +69,7 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
 
     public void remove(String key) {
         REGISTERED_DATA.asMap().remove(key);
-        COLLECTION.deleteOne(Filters.eq("_id", key));
+        COLLECTION.deleteOne(Filters.eq("key", key));
     }
 
     public void saveToDb(String key) {
