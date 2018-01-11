@@ -19,10 +19,17 @@ public class MJsonSection implements DataSection, Serializable {
     }
 
     public MJsonSection(Map<String, Object> data) {
+        this(null, data);
+    }
+
+    public MJsonSection(String key, Map<String, Object> data) {
         if (data != null) {
             SECTION_DATA = AbstractMongoRegistry.mapToDocument(data);
         } else {
             throw new NullPointerException("Section data cannot be null, is this a valid section?");
+        }
+        if (key != null) {
+            SECTION_DATA.put("key", key);
         }
     }
 
@@ -195,33 +202,33 @@ public class MJsonSection implements DataSection, Serializable {
     // -- MUTATORS -- //
 
     public void set(String s, Object o) {
-        if (!s.equals("_id")) {
+        if (!s.equals("key")) {
             SECTION_DATA.put(s, o);
         }
     }
 
     public void remove(String s) {
-        if (!s.equals("_id")) {
+        if (!s.equals("key")) {
             SECTION_DATA.remove(s);
         }
     }
 
     public MJsonSection createSection(String s) {
-        if (!s.equals("_id")) {
+        if (!s.equals("key")) {
             MJsonSection section = new MJsonSection();
             SECTION_DATA.put(s, section.SECTION_DATA);
             return section;
         }
-        throw new IllegalArgumentException("Cannot set a section as '_id'.");
+        throw new IllegalArgumentException("Cannot set a section as 'key'.");
     }
 
     public MJsonSection createSection(String s, Map<String, Object> map) {
-        if (!s.equals("_id")) {
+        if (!s.equals("key")) {
             MJsonSection section = new MJsonSection(map);
             SECTION_DATA.put(s, section.SECTION_DATA);
             return section;
         }
-        throw new IllegalArgumentException("Cannot set a section as '_id'.");
+        throw new IllegalArgumentException("Cannot set a section as 'key'.");
     }
 
     @Override

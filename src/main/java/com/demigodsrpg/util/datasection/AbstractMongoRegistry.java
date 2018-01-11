@@ -76,14 +76,17 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
         if (REGISTERED_DATA.asMap().containsKey(key)) {
             Model model = REGISTERED_DATA.asMap().get(key);
             Document document = mapToDocument(model.serialize());
+            document.put("key", key);
             COLLECTION.insertOne(document);
         }
     }
 
     @SuppressWarnings("unchecked")
     public void loadFromDb(String key) {
-        Document document = COLLECTION.find(Filters.eq("_id", key)).first();
-        REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(document)));
+        Document document = COLLECTION.find(Filters.eq("key", key)).first();
+        if (document != null) {
+            REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(document)));
+        }
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -92,7 +95,7 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
         try {
             while (cursor.hasNext()) {
                 Document document = cursor.next();
-                String key = document.getString("_id");
+                String key = document.getString("key");
                 if (key != null) {
                     try {
                         UUID.fromString(key);
