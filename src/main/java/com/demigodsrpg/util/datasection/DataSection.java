@@ -18,11 +18,11 @@ public interface DataSection {
 
     boolean isSet(String s);
 
-    Object get(String s);
+    Object getRaw(String s);
 
-    Object get(String s, Object o);
+    Object getRaw(String s, Object o);
 
-    Object getNullable(String s);
+    Object getRawNullable(String s);
 
     String getString(String s);
 
@@ -97,4 +97,6 @@ public interface DataSection {
     DataSection createSection(String s, Map<String, Object> map);
 
     FJsonSection toFJsonSection();
+
+    MJsonSection toMJsonSection();
 }

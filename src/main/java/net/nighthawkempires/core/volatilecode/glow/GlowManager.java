@@ -2,9 +2,7 @@ package net.nighthawkempires.core.volatilecode.glow;
 
 import com.google.common.collect.Lists;
 import net.nighthawkempires.core.NECore;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,19 +13,12 @@ import org.bukkit.plugin.Plugin;
 import org.inventivetalent.apihelper.API;
 import org.inventivetalent.apihelper.APIManager;
 import org.inventivetalent.packetlistener.PacketListenerAPI;
-import org.inventivetalent.packetlistener.handler.PacketHandler;
-import org.inventivetalent.packetlistener.handler.PacketOptions;
-import org.inventivetalent.packetlistener.handler.ReceivedPacket;
-import org.inventivetalent.packetlistener.handler.SentPacket;
+import org.inventivetalent.packetlistener.handler.*;
 import org.inventivetalent.packetlistener.reflection.minecraft.Minecraft;
-import org.inventivetalent.packetlistener.reflection.resolver.ConstructorResolver;
-import org.inventivetalent.packetlistener.reflection.resolver.FieldResolver;
-import org.inventivetalent.packetlistener.reflection.resolver.MethodResolver;
-import org.inventivetalent.packetlistener.reflection.resolver.ResolverQuery;
+import org.inventivetalent.packetlistener.reflection.resolver.*;
 import org.inventivetalent.packetlistener.reflection.resolver.minecraft.NMSClassResolver;
 import org.inventivetalent.packetlistener.reflection.resolver.minecraft.OBCClassResolver;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class GlowManager implements Listener, API{
@@ -424,7 +415,8 @@ public class GlowManager implements Listener, API{
             }
 
             Object entitiesById = WorldFieldResolver.resolve("entitiesById").get(CraftWorldFieldResolver.resolve("world").get(world));
-            Object entity = IntHashMapMethodResolver.resolve(new ResolverQuery("get", int.class)).invoke(entitiesById, entityId);
+            Object entity = IntHashMapMethodResolver.resolve(new ResolverQuery("get", int.class))
+                    .invoke(entitiesById, entityId);
             if (entity == null) { return null; }
             return (Entity) EntityMethodResolver.resolve("getBukkitEntity").invoke(entity);
         } catch (Exception e) {

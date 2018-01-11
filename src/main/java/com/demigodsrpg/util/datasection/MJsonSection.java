@@ -1,88 +1,39 @@
 package com.demigodsrpg.util.datasection;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.bson.Document;
 
-import java.io.*;
+import java.io.Serializable;
 import java.util.*;
 
-/**
- * Object representing a section of a json file.
- */
 @SuppressWarnings("unchecked")
-public class FJsonSection implements DataSection, Serializable {
+public class MJsonSection implements DataSection, Serializable {
     private static final long serialVersionUID = -5020712662755828168L;
 
     // -- PRIVATE FIELDS -- //
 
-    private Map<String, Object> SECTION_DATA = new HashMap<>();
+    private Document SECTION_DATA;
 
     // -- CONSTRUCTORS -- //
 
-    /**
-     * Default constructor.
-     */
-    private FJsonSection() {
+    private MJsonSection() {
     }
 
-    /**
-     * Constructor accepting default data.
-     *
-     * @param data Default data.
-     */
-    public FJsonSection(Map<String, Object> data) {
+    public MJsonSection(Map<String, Object> data) {
+        this(null, data);
+    }
+
+    public MJsonSection(String key, Map<String, Object> data) {
         if (data != null) {
-            SECTION_DATA = data;
+            SECTION_DATA = AbstractMongoRegistry.mapToDocument(data);
         } else {
             throw new NullPointerException("Section data cannot be null, is this a valid section?");
         }
-    }
-
-    // -- UTILITY METHODS -- //
-
-    /**
-     * Save this section to a json file.
-     *
-     * @param dataFile The file to hold the section data.
-     * @return Save success or failure.
-     */
-    public boolean save(File dataFile) {
-        try {
-            Gson gson = new GsonBuilder().enableComplexMapKeySerialization().create();
-            String json = gson.toJson(SECTION_DATA, Map.class);
-            PrintWriter writer = new PrintWriter(dataFile);
-            writer.print(json);
-            writer.close();
-            return true;
-        } catch (Exception oops) {
-            oops.printStackTrace();
+        if (key != null) {
+            SECTION_DATA.put("key", key);
         }
-        return false;
-    }
-
-    /**
-     * Save this section to a json file in a pretty format.
-     *
-     * @param dataFile The file to hold the section data.
-     * @return Save success or failure.
-     */
-    public boolean savePretty(File dataFile) {
-        try {
-            Gson gson = new GsonBuilder().setPrettyPrinting().enableComplexMapKeySerialization().create();
-            String json = gson.toJson(SECTION_DATA, Map.class);
-            PrintWriter writer = new PrintWriter(dataFile);
-            writer.print(json);
-            writer.close();
-            return true;
-        } catch (Exception oops) {
-            oops.printStackTrace();
-        }
-        return false;
     }
 
     // -- GETTERS -- //
-
-    // TODO Add documentation for the methods below.
 
     public Set<String> getKeys() {
         return SECTION_DATA.keySet();
@@ -234,10 +185,10 @@ public class FJsonSection implements DataSection, Serializable {
         return contains(s) ? getMapList(s) : null;
     }
 
-    public FJsonSection getSectionNullable(String s) {
+    public MJsonSection getSectionNullable(String s) {
         try {
-            FJsonSection section = new FJsonSection();
-            section.SECTION_DATA = (Map) getRaw(s);
+            MJsonSection section = new MJsonSection();
+            section.SECTION_DATA = (Document) getRaw(s);
             return section;
         } catch (Exception ignored) {
         }
@@ -245,39 +196,48 @@ public class FJsonSection implements DataSection, Serializable {
     }
 
     public boolean isSection(String s) {
-        return getRaw(s) instanceof Map;
+        return getRaw(s) instanceof Document;
     }
 
     // -- MUTATORS -- //
 
     public void set(String s, Object o) {
-        SECTION_DATA.put(s, o);
+        if (!s.equals("key")) {
+            SECTION_DATA.put(s, o);
+        }
     }
 
     public void remove(String s) {
-        SECTION_DATA.put(s, null);
+        if (!s.equals("key")) {
+            SECTION_DATA.remove(s);
+        }
     }
 
-    public FJsonSection createSection(String s) {
-        FJsonSection section = new FJsonSection();
-        SECTION_DATA.put(s, section.SECTION_DATA);
-        return section;
+    public MJsonSection createSection(String s) {
+        if (!s.equals("key")) {
+            MJsonSection section = new MJsonSection();
+            SECTION_DATA.put(s, section.SECTION_DATA);
+            return section;
+        }
+        throw new IllegalArgumentException("Cannot set a section as 'key'.");
     }
 
-    public FJsonSection createSection(String s, Map<String, Object> map) {
-        FJsonSection section = new FJsonSection();
-        section.SECTION_DATA = map;
-        SECTION_DATA.put(s, section.SECTION_DATA);
-        return section;
+    public MJsonSection createSection(String s, Map<String, Object> map) {
+        if (!s.equals("key")) {
+            MJsonSection section = new MJsonSection(map);
+            SECTION_DATA.put(s, section.SECTION_DATA);
+            return section;
+        }
+        throw new IllegalArgumentException("Cannot set a section as 'key'.");
     }
 
     @Override
     public FJsonSection toFJsonSection() {
-        return this;
+        return new FJsonSection(AbstractMongoRegistry.documentToMap(SECTION_DATA));
     }
 
     @Override
     public MJsonSection toMJsonSection() {
-        return new MJsonSection(SECTION_DATA);
+        return this;
     }
 }
