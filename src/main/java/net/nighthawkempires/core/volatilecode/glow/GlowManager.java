@@ -415,7 +415,7 @@ public class GlowManager implements Listener, API{
             }
 
             Object entitiesById = WorldFieldResolver.resolve("entitiesById").get(CraftWorldFieldResolver.resolve("world").get(world));
-            Object entity = IntHashMapMethodResolver.resolve(new ResolverQuery("getRaw", int.class))
+            Object entity = IntHashMapMethodResolver.resolve(new ResolverQuery("get", int.class))
                     .invoke(entitiesById, entityId);
             if (entity == null) { return null; }
             return (Entity) EntityMethodResolver.resolve("getBukkitEntity").invoke(entity);

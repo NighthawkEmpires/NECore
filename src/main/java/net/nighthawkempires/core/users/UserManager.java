@@ -75,7 +75,7 @@ public class UserManager {
                 return false;
             }
         } catch (SQLException exception) {
-            NECore.getLoggers().warn(NECore.getPlugin(), "Could not getRaw user data from database.");
+            NECore.getLoggers().warn(NECore.getPlugin(), "Could not get user data from database.");
             return false;
         }
     }

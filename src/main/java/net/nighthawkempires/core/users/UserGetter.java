@@ -73,7 +73,7 @@ public class UserGetter {
             preparedStatement.close();
             resultSet.close();
         } catch (SQLException exception) {
-            NECore.getLoggers().warn(NECore.getPlugin(), "Could not getRaw user data from database.");
+            NECore.getLoggers().warn(NECore.getPlugin(), "Could not get user data from database.");
         }
     }
 }

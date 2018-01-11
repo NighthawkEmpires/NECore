@@ -308,7 +308,7 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
         // create item
         net.minecraft.server.v1_12_R1.ItemStack item = new net.minecraft.server.v1_12_R1.ItemStack(Item.getById(401), 1, 0);
 
-        // getRaw tag
+        // get tag
         NBTTagCompound tag = item.getTag();
         if (tag == null) {
             tag = new NBTTagCompound();
