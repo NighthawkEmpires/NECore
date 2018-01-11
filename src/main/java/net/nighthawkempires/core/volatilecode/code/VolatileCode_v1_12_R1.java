@@ -9,7 +9,6 @@ import net.nighthawkempires.core.NECore;
 import net.nighthawkempires.core.file.FileType;
 import net.nighthawkempires.core.utils.BoundingBox;
 import net.nighthawkempires.core.volatilecode.VolatileCodeHandler;
-import net.nighthawkempires.core.volatilecode.util.ReflectionUtill;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
@@ -17,10 +16,7 @@ import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_12_R1.CraftServer;
 import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftFallingBlock;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftLivingEntity;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftTNTPrimed;
+import org.bukkit.craftbukkit.v1_12_R1.entity.*;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityTargetEvent;
@@ -34,7 +30,6 @@ import org.bukkit.util.Vector;
 import java.io.File;
 import java.io.FileWriter;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -313,7 +308,7 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
         // create item
         net.minecraft.server.v1_12_R1.ItemStack item = new net.minecraft.server.v1_12_R1.ItemStack(Item.getById(401), 1, 0);
 
-        // get tag
+        // getRaw tag
         NBTTagCompound tag = item.getTag();
         if (tag == null) {
             tag = new NBTTagCompound();

@@ -34,14 +34,14 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
-public abstract class AbstractRegistry<T extends Model> {
+public abstract class AbstractFileRegistry<T extends Model> implements Registry<T> {
     protected final Cache<String, T> REGISTERED_DATA;
 
     // -- FILE -- //
     private File FOLDER;
     private boolean PRETTY;
 
-    public AbstractRegistry(String path, String folder, boolean pretty, int expireMins) {
+    public AbstractFileRegistry(String path, String folder, boolean pretty, int expireMins) {
         if (expireMins > 0) {
             REGISTERED_DATA =
                     CacheBuilder.newBuilder().concurrencyLevel(4).expireAfterAccess(expireMins, TimeUnit.MINUTES)
@@ -77,22 +77,6 @@ public abstract class AbstractRegistry<T extends Model> {
         removeFile(key);
     }
 
-    private void createFile(File file) {
-        try {
-            FOLDER.mkdirs();
-            file.createNewFile();
-        } catch (Exception oops) {
-            oops.printStackTrace();
-        }
-    }
-
-    public void removeFile(String key) {
-        File file = new File(FOLDER.getPath() + "/" + key + ".json");
-        if (file.exists()) {
-            file.delete();
-        }
-    }
-
     public void saveToDb(String key) {
         if (REGISTERED_DATA.asMap().containsKey(key)) {
             File file = new File(FOLDER.getPath() + "/" + key + ".json");
@@ -109,19 +93,6 @@ public abstract class AbstractRegistry<T extends Model> {
                 oops.printStackTrace();
             }
 
-        }
-    }
-
-    public void loadAllFromDb() {
-        File[] files = FOLDER.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                String fileName = file.getName();
-                if (fileName.endsWith(".json")) {
-                    String key = fileName.replace(".json", "");
-                    loadFromDb(key);
-                }
-            }
         }
     }
 
@@ -143,7 +114,7 @@ public abstract class AbstractRegistry<T extends Model> {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public ConcurrentMap<String, T> getFromDb() {
+    public ConcurrentMap<String, T> loadAllFromDb() {
         for (File file : FOLDER.listFiles()) {
             if (file.isFile() && file.getName().endsWith(".json")) {
                 String key = file.getName().replace(".json", "");
@@ -158,5 +129,19 @@ public abstract class AbstractRegistry<T extends Model> {
         REGISTERED_DATA.asMap().clear();
     }
 
-    protected abstract T fromDataSection(String key, DataSection section);
+    private void createFile(File file) {
+        try {
+            FOLDER.mkdirs();
+            file.createNewFile();
+        } catch (Exception oops) {
+            oops.printStackTrace();
+        }
+    }
+
+    public void removeFile(String key) {
+        File file = new File(FOLDER.getPath() + "/" + key + ".json");
+        if (file.exists()) {
+            file.delete();
+        }
+    }
 }

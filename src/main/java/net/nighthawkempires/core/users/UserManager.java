@@ -2,18 +2,13 @@ package net.nighthawkempires.core.users;
 
 import com.google.common.collect.Maps;
 import net.nighthawkempires.core.NECore;
-import net.nighthawkempires.core.file.FileType;
 import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 
-import static net.nighthawkempires.core.NECore.*;
+import static net.nighthawkempires.core.NECore.getPlugin;
 
 public class UserManager {
 
@@ -80,7 +75,7 @@ public class UserManager {
                 return false;
             }
         } catch (SQLException exception) {
-            NECore.getLoggers().warn(NECore.getPlugin(), "Could not get user data from database.");
+            NECore.getLoggers().warn(NECore.getPlugin(), "Could not getRaw user data from database.");
             return false;
         }
     }

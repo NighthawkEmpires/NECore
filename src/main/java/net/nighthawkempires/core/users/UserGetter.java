@@ -2,12 +2,8 @@ package net.nighthawkempires.core.users;
 
 import net.nighthawkempires.core.NECore;
 import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -77,7 +73,7 @@ public class UserGetter {
             preparedStatement.close();
             resultSet.close();
         } catch (SQLException exception) {
-            NECore.getLoggers().warn(NECore.getPlugin(), "Could not get user data from database.");
+            NECore.getLoggers().warn(NECore.getPlugin(), "Could not getRaw user data from database.");
         }
     }
 }
