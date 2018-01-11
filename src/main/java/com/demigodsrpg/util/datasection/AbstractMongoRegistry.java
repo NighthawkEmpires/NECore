@@ -83,7 +83,7 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
     @SuppressWarnings("unchecked")
     public void loadFromDb(String key) {
         Document document = COLLECTION.find(Filters.eq("_id", key)).first();
-        REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(key, document)));
+        REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(document)));
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -96,7 +96,7 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
                 if (key != null) {
                     try {
                         UUID.fromString(key);
-                        REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(key, document)));
+                        REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(document)));
                     } catch (Exception oops) {
                         oops.printStackTrace();
                     }

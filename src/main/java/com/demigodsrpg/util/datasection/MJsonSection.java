@@ -11,7 +11,6 @@ public class MJsonSection implements DataSection, Serializable {
 
     // -- PRIVATE FIELDS -- //
 
-    private String MONGO_ID;
     private Document SECTION_DATA;
 
     // -- CONSTRUCTORS -- //
@@ -20,11 +19,6 @@ public class MJsonSection implements DataSection, Serializable {
     }
 
     public MJsonSection(Map<String, Object> data) {
-        this(null, data);
-    }
-
-    public MJsonSection(String id, Map<String, Object> data) {
-        MONGO_ID = id;
         if (data != null) {
             SECTION_DATA = AbstractMongoRegistry.mapToDocument(data);
         } else {
@@ -238,13 +232,5 @@ public class MJsonSection implements DataSection, Serializable {
     @Override
     public MJsonSection toMJsonSection() {
         return this;
-    }
-
-    public void setMongoId(String id) {
-        MONGO_ID = id;
-    }
-
-    public String getMongoId() {
-        return MONGO_ID;
     }
 }
