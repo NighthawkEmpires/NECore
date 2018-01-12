@@ -179,9 +179,7 @@ public class UserModel implements Model {
     public Map<String, Object> serialize() {
         Map<String, Object> map = new HashMap<>();
         map.put("name", name);
-        if (!displayName.equals(name)) {
-            map.put("diaplay-name", displayName);
-        }
+        map.put("diaplay-name", displayName);
 
         map.put("join-date", joinDate);
         if (!address.equals("")) {

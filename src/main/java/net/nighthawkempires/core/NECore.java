@@ -151,6 +151,8 @@ public class NECore extends JavaPlugin {
         APIManager.initAPI(GlowManager.class);
         getChatFormat().add(new NameTag());
         registerListeners();
+
+        userRegistry.loadAllFromDb();
     }
 
     public void onDisable() {

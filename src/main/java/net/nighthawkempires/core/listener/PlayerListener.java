@@ -22,7 +22,9 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PlayerLoginEvent event) {
         Player player = event.getPlayer();
-        UserModel user = NECore.getUserRegistry().getUser(player.getUniqueId());
+        if (!NECore.getUserRegistry().getRegisteredData().containsKey(player.getUniqueId().toString())) {
+            NECore.getUserRegistry().loadFromDb(player.getUniqueId().toString());
+        }
     }
 
     @EventHandler

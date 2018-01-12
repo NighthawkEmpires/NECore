@@ -1,5 +1,6 @@
 package net.nighthawkempires.core.events;
 
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -17,6 +18,7 @@ public class UserPreDeathEvent extends Event implements Cancellable {
     private EntityDamageEvent.DamageCause damageCause;
     private UserDeathEvent.DeathType deathType;
     private String deathMessage = "";
+    private TextComponent deathComponent;
     private boolean cancelled = false;
 
     public UserPreDeathEvent(Player player, Entity entity, EntityDamageEvent.DamageCause damageCause) {
@@ -65,6 +67,14 @@ public class UserPreDeathEvent extends Event implements Cancellable {
 
     public void setDeathMessage(String deathMessage) {
         this.deathMessage = deathMessage;
+    }
+
+    public TextComponent getDeathComponent() {
+        return deathComponent;
+    }
+
+    public void setDeathComponent(TextComponent deathComponent) {
+        this.deathComponent = deathComponent;
     }
 
     public HandlerList getHandlers() {
