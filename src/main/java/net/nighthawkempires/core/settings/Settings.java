@@ -69,7 +69,7 @@ public class Settings {
             redisChannel = getConfig().getString("databases.redis.channel");
         }
 
-        mongoEnabledGuilds = getConfig().getBoolean("databases.mongodb.enabled", false);
+        mongoEnabledGuilds = getConfig().getBoolean("guilds.databases.mongodb.enabled", false);
         if (mongoEnabled) {
             mongoHostnameGuilds = getConfig().getString("guilds.databases.mongodb.hostname");
             mongoDatabaseGuilds = getConfig().getString("guilds.databases.mongodb.database");
