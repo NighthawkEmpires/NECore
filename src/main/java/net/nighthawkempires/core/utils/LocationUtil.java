@@ -3,6 +3,7 @@ package net.nighthawkempires.core.utils;
 import com.google.common.collect.Lists;
 import net.md_5.bungee.api.ChatColor;
 import net.nighthawkempires.core.NECore;
+import net.nighthawkempires.core.file.FileType;
 import net.nighthawkempires.core.light.LightLevel;
 import org.apache.commons.lang.Validate;
 import org.bukkit.*;
@@ -280,18 +281,18 @@ public class LocationUtil {
     }
 
     private static FileConfiguration getLocationFile() {
-        return NECore.getFileManager().getLocationFile();
+        return NECore.getFileManager().get(FileType.LOCATION);
     }
 
     private static void saveLocationFile() {
-        NECore.getFileManager().saveLocationFile();
+        NECore.getFileManager().save(FileType.LOCATION, true);
     }
 
     private static FileConfiguration getHomesFile() {
-        return NECore.getFileManager().getHomesFile();
+        return NECore.getFileManager().get(FileType.HOMES);
     }
 
     private static void saveHomesFile() {
-        NECore.getFileManager().saveHomesFile();
+        NECore.getFileManager().save(FileType.HOMES, true);
     }
 }

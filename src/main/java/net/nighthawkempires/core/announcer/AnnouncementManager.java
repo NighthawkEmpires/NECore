@@ -2,10 +2,12 @@ package net.nighthawkempires.core.announcer;
 
 import com.google.common.collect.Lists;
 import net.nighthawkempires.core.NECore;
+import net.nighthawkempires.core.file.FileType;
 import net.nighthawkempires.core.language.Lang;
 import net.nighthawkempires.core.utils.ListArraySetUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -21,7 +23,7 @@ public class AnnouncementManager {
 
     public AnnouncementManager() {
         announcements = Lists.newArrayList();
-        delay = getFileManager().getAnnouncementFile().getInt("settings.delay", 60);
+        delay = getConfig().getInt("settings.delay", 60);
         taskId = -1;
         id = -1;
 
@@ -35,10 +37,10 @@ public class AnnouncementManager {
 
     public void loadAnnouncements() {
         announcements.clear();
-        if (getFileManager().getAnnouncementFile().getBoolean("settings.enable", true)) {
-            if (getFileManager().getAnnouncementFile().isSet("announcements")) {
-                for (String announcement : getFileManager().getAnnouncementFile().getConfigurationSection("announcements").getKeys(false)) {
-                    ConfigurationSection section = getFileManager().getAnnouncementFile().getConfigurationSection("announcements." + announcement);
+        if (getConfig().getBoolean("settings.enable", true)) {
+            if (getConfig().isSet("announcements")) {
+                for (String announcement : getConfig().getConfigurationSection("announcements").getKeys(false)) {
+                    ConfigurationSection section = getConfig().getConfigurationSection("announcements." + announcement);
                     String id = announcement.substring(announcement.length() - 1);
                     getAnnouncements().add(new Announcement(Integer.valueOf(id), ListArraySetUtil.getStringArray(section.getStringList("lines"))));
                 }
@@ -48,17 +50,17 @@ public class AnnouncementManager {
 
     public void saveAnnouncements() {
 
-        if (getFileManager().getAnnouncementFile().getBoolean("settings.enable", true)) {
-            ConfigurationSection section = getFileManager().getAnnouncementFile().getConfigurationSection("announcements");
+        if (getConfig().getBoolean("settings.enable", true)) {
+            ConfigurationSection section = getConfig().getConfigurationSection("announcements");
             for (Announcement announcement : getAnnouncements()) {
                 section.set("announcement" + announcement.getId() + ".lines", ListArraySetUtil.getStringList(announcement.getLines()));
             }
-            getFileManager().saveAnnouncementFile();
+            getFileManager().save(FileType.ANNOUNCEMENT, true);
         }
     }
 
     public void startSchedule() {
-        if (getFileManager().getAnnouncementFile().getBoolean("settings.enable")) {
+        if (getConfig().getBoolean("settings.enable")) {
             if (this.taskId != -1) {
                 Bukkit.getScheduler().cancelTask(taskId);
             }
@@ -114,5 +116,9 @@ public class AnnouncementManager {
         if (announcement != null) {
             getAnnouncements().remove(announcement);
         }
+    }
+
+    public FileConfiguration getConfig() {
+        return NECore.getFileManager().get(FileType.ANNOUNCEMENT);
     }
 }

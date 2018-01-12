@@ -1,20 +1,36 @@
 package net.nighthawkempires.core.file;
 
-public enum  FileType {
+import java.io.File;
 
-    CONFIG_FILE("data/empires/"),
-    GUILD_FILE("data/empires/guild/"),
-    LIBRARY_FILE("data/empires/library/"),
-    PLAYER_FILE("../data/empires/player/"),
-    SKIN_FOLDER("../data/empires/skins/");
+public enum FileType {
 
-    private String path;
+    ANNOUNCEMENT(FileFolder.CONFIG_PATH, "announcements.yml"),
+    CONFIG(FileFolder.CONFIG_PATH, "config.yml"),
+    GROUP(FileFolder.CONFIG_PATH, "groups.yml"),
+    HOMES(FileFolder.CONFIG_PATH, "homes.yml"),
+    LOCATION(FileFolder.CONFIG_PATH, "locations.yml"),
+    KITS(FileFolder.CONFIG_PATH, "locations.yml"),
+    PORTAL(FileFolder.CONFIG_PATH, "portals.yml"),
+    REGION(FileFolder.CONFIG_PATH, "regions.yml"),
+    SHOP(FileFolder.CONFIG_PATH, "shops.yml");
 
-    FileType(String path) {
-        this.path = path;
+    private FileFolder filePath;
+    private String fileName;
+
+    FileType(FileFolder filePath, String fileName) {
+        this.filePath = filePath;
+        this.fileName = fileName;
     }
 
-    public String getPath() {
-        return path;
+    public FileFolder getFilePath() {
+        return filePath;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public File getFile() {
+        return new File(getFilePath().getPath() + getFileName());
     }
 }

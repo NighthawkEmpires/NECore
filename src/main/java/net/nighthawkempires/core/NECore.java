@@ -4,6 +4,7 @@ import de.slikey.effectlib.EffectLib;
 import de.slikey.effectlib.EffectManager;
 import net.nighthawkempires.core.announcer.AnnouncementManager;
 import net.nighthawkempires.core.ban.BanManager;
+import net.nighthawkempires.core.bungee.BungeeManager;
 import net.nighthawkempires.core.chat.format.ChatFormat;
 import net.nighthawkempires.core.chat.tag.NameTag;
 import net.nighthawkempires.core.enchantment.EnchantmentManager;
@@ -53,6 +54,7 @@ public class NECore extends JavaPlugin {
     private static EffectLib effectLib;
     private static EffectManager effectManager;
     private static GlowManager glowManager = new GlowManager();
+    private static BungeeManager bungeeManager;
     private static MySQL sql;
     private static Logger logger;
 
@@ -78,6 +80,7 @@ public class NECore extends JavaPlugin {
         enchantmentManager = new EnchantmentManager();
         recipeManager = new RecipeManager();
         banManager = new BanManager();
+        bungeeManager = new BungeeManager();
         muteManager = new MuteManager();
         effectLib = EffectLib.instance();
         effectManager = new EffectManager(effectLib);
@@ -86,10 +89,10 @@ public class NECore extends JavaPlugin {
         logger = new Logger();
 
         try {
-            if (getSettings().useSQL) {
-                sql = new MySQL(getSettings().sqlHostname, getSettings().sqlPort, getSettings().sqlDatabase, getSettings().sqlUsername, getSettings().sqlPassword);
+            if (getSettings().mysqlEnabled) {
+                sql = new MySQL(getSettings().mysqlHostname, "3306", getSettings().mysqlDatabase, getSettings().mysqlUsername, getSettings().mysqlPassword);
                 sql.openConnection();
-                connector = new SQLConnector(getSettings().sqlHostname, getSettings().sqlDatabase, getSettings().sqlUsername, getSettings().sqlPassword);
+                connector = new SQLConnector(getSettings().mysqlHostname, getSettings().mysqlDatabase, getSettings().mysqlUsername, getSettings().mysqlPassword);
                 connector.getConnection();
             }
         } catch (Exception e) {
@@ -132,6 +135,8 @@ public class NECore extends JavaPlugin {
 
     private void registerListeners() {
         getPluginManager().registerEvents(new PlayerListener(), this);
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", bungeeManager);
     }
 
     private BukkitRunnable getSQLTask() {
@@ -222,5 +227,9 @@ public class NECore extends JavaPlugin {
 
     public static SQLConnector getConnector() {
         return connector;
+    }
+
+    public static BungeeManager getBungeeManager() {
+        return bungeeManager;
     }
 }

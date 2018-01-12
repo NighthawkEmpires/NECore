@@ -6,7 +6,7 @@ import com.mojang.authlib.properties.Property;
 import net.minecraft.server.v1_12_R1.*;
 import net.minecraft.server.v1_12_R1.Item;
 import net.nighthawkempires.core.NECore;
-import net.nighthawkempires.core.file.FileType;
+import net.nighthawkempires.core.file.FileFolder;
 import net.nighthawkempires.core.utils.BoundingBox;
 import net.nighthawkempires.core.volatilecode.VolatileCodeHandler;
 import org.bukkit.Bukkit;
@@ -583,7 +583,7 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
             String skin = prop.getValue();
             String sig = prop.getSignature();
 
-            File folder = new File(FileType.SKIN_FOLDER.getPath());
+            File folder = new File(FileFolder.SKIN_PATH.getPath());
             if (!folder.exists()) {
                 folder.mkdir();
             }

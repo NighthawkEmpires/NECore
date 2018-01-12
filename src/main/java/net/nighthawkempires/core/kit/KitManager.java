@@ -2,12 +2,15 @@ package net.nighthawkempires.core.kit;
 
 import com.google.common.collect.Lists;
 import net.nighthawkempires.core.NECore;
+import net.nighthawkempires.core.file.FileType;
 import net.nighthawkempires.core.utils.ItemUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+
+import static net.nighthawkempires.core.file.FileType.KITS;
 
 public class KitManager {
 
@@ -51,10 +54,10 @@ public class KitManager {
     }
 
     private FileConfiguration getKitsFile() {
-        return NECore.getFileManager().getKitsFile();
+        return NECore.getFileManager().get(KITS);
     }
 
     private void saveKitsFile() {
-        NECore.getFileManager().saveKitsFile();
+        NECore.getFileManager().save(KITS, true);
     }
 }
