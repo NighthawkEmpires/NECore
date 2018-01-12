@@ -32,33 +32,33 @@ public class NameScoreboards extends Scoreboards {
         objective[0].setDisplaySlot(DisplaySlot.SIDEBAR);
         objective[0].setDisplayName(Lang.SCOREBOARD.getServerBoard());
         Team name = scoreboard[0].registerNewTeam("name");
-        name.addEntry("     " + ChatColor.BLUE + "" + ChatColor.BOLD);
+        name.addEntry(ChatColor.GRAY + " ➛   " + ChatColor.BLUE + "" + ChatColor.BOLD);
         name.setPrefix("");
         name.setSuffix("");
         Team display = scoreboard[0].registerNewTeam("display");
-        display.addEntry("     " + ChatColor.GRAY + "" + ChatColor.BOLD);
+        display.addEntry(ChatColor.GRAY + " ➛   " + ChatColor.GRAY + "" + ChatColor.BOLD);
         display.setPrefix("");
         display.setSuffix("");
         Team tokens = scoreboard[0].registerNewTeam("tokens");
-        tokens.addEntry("     " + ChatColor.GOLD + "" + ChatColor.BOLD);
+        tokens.addEntry(ChatColor.GRAY + " ➛   " + ChatColor.GOLD + "" + ChatColor.BOLD);
         tokens.setPrefix("");
         tokens.setSuffix("");
 
         objective[0].getScore(ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "------------").setScore(10);
-        objective[0].getScore(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + " Name" + ChatColor.GRAY + ": ").setScore(9);
-        objective[0].getScore("     " + ChatColor.BLUE + "" + ChatColor.BOLD).setScore(8);
+        objective[0].getScore(ChatColor.GRAY + "" + ChatColor.BOLD + " Name" + ChatColor.GRAY + ": ").setScore(9);
+        objective[0].getScore(ChatColor.GRAY + " ➛   " + ChatColor.BLUE + "" + ChatColor.BOLD).setScore(8);
         name.setSuffix(player.getName());
         objective[0].getScore(ChatColor.DARK_PURPLE + " ").setScore(7);
-        objective[0].getScore(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + " Display Name" + ChatColor.GRAY + ": ").setScore(6);
-        objective[0].getScore("     " + ChatColor.GRAY + "" + ChatColor.BOLD).setScore(5);
+        objective[0].getScore(ChatColor.GRAY + "" + ChatColor.BOLD + " Display Name" + ChatColor.GRAY + ": ").setScore(6);
+        objective[0].getScore(ChatColor.GRAY + " ➛   " + ChatColor.GRAY + "" + ChatColor.BOLD).setScore(5);
         try {
             display.setSuffix(ChatColor.translateAlternateColorCodes('&', user.getDisplayName()));
         } catch (IllegalArgumentException e) {
             display.setSuffix(ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', user.getDisplayName())));
         }
         objective[0].getScore(ChatColor.YELLOW + "  ").setScore(4);
-        objective[0].getScore(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + " Tokens" + ChatColor.GRAY + ": ").setScore(3);
-        objective[0].getScore("     " + ChatColor.GOLD + "" + ChatColor.BOLD).setScore(2);
+        objective[0].getScore(ChatColor.GRAY + "" + ChatColor.BOLD + " Tokens" + ChatColor.GRAY + ": ").setScore(3);
+        objective[0].getScore(ChatColor.GRAY + " ➛   " + ChatColor.GOLD + "" + ChatColor.BOLD).setScore(2);
         tokens.setSuffix(user.getTokens() + "");
         objective[0].getScore(ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "-----------").setScore(1);
 

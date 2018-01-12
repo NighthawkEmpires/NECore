@@ -127,7 +127,7 @@ public class NECore extends JavaPlugin {
                         new MongoClient(address, credential, new MongoClientOptions.Builder().build())
                                 .getDatabase("ne_core");
                 userRegistry = new MUserRegistry(mongoDatabase);
-                NECore.getLoggers().info("MongoDB enabled.");
+                NECore.getLoggers().info(this, "MongoDB enabled.");
             } catch (Exception oops) {
                 oops.printStackTrace();
                 NECore.getLoggers().warn("MongoDB connection failed. Disabling plugin.");
