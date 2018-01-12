@@ -112,6 +112,7 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
     }
 
     public void purge() {
+        REGISTERED_DATA.asMap().clear();
         COLLECTION.drop();
     }
 
