@@ -70,7 +70,7 @@ public class Settings {
         }
 
         mongoEnabledGuilds = getConfig().getBoolean("guilds.databases.mongodb.enabled", false);
-        if (mongoEnabled) {
+        if (mongoEnabledGuilds) {
             mongoHostnameGuilds = getConfig().getString("guilds.databases.mongodb.hostname");
             mongoDatabaseGuilds = getConfig().getString("guilds.databases.mongodb.database");
             mongoUsernameGuilds = getConfig().getString("guilds.databases.mongodb.username");
