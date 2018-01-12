@@ -2,9 +2,7 @@ package net.nighthawkempires.core.listener;
 
 import net.nighthawkempires.core.NECore;
 import net.nighthawkempires.core.language.Lang;
-import net.nighthawkempires.core.server.Server;
-import net.nighthawkempires.core.users.User;
-import net.nighthawkempires.core.utils.BlockUtil;
+import net.nighthawkempires.core.users.UserModel;
 import net.nighthawkempires.core.utils.BossBarUtil;
 import net.nighthawkempires.core.utils.LocationUtil;
 import org.bukkit.Bukkit;
@@ -14,7 +12,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.UUID;
 
@@ -25,30 +22,26 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PlayerLoginEvent event) {
         Player player = event.getPlayer();
-        User user = new User(player.getUniqueId());
-
-        getUserManager().userGetter(user);
-        user = NECore.getUserManager().getUser(player.getUniqueId());
-
+        UserModel user = NECore.getUserRegistry().getUser(player.getUniqueId());
     }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        User user = NECore.getUserManager().getUser(player.getUniqueId());
+        UserModel user = NECore.getUserRegistry().getUser(player.getUniqueId());
 
         switch (NECore.getSettings().server.getFrom(NECore.getSettings().server)) {
             case HUB:
-                if (!user.hub()) {
-                    user.setHub(true);
+                if (!user.playedHub()) {
+                    user.setPlayedHub(true);
                     broadcastNewJoin(Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
                             ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC + " to the " +
                             ChatColor.RED + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "HUB" + ChatColor.GRAY + "."));
                 }
                 break;
             case SURVIVAL:
-                if (!user.sur()) {
-                    user.setSur(true);
+                if (!user.playedSurvival()) {
+                    user.setPlayedSurvival(true);
                     broadcastNewJoin(Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
                             ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC + " to " +
                             ChatColor.DARK_BLUE + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Nighthawk" +
@@ -69,20 +62,21 @@ public class PlayerListener implements Listener {
                         "",
                         ChatColor.DARK_GRAY + "**" + ChatColor.GRAY + ChatColor.ITALIC + " The server is currently in testing, if you find" +
                                 " any bugs/glitches please report them to a Staff Member" + ChatColor.DARK_GRAY + " **",
+                        Lang.FOOTER.getMessage(),
                 };
                 player.sendMessage(motd);
                 break;
             case TEST:
-                if (!user.test()) {
-                    user.setTest(true);
+                if (!user.playedTest()) {
+                    user.setPlayedTest(true);
                     broadcastNewJoin(Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
                             ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC + " to " +
                             ChatColor.DARK_RED + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Test" + ChatColor.GRAY + "."));
                 }
                 break;
             case PRISON:
-                if (!user.prs()) {
-                    user.setPrs(true);
+                if (!user.playedPrison()) {
+                    user.setPlayedPrison(true);
                     broadcastNewJoin(Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
                             ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC + " to " +
                             ChatColor.GRAY + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Hawkeye " +
@@ -93,8 +87,8 @@ public class PlayerListener implements Listener {
                 }
                 break;
             case FREEBUILD:
-                if (!user.frb()) {
-                    user.setFrb(true);
+                if (!user.playedFreebuild()) {
+                    user.setPlayedFreebuild(true);
                     broadcastNewJoin(Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
                             ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC + " to " +
                             ChatColor.GREEN + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Freebuild" + ChatColor.GRAY + "."));
@@ -104,8 +98,8 @@ public class PlayerListener implements Listener {
                 }
                 break;
             case MINIGAMES:
-                if (!user.min()) {
-                    user.setMin(true);
+                if (!user.playedMinigames()) {
+                    user.setPlayedMinigames(true);
                     broadcastNewJoin(Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
                             ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC + " to " +
                             ChatColor.AQUA + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Minigames" + ChatColor.GRAY + "."));
@@ -134,7 +128,7 @@ public class PlayerListener implements Listener {
     @EventHandler (priority = EventPriority.MONITOR)
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        User user = (getUserManager().userLoaded(player.getUniqueId()) ? getUserManager().getUser(player.getUniqueId()) : getUserManager().getTempUser(player.getUniqueId()));
+        UserModel user = NECore.getUserRegistry().getUser(player.getUniqueId());
 
         String quitMessage;
         String quitTag = ChatColor.DARK_GRAY + " [" + ChatColor.DARK_RED + "" + ChatColor.BOLD + "-" + ChatColor.DARK_GRAY + "] ";
@@ -146,8 +140,6 @@ public class PlayerListener implements Listener {
         }
         getScoreboardManager().stopBoards(player);
         event.setQuitMessage(quitMessage);
-
-        getUserManager().userSetter(user);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

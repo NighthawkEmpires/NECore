@@ -1,5 +1,10 @@
 package net.nighthawkempires.core;
 
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoDatabase;
 import de.slikey.effectlib.EffectLib;
 import de.slikey.effectlib.EffectManager;
 import net.nighthawkempires.core.announcer.AnnouncementManager;
@@ -8,6 +13,7 @@ import net.nighthawkempires.core.bungee.BungeeManager;
 import net.nighthawkempires.core.chat.format.ChatFormat;
 import net.nighthawkempires.core.chat.tag.NameTag;
 import net.nighthawkempires.core.enchantment.EnchantmentManager;
+import net.nighthawkempires.core.file.FileFolder;
 import net.nighthawkempires.core.file.FileManager;
 import net.nighthawkempires.core.kit.KitManager;
 import net.nighthawkempires.core.listener.PlayerListener;
@@ -20,8 +26,9 @@ import net.nighthawkempires.core.settings.Settings;
 import net.nighthawkempires.core.sql.MySQL;
 import net.nighthawkempires.core.sql.SQLConnector;
 import net.nighthawkempires.core.task.SQLTask;
-import net.nighthawkempires.core.users.User;
-import net.nighthawkempires.core.users.UserManager;
+import net.nighthawkempires.core.users.registry.FUserRegistry;
+import net.nighthawkempires.core.users.registry.MUserRegistry;
+import net.nighthawkempires.core.users.registry.UserRegistry;
 import net.nighthawkempires.core.volatilecode.VolatileCodeHandler;
 import net.nighthawkempires.core.volatilecode.code.VolatileCodeDisabled;
 import net.nighthawkempires.core.volatilecode.code.VolatileCode_v1_12_R1;
@@ -51,7 +58,6 @@ public class NECore extends JavaPlugin {
     private static PluginManager pluginManager;
     private static RecipeManager recipeManager;
     private static ScoreboardManager scoreboardManager;
-    private static UserManager userManager;
 
     private static ChatFormat chatFormat;
 
@@ -65,6 +71,9 @@ public class NECore extends JavaPlugin {
 
     private static MySQL sql;
     private static SQLConnector connector;
+    private static MongoDatabase mongoDatabase;
+
+    private static UserRegistry userRegistry;
 
     private BukkitRunnable sqlTask;
 
@@ -79,7 +88,6 @@ public class NECore extends JavaPlugin {
         fileManager = new FileManager();
         settings = new Settings();
         chatFormat = new ChatFormat();
-        userManager = new UserManager();
         announcementManager = new AnnouncementManager();
         pluginManager = Bukkit.getPluginManager();
         scoreboardManager = new ScoreboardManager();
@@ -105,8 +113,30 @@ public class NECore extends JavaPlugin {
         } catch (Exception e) {
             getLoggers().warn("Could not connect to Database.");
         }
-
         sqlTask = getSQLTask();
+
+        if (NECore.getSettings().mongoEnabledGuilds) {
+            try {
+                String hostname = NECore.getSettings().mongoHostnameGuilds;
+                String username = NECore.getSettings().mongoUsernameGuilds;
+                String password = NECore.getSettings().mongoPasswordGuilds;
+                ServerAddress address = new ServerAddress(hostname, 27017);
+                MongoCredential credential =
+                        MongoCredential.createCredential("core", "ne_core", password.toCharArray());
+                mongoDatabase =
+                        new MongoClient(address, credential, new MongoClientOptions.Builder().build())
+                                .getDatabase("ne_core");
+                userRegistry = new MUserRegistry(mongoDatabase);
+                NECore.getLoggers().info("MongoDB enabled.");
+            } catch (Exception oops) {
+                oops.printStackTrace();
+                NECore.getLoggers().warn("MongoDB connection failed. Disabling plugin.");
+                Bukkit.getPluginManager().disablePlugin(this);
+                return;
+            }
+        } else {
+            userRegistry = new FUserRegistry(FileFolder.PLAYER_PATH.getPath());
+        }
 
         try {
             Class.forName("net.minecraft.server.v1_12_R1.MinecraftServer");
@@ -121,19 +151,9 @@ public class NECore extends JavaPlugin {
         APIManager.initAPI(GlowManager.class);
         getChatFormat().add(new NameTag());
         registerListeners();
-
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            getUserManager().userGetter(new User(player.getUniqueId()));
-            getScoreboardManager().startBoards(player);
-        }
     }
 
     public void onDisable() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            getScoreboardManager().stopBoards(player);
-            getUserManager().userSetter(getUserManager().getUser(player.getUniqueId()));
-        }
-
         getKitManager().saveKits();
         announcementManager.saveAnnouncements();
         enchantmentManager.unregisterEnchants();
@@ -170,10 +190,6 @@ public class NECore extends JavaPlugin {
 
     public static ChatFormat getChatFormat() {
         return chatFormat;
-    }
-
-    public static UserManager getUserManager() {
-        return userManager;
     }
 
     public static AnnouncementManager getAnnouncementManager() {
@@ -238,5 +254,13 @@ public class NECore extends JavaPlugin {
 
     public static BungeeManager getBungeeManager() {
         return bungeeManager;
+    }
+
+    public static MongoDatabase getMongoDatabase() {
+        return mongoDatabase;
+    }
+
+    public static UserRegistry getUserRegistry() {
+        return userRegistry;
     }
 }

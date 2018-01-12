@@ -3,9 +3,7 @@ package net.nighthawkempires.core.scoreboard.def;
 import net.nighthawkempires.core.NECore;
 import net.nighthawkempires.core.language.Lang;
 import net.nighthawkempires.core.scoreboard.Scoreboards;
-import net.nighthawkempires.core.server.Server;
-import net.nighthawkempires.core.users.User;
-import net.nighthawkempires.core.utils.MathUtil;
+import net.nighthawkempires.core.users.UserModel;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -28,7 +26,7 @@ public class NameScoreboards extends Scoreboards {
     }
 
     public Scoreboard getFor(Player player) {
-        User user = NECore.getUserManager().getUser(player.getUniqueId());
+        UserModel user = NECore.getUserRegistry().getUser(player.getUniqueId());
         Scoreboard[] scoreboard = {Bukkit.getScoreboardManager().getNewScoreboard()};
         Objective[] objective = {scoreboard[0].registerNewObjective("test", "dummy")};
         objective[0].setDisplaySlot(DisplaySlot.SIDEBAR);

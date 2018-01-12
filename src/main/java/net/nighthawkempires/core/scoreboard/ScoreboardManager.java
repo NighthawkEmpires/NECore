@@ -5,16 +5,12 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.nighthawkempires.core.NECore;
 import net.nighthawkempires.core.scoreboard.def.NameScoreboards;
-import net.nighthawkempires.core.users.User;
-import net.nighthawkempires.core.utils.MathUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
-import java.util.stream.Collectors;
 
 public class ScoreboardManager {
 
