@@ -38,26 +38,32 @@ public class NECore extends JavaPlugin {
 
     private static NECore instance;
     private static Plugin plugin;
-    private static FileManager fileManager;
-    private static Settings settings;
-    private static ChatFormat chatFormat;
-    private static UserManager userManager;
+
     private static AnnouncementManager announcementManager;
-    private static PluginManager pluginManager;
-    private static ScoreboardManager scoreboardManager;
-    private static EnchantmentManager enchantmentManager;
     private static BanManager banManager;
-    private static MuteManager muteManager;
-    private static VolatileCodeHandler codeHandler;
-    private static RecipeManager recipeManager;
-    private static KitManager kitManager;
-    private static EffectLib effectLib;
-    private static EffectManager effectManager;
-    private static GlowManager glowManager = new GlowManager();
     private static BungeeManager bungeeManager;
-    private static MySQL sql;
+    private static EffectManager effectManager;
+    private static EnchantmentManager enchantmentManager;
+    private static FileManager fileManager;
+    private static GlowManager glowManager = new GlowManager();
+    private static KitManager kitManager;
+    private static MuteManager muteManager;
+    private static PluginManager pluginManager;
+    private static RecipeManager recipeManager;
+    private static ScoreboardManager scoreboardManager;
+    private static UserManager userManager;
+
+    private static ChatFormat chatFormat;
+
+    private static EffectLib effectLib;
+
     private static Logger logger;
 
+    private static Settings settings;
+
+    private static VolatileCodeHandler codeHandler;
+
+    private static MySQL sql;
     private static SQLConnector connector;
 
     private BukkitRunnable sqlTask;
@@ -69,6 +75,7 @@ public class NECore extends JavaPlugin {
     public void onEnable() {
         instance = this;
         plugin = this;
+
         fileManager = new FileManager();
         settings = new Settings();
         chatFormat = new ChatFormat();
