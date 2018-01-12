@@ -125,6 +125,7 @@ public abstract class AbstractFileRegistry<T extends Model> implements Registry<
     }
 
     public void purge() {
+        loadAllFromDb();
         REGISTERED_DATA.asMap().keySet().forEach(this::removeFile);
         REGISTERED_DATA.asMap().clear();
     }
