@@ -86,13 +86,11 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
     }
 
     @SuppressWarnings("unchecked")
-    public Optional<Document> loadFromDb(String key) {
+    public void loadFromDb(String key) {
         Document document = COLLECTION.find(Filters.eq("key", key)).first();
         if (document != null) {
             REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(document)));
-            return Optional.of(document);
         }
-        return Optional.empty();
     }
 
     public Optional<Document> documentFromDb(String key) {

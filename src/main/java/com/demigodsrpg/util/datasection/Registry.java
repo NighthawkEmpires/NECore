@@ -15,7 +15,7 @@ public interface Registry<T extends Model> {
     @Deprecated
     void saveToDb(String key);
 
-    Optional<? extends Map<String, Object>> loadFromDb(String key);
+    void loadFromDb(String key);
 
     Map<String, T> loadAllFromDb();
 
