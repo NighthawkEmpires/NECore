@@ -127,6 +127,7 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
     // -- UTILITY METHODS -- //
 
     public static Document overwriteDocument(Document document, Map<String, Object> map) {
+        document.clear();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             if (entry.getValue() instanceof Map) {
                 document.put(entry.getKey(), mapToDocument((Map) entry.getValue()));
