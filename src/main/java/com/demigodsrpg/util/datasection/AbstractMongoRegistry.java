@@ -73,7 +73,7 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
     }
 
     public void saveToDb(String key) {
-        Optional<Document> loaded = loadFromDb(key);
+        Optional<Document> loaded = documentFromDb(key);
         if (REGISTERED_DATA.asMap().containsKey(key)) {
             Model model = REGISTERED_DATA.asMap().get(key);
             if (loaded.isPresent()) {
@@ -90,6 +90,14 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
         Document document = COLLECTION.find(Filters.eq("key", key)).first();
         if (document != null) {
             REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(document)));
+            return Optional.of(document);
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Document> documentFromDb(String key) {
+        Document document = COLLECTION.find(Filters.eq("key", key)).first();
+        if (document != null) {
             return Optional.of(document);
         }
         return Optional.empty();
