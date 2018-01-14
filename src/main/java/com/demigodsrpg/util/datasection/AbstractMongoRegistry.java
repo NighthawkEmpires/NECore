@@ -76,13 +76,11 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
         Optional<Document> loaded = documentFromDb(key);
         if (REGISTERED_DATA.asMap().containsKey(key)) {
             Model model = REGISTERED_DATA.asMap().get(key);
-            Document document;
-            if (!loaded.isPresent()) {
-                document = mapToDocument(model.serialize());
-                document.put("key", key);
-            } else {
-                document = overwriteDocument(loaded.get(), model.serialize());
+            if (loaded.isPresent()) {
+                COLLECTION.deleteMany(Filters.eq("key", key));
             }
+            Document document = mapToDocument(model.serialize());
+            document.put("key", key);
             COLLECTION.insertOne(document);
         }
     }
@@ -132,8 +130,8 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
 
     // -- UTILITY METHODS -- //
 
-    public static Document overwriteDocument(Document document, Map<String, Object> map) {
-        document.clear();
+    public static Document mapToDocument(Map<String, Object> map) {
+        Document document = new Document();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             if (entry.getValue() instanceof Map) {
                 document.put(entry.getKey(), mapToDocument((Map) entry.getValue()));
@@ -142,10 +140,6 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
             }
         }
         return document;
-    }
-
-    public static Document mapToDocument(Map<String, Object> map) {
-        return overwriteDocument(new Document(), map);
     }
 
     public static Map<String, Object> documentToMap(Document document) {
