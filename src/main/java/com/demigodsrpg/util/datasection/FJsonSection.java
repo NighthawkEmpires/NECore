@@ -90,10 +90,6 @@ public class FJsonSection extends HashMap<String, Object> implements DataSection
         return null;
     }
 
-    public boolean isSection(String s) {
-        return get(s) instanceof Map;
-    }
-
     // -- MUTATORS -- //
 
     public FJsonSection createSection(String s) {

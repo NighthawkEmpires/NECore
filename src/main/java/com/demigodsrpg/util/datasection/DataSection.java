@@ -24,7 +24,9 @@ public interface DataSection extends Map<String, Object> {
 
     DataSection getSectionNullable(String s);
 
-    boolean isSection(String s);
+    default boolean isSection(String s) {
+        return get(s) instanceof Map;
+    }
 
     default Object getNullable(String s) {
         if (containsKey(s)) {

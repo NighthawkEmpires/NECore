@@ -40,10 +40,6 @@ public class MJsonSection extends Document implements DataSection {
         return null;
     }
 
-    public boolean isSection(String s) {
-        return get(s) instanceof Document;
-    }
-
     // -- MUTATORS -- //
 
     public MJsonSection createSection(String s) {
