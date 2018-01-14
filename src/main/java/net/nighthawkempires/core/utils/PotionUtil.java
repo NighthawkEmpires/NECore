@@ -8,16 +8,20 @@ import org.bukkit.potion.PotionEffectType;
 public class PotionUtil {
 
     public static void applyPotion(Player player, PotionEffectType type, int amplifier, int length) {
-        player.getActivePotionEffects().stream().filter(effect -> effect.getType().equals(type) && effect.getAmplifier() <= amplifier).forEach(effect -> {
-            player.removePotionEffect(type);
-        });
+        player.getActivePotionEffects().stream()
+                .filter(effect -> effect.getType().equals(type) && effect.getAmplifier() <= amplifier)
+                .forEach(effect -> {
+                    player.removePotionEffect(type);
+                });
         player.addPotionEffect(new PotionEffect(type, 15 * length, amplifier, false, false));
     }
 
     public static void applyPotion(LivingEntity entity, PotionEffectType type, int amplifier, int length) {
-        entity.getActivePotionEffects().stream().filter(effect -> effect.getType().equals(type) && effect.getAmplifier() <= amplifier).forEach(effect -> {
-            entity.removePotionEffect(type);
-        });
+        entity.getActivePotionEffects().stream()
+                .filter(effect -> effect.getType().equals(type) && effect.getAmplifier() <= amplifier)
+                .forEach(effect -> {
+                    entity.removePotionEffect(type);
+                });
         entity.addPotionEffect(new PotionEffect(type, 15 * length, amplifier, false, false));
     }
 

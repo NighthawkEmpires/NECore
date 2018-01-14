@@ -1,19 +1,13 @@
 package net.nighthawkempires.core.volatilecode;
 
 import com.google.common.base.Splitter;
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.MapMaker;
+import com.google.common.collect.*;
 import com.google.common.primitives.Primitives;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentMap;
 
@@ -51,12 +45,9 @@ public class NBTFactory {
         }
 
         private String getFieldName() {
-            if (this == TAG_COMPOUND)
-                return "map";
-            else if (this == TAG_LIST)
-                return "list";
-            else
+            if (this == TAG_COMPOUND) { return "map"; } else if (this == TAG_LIST) { return "list"; } else {
                 return "data";
+            }
         }
     }
 
@@ -79,38 +70,45 @@ public class NBTFactory {
         }
 
         public Byte getByte(String key, Byte defaultValue) {
-            return containsKey(key) ? (Byte)get(key) : defaultValue;
+            return containsKey(key) ? (Byte) get(key) : defaultValue;
         }
+
         public Short getShort(String key, Short defaultValue) {
-            return containsKey(key) ? (Short)get(key) : defaultValue;
+            return containsKey(key) ? (Short) get(key) : defaultValue;
         }
+
         public Integer getInteger(String key, Integer defaultValue) {
-            return containsKey(key) ? (Integer)get(key) : defaultValue;
+            return containsKey(key) ? (Integer) get(key) : defaultValue;
         }
+
         public Long getLong(String key, Long defaultValue) {
-            return containsKey(key) ? (Long)get(key) : defaultValue;
+            return containsKey(key) ? (Long) get(key) : defaultValue;
         }
+
         public Float getFloat(String key, Float defaultValue) {
-            return containsKey(key) ? (Float)get(key) : defaultValue;
+            return containsKey(key) ? (Float) get(key) : defaultValue;
         }
+
         public Double getDouble(String key, Double defaultValue) {
-            return containsKey(key) ? (Double)get(key) : defaultValue;
+            return containsKey(key) ? (Double) get(key) : defaultValue;
         }
+
         public String getString(String key, String defaultValue) {
-            return containsKey(key) ? (String)get(key) : defaultValue;
+            return containsKey(key) ? (String) get(key) : defaultValue;
         }
+
         public byte[] getByteArray(String key, byte[] defaultValue) {
-            return containsKey(key) ? (byte[])get(key) : defaultValue;
+            return containsKey(key) ? (byte[]) get(key) : defaultValue;
         }
+
         public int[] getIntegerArray(String key, int[] defaultValue) {
-            return containsKey(key) ? (int[])get(key) : defaultValue;
+            return containsKey(key) ? (int[]) get(key) : defaultValue;
         }
 
         public NBTList getList(String key, boolean createNew) {
             NBTList list = (NBTList) get(key);
 
-            if (list == null)
-                put(key, list = createList());
+            if (list == null) { put(key, list = createList()); }
             return list;
         }
 
@@ -144,8 +142,7 @@ public class NBTFactory {
                 NBTCompound child = (NBTCompound) current.get(entry);
 
                 if (child == null) {
-                    if (!createNew)
-                        throw new IllegalArgumentException("Cannot find " + entry + " in " + path);
+                    if (!createNew) { throw new IllegalArgumentException("Cannot find " + entry + " in " + path); }
                     current.put(entry, child = createCompound());
                 }
                 current = child;
@@ -170,8 +167,7 @@ public class NBTFactory {
 
 
     private static NBTFactory get() {
-        if (INSTANCE == null)
-            INSTANCE = new NBTFactory();
+        if (INSTANCE == null) { INSTANCE = new NBTFactory(); }
         return INSTANCE;
     }
 
@@ -218,8 +214,7 @@ public class NBTFactory {
         );
 
         // Add the content as well
-        for (Object obj : iterable)
-            list.add(obj);
+        for (Object obj : iterable) { list.add(obj); }
         return list;
     }
 
@@ -266,8 +261,7 @@ public class NBTFactory {
     }
 
     public static ItemStack getCraftItemStack(ItemStack stack) {
-        if (stack == null || get().CRAFT_STACK.isAssignableFrom(stack.getClass()))
-            return stack;
+        if (stack == null || get().CRAFT_STACK.isAssignableFrom(stack.getClass())) { return stack; }
         try {
             Constructor<?> caller = INSTANCE.CRAFT_STACK.getDeclaredConstructor(ItemStack.class);
             caller.setAccessible(true);
@@ -278,17 +272,18 @@ public class NBTFactory {
     }
 
     private static void checkItemStack(ItemStack stack) {
-        if (stack == null)
-            throw new IllegalArgumentException("Stack cannot be NULL.");
-        if (!get().CRAFT_STACK.isAssignableFrom(stack.getClass()))
-            throw new IllegalArgumentException("Stack must be a CraftItemStack, found " + stack.getClass().getSimpleName());
-        if (stack.getType() == Material.AIR)
+        if (stack == null) { throw new IllegalArgumentException("Stack cannot be NULL."); }
+        if (!get().CRAFT_STACK.isAssignableFrom(stack.getClass())) {
+            throw new IllegalArgumentException(
+                    "Stack must be a CraftItemStack, found " + stack.getClass().getSimpleName());
+        }
+        if (stack.getType() == Material.AIR) {
             throw new IllegalArgumentException("ItemStacks representing air cannot store NMS information.");
+        }
     }
 
     private Object unwrapValue(String name, Object value) {
-        if (value == null)
-            return null;
+        if (value == null) { return null; }
 
         if (value instanceof Wrapper) {
             return ((Wrapper) value).getHandle();
@@ -304,8 +299,7 @@ public class NBTFactory {
     }
 
     private Object wrapNative(Object nms) {
-        if (nms == null)
-            return null;
+        if (nms == null) { return null; }
 
         if (BASE_CLASS.isAssignableFrom(nms.getClass())) {
             final NBTType type = getNbtType(nms);
@@ -324,7 +318,7 @@ public class NBTFactory {
     }
 
     private Object createNbtTag(NBTType type, String name, Object value) {
-        Object tag = invokeMethod(NBT_CREATE_TAG, null, (byte)type.id);
+        Object tag = invokeMethod(NBT_CREATE_TAG, null, (byte) type.id);
 
         if (value != null) {
             setFieldValue(getDataField(type, tag), tag, value);
@@ -333,8 +327,7 @@ public class NBTFactory {
     }
 
     private Field getDataField(NBTType type, Object nms) {
-        if (DATA_FIELD[type.id] == null)
-            DATA_FIELD[type.id] = getField(nms, null, type.getFieldName());
+        if (DATA_FIELD[type.id] == null) { DATA_FIELD[type.id] = getField(nms, null, type.getFieldName()); }
         return DATA_FIELD[type.id];
     }
 
@@ -348,9 +341,10 @@ public class NBTFactory {
                 Primitives.unwrap(primitive.getClass())
         ));
 
-        if (type == null)
+        if (type == null) {
             throw new IllegalArgumentException(String.format(
                     "Illegal type: %s (%s)", primitive.getClass(), primitive));
+        }
         return type;
     }
 
@@ -378,7 +372,8 @@ public class NBTFactory {
         }
     }
 
-    private static Method getMethod(int requireMod, int bannedMod, Class<?> clazz, String methodName, Class<?>... params) {
+    private static Method getMethod(int requireMod, int bannedMod, Class<?> clazz, String methodName,
+                                    Class<?>... params) {
         for (Method method : clazz.getDeclaredMethods()) {
             if ((method.getModifiers() & requireMod) == requireMod &&
                     (method.getModifiers() & bannedMod) == 0 &&
@@ -389,23 +384,22 @@ public class NBTFactory {
                 return method;
             }
         }
-        if (clazz.getSuperclass() != null)
+        if (clazz.getSuperclass() != null) {
             return getMethod(requireMod, bannedMod, clazz.getSuperclass(), methodName, params);
+        }
         throw new IllegalStateException(String.format(
                 "Unable to find method %s (%s).", methodName, Arrays.asList(params)));
     }
 
     private static Field getField(Object instance, Class<?> clazz, String fieldName) {
-        if (clazz == null)
-            clazz = instance.getClass();
+        if (clazz == null) { clazz = instance.getClass(); }
         for (Field field : clazz.getDeclaredFields()) {
             if (field.getName().equals(fieldName)) {
                 field.setAccessible(true);
                 return field;
             }
         }
-        if (clazz.getSuperclass() != null)
-            return getField(instance, clazz.getSuperclass(), fieldName);
+        if (clazz.getSuperclass() != null) { return getField(instance, clazz.getSuperclass(), fieldName); }
         throw new IllegalStateException("Unable to find field " + fieldName + " in " + instance);
     }
 
@@ -442,6 +436,7 @@ public class NBTFactory {
         protected Object wrapOutgoing(Object value) {
             return cache.wrap(value);
         }
+
         protected Object unwrapIncoming(String key, Object wrapped) {
             return unwrapValue(key, wrapped);
         }
@@ -458,10 +453,12 @@ public class NBTFactory {
         public Object get(Object key) {
             return wrapOutgoing(original.get(key));
         }
+
         @Override
         public Object remove(Object key) {
             return wrapOutgoing(original.remove(key));
         }
+
         @Override
         public boolean containsKey(Object key) {
             return original.containsKey(key);
@@ -469,7 +466,7 @@ public class NBTFactory {
 
         @Override
         public Set<Entry<String, Object>> entrySet() {
-            return new AbstractSet<Entry<String,Object>>() {
+            return new AbstractSet<Entry<String, Object>>() {
                 @Override
                 public boolean add(Entry<String, Object> e) {
                     String key = e.getKey();
@@ -528,8 +525,7 @@ public class NBTFactory {
         private final CachedNativeWrapper cache = new CachedNativeWrapper();
 
         public ConvertedList(Object handle, List<Object> original) {
-            if (NBT_LIST_TYPE == null)
-                NBT_LIST_TYPE = getField(handle, null, "type");
+            if (NBT_LIST_TYPE == null) { NBT_LIST_TYPE = getField(handle, null, "type"); }
             this.handle = handle;
             this.original = original;
         }
@@ -537,6 +533,7 @@ public class NBTFactory {
         protected Object wrapOutgoing(Object value) {
             return cache.wrap(value);
         }
+
         protected Object unwrapIncoming(Object wrapped) {
             return unwrapValue("", wrapped);
         }
@@ -545,28 +542,32 @@ public class NBTFactory {
         public Object get(int index) {
             return wrapOutgoing(original.get(index));
         }
+
         @Override
         public int size() {
             return original.size();
         }
+
         @Override
         public Object set(int index, Object element) {
             return wrapOutgoing(
                     original.set(index, unwrapIncoming(element))
             );
         }
+
         @Override
         public void add(int index, Object element) {
             Object nbt = unwrapIncoming(element);
 
-            if (size() == 0)
-                setFieldValue(NBT_LIST_TYPE, handle, (byte)getNbtType(nbt).id);
+            if (size() == 0) { setFieldValue(NBT_LIST_TYPE, handle, (byte) getNbtType(nbt).id); }
             original.add(index, nbt);
         }
+
         @Override
         public Object remove(int index) {
             return wrapOutgoing(original.remove(index));
         }
+
         @Override
         public boolean remove(Object o) {
             return original.remove(unwrapIncoming(o));

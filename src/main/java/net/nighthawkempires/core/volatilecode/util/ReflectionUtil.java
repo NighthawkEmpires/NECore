@@ -1,17 +1,11 @@
 package net.nighthawkempires.core.volatilecode.util;
 
-import net.nighthawkempires.core.volatilecode.reflection.ClassType;
-import net.nighthawkempires.core.volatilecode.reflection.HandleType;
-import net.nighthawkempires.core.volatilecode.reflection.PacketType;
+import net.nighthawkempires.core.volatilecode.reflection.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.*;
 
 public class ReflectionUtil {
 
@@ -65,8 +59,7 @@ public class ReflectionUtil {
 
     public static Method getMethod(Class<?> clazz, String name) {
         for (Method m : clazz.getMethods()) {
-            if (m.getName().equals(name))
-                return m;
+            if (m.getName().equals(name)) { return m; }
         }
         return null;
     }
@@ -74,8 +67,7 @@ public class ReflectionUtil {
     public static Method getMethod(Class<?> clazz, String name, Class<?>... params) {
         for (Method m : clazz.getMethods()) {
             if (m.getName().equalsIgnoreCase("name")) {
-                if (m.getParameterTypes() == params)
-                    return m;
+                if (m.getParameterTypes() == params) { return m; }
             }
         }
         return null;
@@ -105,8 +97,7 @@ public class ReflectionUtil {
 
     public static Constructor<?> getConstructor(Class<?> clazz, int numParams) {
         for (Constructor<?> constr : clazz.getConstructors()) {
-            if (constr.getParameterTypes().length == numParams)
-                return constr;
+            if (constr.getParameterTypes().length == numParams) { return constr; }
         }
         return null;
     }
@@ -152,7 +143,7 @@ public class ReflectionUtil {
             return ReflectionUtil.getClass(ClassType.NMS, "Packet" + type.prefix + name);
         }
 
-        public static void sendPacket(Player player, Object packet){
+        public static void sendPacket(Player player, Object packet) {
 
             try {
                 Object nmsPlayer = getHandle(HandleType.PLAYER, player);
@@ -160,8 +151,7 @@ public class ReflectionUtil {
                 Object con = con_field.get(nmsPlayer);
                 Method packet_method = getMethod(con.getClass(), "sendPacket");
                 packet_method.invoke(con, packet);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

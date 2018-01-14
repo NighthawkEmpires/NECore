@@ -4,9 +4,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Cancellable;
-import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
+import org.bukkit.event.*;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 public class UserPreDeathEvent extends Event implements Cancellable {

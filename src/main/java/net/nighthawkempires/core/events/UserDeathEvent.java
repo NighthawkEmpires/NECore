@@ -3,7 +3,6 @@ package net.nighthawkempires.core.events;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -18,7 +17,8 @@ public class UserDeathEvent extends Event {
     private UserDeathEvent.DeathType deathType;
     private UserPreDeathEvent preDeathEvent;
 
-    public UserDeathEvent(Player player, Entity entity, EntityDamageEvent.DamageCause damageCause, UserPreDeathEvent preDeathEvent) {
+    public UserDeathEvent(Player player, Entity entity, EntityDamageEvent.DamageCause damageCause,
+                          UserPreDeathEvent preDeathEvent) {
         this.player = player;
         this.entityKiller = entity;
         this.damageCause = damageCause;
@@ -26,7 +26,8 @@ public class UserDeathEvent extends Event {
         this.preDeathEvent = preDeathEvent;
     }
 
-    public UserDeathEvent(Player player, Block block, EntityDamageEvent.DamageCause damageCause, UserPreDeathEvent preDeathEvent) {
+    public UserDeathEvent(Player player, Block block, EntityDamageEvent.DamageCause damageCause,
+                          UserPreDeathEvent preDeathEvent) {
         this.player = player;
         this.blockKiller = block;
         this.damageCause = damageCause;

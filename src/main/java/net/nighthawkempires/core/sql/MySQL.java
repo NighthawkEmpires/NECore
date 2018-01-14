@@ -1,12 +1,9 @@
 package net.nighthawkempires.core.sql;
 
 import net.nighthawkempires.core.NECore;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.*;
-import java.util.logging.Level;
 
 public class MySQL {
 
@@ -34,7 +31,9 @@ public class MySQL {
             }
 
             Class.forName("com.mysql.jdbc.Driver");
-            this.connection = DriverManager.getConnection("jdbc:mysql://" + this.hostname + ":" + this.port + "/" + this.database, this.user, this.password);
+            this.connection = DriverManager
+                    .getConnection("jdbc:mysql://" + this.hostname + ":" + this.port + "/" + this.database, this.user,
+                            this.password);
             NECore.getLoggers().info("Connected to Database.");
         } catch (SQLException exception) {
             exception.printStackTrace();

@@ -21,7 +21,7 @@ import org.inventivetalent.packetlistener.reflection.resolver.minecraft.OBCClass
 
 import java.util.*;
 
-public class GlowManager implements Listener, API{
+public class GlowManager implements Listener, API {
 
     private static Map<UUID, GlowData> dataMap = new HashMap<>();
 
@@ -62,7 +62,9 @@ public class GlowManager implements Listener, API{
 
         boolean wasGlowing = dataMap.containsKey(entity != null ? entity.getUniqueId() : null);
         GlowData glowData;
-        if (wasGlowing && entity != null) { glowData = dataMap.get(entity.getUniqueId()); } else { glowData = new GlowData(); }
+        if (wasGlowing && entity != null) { glowData = dataMap.get(entity.getUniqueId()); } else {
+            glowData = new GlowData();
+        }
 
         Color oldColor = wasGlowing ? glowData.colorMap.get(receiver.getUniqueId()) : null;
 
@@ -119,7 +121,8 @@ public class GlowManager implements Listener, API{
         }
     }
 
-    public static void setGlowing(Collection<? extends Entity> entities, Color color, Collection<? extends Player> receivers) {
+    public static void setGlowing(Collection<? extends Entity> entities, Color color,
+                                  Collection<? extends Player> receivers) {
         for (Entity entity : entities) {
             setGlowing(entity, color, receivers);
         }
@@ -191,12 +194,17 @@ public class GlowManager implements Listener, API{
             List list = Lists.newArrayList();
 
             Object dataWatcher = EntityMethodResolver.resolve("getDataWatcher").invoke(Minecraft.getHandle(entity));
-            Map<Integer, Object> dataWatcherItems = (Map<Integer, Object>) DataWatcherFieldResolver.resolveByLastType(Map.class).get(dataWatcher);
+            Map<Integer, Object> dataWatcherItems =
+                    (Map<Integer, Object>) DataWatcherFieldResolver.resolveByLastType(Map.class).get(dataWatcher);
 
-            Object dataWatcherObject = org.inventivetalent.packetlistener.reflection.minecraft.DataWatcher.V1_9.ValueType.ENTITY_FLAG.getType();
-            byte prev = (byte) (dataWatcherItems.isEmpty() ? 0 : DataWatcherItemMethodResolver.resolve("b").invoke(dataWatcherItems.get(0)));
+            Object dataWatcherObject =
+                    org.inventivetalent.packetlistener.reflection.minecraft.DataWatcher.V1_9.ValueType.ENTITY_FLAG
+                            .getType();
+            byte prev = (byte) (dataWatcherItems.isEmpty() ? 0 :
+                    DataWatcherItemMethodResolver.resolve("b").invoke(dataWatcherItems.get(0)));
             byte b = (byte) (glowing ? (prev | 1 << 6) : (prev & ~(1 << 6)));
-            Object dataWatcherItem = DataWatcherItemConstructorResolver.resolveFirstConstructor().newInstance(dataWatcherObject, b);
+            Object dataWatcherItem =
+                    DataWatcherItemConstructorResolver.resolveFirstConstructor().newInstance(dataWatcherObject, b);
 
             list.add(dataWatcherItem);
 
@@ -220,7 +228,8 @@ public class GlowManager implements Listener, API{
         initTeam(receiver, TEAM_TAG_VISIBILITY, TEAM_PUSH);
     }
 
-    protected static void sendTeamPacket(Entity entity, Color color, boolean createNewTeam, boolean addEntity, String tagVisibility, String push, Player receiver) {
+    protected static void sendTeamPacket(Entity entity, Color color, boolean createNewTeam, boolean addEntity,
+                                         String tagVisibility, String push, Player receiver) {
         try {
             if (PacketPlayOutScoreboardTeam == null) {
                 PacketPlayOutScoreboardTeam = NMS_CLASS_RESOLVER.resolve("PacketPlayOutScoreboardTeam");
@@ -230,7 +239,8 @@ public class GlowManager implements Listener, API{
             }
 
             Object packetScoreboardTeam = PacketPlayOutScoreboardTeam.newInstance();
-            PacketScoreboardTeamFieldResolver.resolve("i").set(packetScoreboardTeam, createNewTeam ? 0 : addEntity ? 3 : 4);
+            PacketScoreboardTeamFieldResolver.resolve("i")
+                    .set(packetScoreboardTeam, createNewTeam ? 0 : addEntity ? 3 : 4);
             PacketScoreboardTeamFieldResolver.resolve("a").set(packetScoreboardTeam, color.getTeamName());
             PacketScoreboardTeamFieldResolver.resolve("e").set(packetScoreboardTeam, tagVisibility);
             PacketScoreboardTeamFieldResolver.resolve("f").set(packetScoreboardTeam, push);
@@ -245,7 +255,8 @@ public class GlowManager implements Listener, API{
             }
 
             if (!createNewTeam) {
-                Collection<String> collection = ((Collection<String>) PacketScoreboardTeamFieldResolver.resolve("h").get(packetScoreboardTeam));
+                Collection<String> collection =
+                        ((Collection<String>) PacketScoreboardTeamFieldResolver.resolve("h").get(packetScoreboardTeam));
                 if (entity instanceof OfflinePlayer) {
                     collection.add(entity.getName());
                 } else {
@@ -296,7 +307,7 @@ public class GlowManager implements Listener, API{
         WHITE(15, "f"),
         NONE(-1, "");
 
-        int    packetValue;
+        int packetValue;
         String colorCode;
 
         Color(int packetValue, String colorCode) {
@@ -344,19 +355,23 @@ public class GlowManager implements Listener, API{
                         //Check if the entity is glowing
                         if (GlowManager.isGlowing(entity, sentPacket.getPlayer())) {
                             if (GlowManager.DataWatcherItemMethodResolver == null) {
-                                GlowManager.DataWatcherItemMethodResolver = new MethodResolver(GlowManager.DataWatcherItem);
+                                GlowManager.DataWatcherItemMethodResolver =
+                                        new MethodResolver(GlowManager.DataWatcherItem);
                             }
                             if (GlowManager.DataWatcherItemFieldResolver == null) {
-                                GlowManager.DataWatcherItemFieldResolver = new FieldResolver(GlowManager.DataWatcherItem);
+                                GlowManager.DataWatcherItemFieldResolver =
+                                        new FieldResolver(GlowManager.DataWatcherItem);
                             }
 
                             try {
                                 //Update the DataWatcher Item
                                 Object prevItem = b.get(0);
-                                Object prevObj = GlowManager.DataWatcherItemMethodResolver.resolve("b").invoke(prevItem);
+                                Object prevObj =
+                                        GlowManager.DataWatcherItemMethodResolver.resolve("b").invoke(prevItem);
                                 if (prevObj instanceof Byte) {
                                     byte prev = (byte) prevObj;
-                                    byte bte = (byte) (true/*Maybe use the isGlowing result*/ ? (prev | 1 << 6) : (prev & ~(1 << 6)));//6 = glowing index
+                                    byte bte = (byte) (true/*Maybe use the isGlowing result*/ ? (prev | 1 << 6) :
+                                            (prev & ~(1 << 6)));//6 = glowing index
                                     GlowManager.DataWatcherItemFieldResolver.resolve("b").set(prevItem, bte);
                                 }
                             } catch (Exception e) {
@@ -395,8 +410,8 @@ public class GlowManager implements Listener, API{
     protected static NMSClassResolver nmsClassResolver = new NMSClassResolver();
     protected static OBCClassResolver obcClassResolver = new OBCClassResolver();
 
-    private static FieldResolver  CraftWorldFieldResolver;
-    private static FieldResolver  WorldFieldResolver;
+    private static FieldResolver CraftWorldFieldResolver;
+    private static FieldResolver WorldFieldResolver;
     private static MethodResolver IntHashMapMethodResolver;
 
     public static Entity getEntityById(World world, int entityId) {
@@ -414,7 +429,8 @@ public class GlowManager implements Listener, API{
                 EntityMethodResolver = new MethodResolver(nmsClassResolver.resolve("Entity"));
             }
 
-            Object entitiesById = WorldFieldResolver.resolve("entitiesById").get(CraftWorldFieldResolver.resolve("world").get(world));
+            Object entitiesById =
+                    WorldFieldResolver.resolve("entitiesById").get(CraftWorldFieldResolver.resolve("world").get(world));
             Object entity = IntHashMapMethodResolver.resolve(new ResolverQuery("get", int.class))
                     .invoke(entitiesById, entityId);
             if (entity == null) { return null; }

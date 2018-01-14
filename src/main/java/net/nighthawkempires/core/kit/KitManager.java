@@ -2,7 +2,6 @@ package net.nighthawkempires.core.kit;
 
 import com.google.common.collect.Lists;
 import net.nighthawkempires.core.NECore;
-import net.nighthawkempires.core.file.FileType;
 import net.nighthawkempires.core.utils.ItemUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -24,7 +23,8 @@ public class KitManager {
         try {
             for (String string : getKitsFile().getConfigurationSection("kits").getKeys(false)) {
                 ConfigurationSection section = getKitsFile().getConfigurationSection("kits." + string);
-                kits.add(new Kit(section.getString("name"), ItemUtil.getItem(section.getString("display")), section.getLong("cooldown", 60L*60L*24L),
+                kits.add(new Kit(section.getString("name"), ItemUtil.getItem(section.getString("display")),
+                        section.getLong("cooldown", 60L * 60L * 24L),
                         ItemUtil.getItems(section.getStringList("items"))));
             }
         } catch (Exception e) {
@@ -33,13 +33,15 @@ public class KitManager {
     }
 
     public void saveKits() {
-        getKitsFile().set( "kits",null);
+        getKitsFile().set("kits", null);
         for (Kit kit : kits) {
             if (kit != null) {
                 getKitsFile().set("kits." + kit.getName().toLowerCase() + ".name", kit.getName());
-                getKitsFile().set("kits." + kit.getName().toLowerCase() + ".display", ItemUtil.itemToString(kit.getDisplay()));
+                getKitsFile().set("kits." + kit.getName().toLowerCase() + ".display",
+                        ItemUtil.itemToString(kit.getDisplay()));
                 getKitsFile().set("kits." + kit.getName().toLowerCase() + ".cooldown", kit.getCooldown());
-                getKitsFile().set("kits." + kit.getName().toLowerCase() + ".items", ItemUtil.itemsToList(kit.getItems()));
+                getKitsFile()
+                        .set("kits." + kit.getName().toLowerCase() + ".items", ItemUtil.itemsToList(kit.getItems()));
                 saveKitsFile();
             }
         }

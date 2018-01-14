@@ -11,11 +11,11 @@ public class MathUtil {
     }
 
     public static int multiply(int amount, int by) {
-        return amount*by;
+        return amount * by;
     }
 
     public static int divide(int amount, int by) {
-        return amount/by;
+        return amount / by;
     }
 
     public static boolean greaterThan(int greater, int less) {

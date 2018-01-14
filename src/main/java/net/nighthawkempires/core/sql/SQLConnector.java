@@ -54,7 +54,8 @@ public class SQLConnector {
 
         try {
             int usedPort = port != 0 ? port : DEFAULT_PORT;
-            connection = DriverManager.getConnection("jdbc:mysql://" + address + ":" + usedPort + "/" + name, username, password);
+            connection = DriverManager
+                    .getConnection("jdbc:mysql://" + address + ":" + usedPort + "/" + name, username, password);
             NECore.getLoggers().info(NECore.getPlugin(), "Connected to SQL");
         } catch (SQLException e) {
             throw new RuntimeException("Failed to connect to database at " + connectionAddress + "!", e);

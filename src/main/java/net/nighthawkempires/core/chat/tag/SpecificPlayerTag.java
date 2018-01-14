@@ -22,7 +22,7 @@ public class SpecificPlayerTag extends PlayerTag {
     }
 
     public TextComponent getComponentFor(Player player) {
-        if(player.getName().equals(playerName)) {
+        if (player.getName().equals(playerName)) {
             return tag;
         }
         return null;

@@ -42,7 +42,7 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
             try {
                 Field field = CraftItemStack.class.getDeclaredField("handle");
                 field.setAccessible(true);
-                return ((net.minecraft.server.v1_12_R1.ItemStack)field.get(item)).getTag();
+                return ((net.minecraft.server.v1_12_R1.ItemStack) field.get(item)).getTag();
             } catch (Exception e) {
             }
         }
@@ -52,7 +52,7 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
     private static ItemStack setTag(ItemStack item, NBTTagCompound tag) {
         CraftItemStack craftItem = null;
         if (item instanceof CraftItemStack) {
-            craftItem = (CraftItemStack)item;
+            craftItem = (CraftItemStack) item;
         } else {
             craftItem = CraftItemStack.asCraftCopy(item);
         }
@@ -61,7 +61,7 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
         try {
             Field field = CraftItemStack.class.getDeclaredField("handle");
             field.setAccessible(true);
-            nmsItem = ((net.minecraft.server.v1_12_R1.ItemStack)field.get(item));
+            nmsItem = ((net.minecraft.server.v1_12_R1.ItemStack) field.get(item));
         } catch (Exception e) {
         }
         if (nmsItem == null) {
@@ -109,7 +109,7 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
 
     }
 
-    
+
     public void addPotionGraphicalEffect(LivingEntity entity, int color, int duration) {
 		/*final EntityLiving el = ((CraftLivingEntity)entity).getHandle();
 		final DataWatcher dw = el.getDataWatcher();
@@ -128,13 +128,14 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
 		}*/
     }
 
-    
+
     public void entityPathTo(LivingEntity creature, LivingEntity target) {
         //EntityCreature entity = ((CraftCreature)creature).getHandle();
-        //entity.pathEntity = entity.world.findPath(entity, ((CraftLivingEntity)target).getHandle(), 16.0F, true, false, false, false);
+        //entity.pathEntity = entity.world.findPath(entity, ((CraftLivingEntity)target).getHandle(), 16.0F, true,
+        // false, false, false);
     }
 
-    
+
     public void sendFakeSlotUpdate(Player player, int slot, ItemStack item) {
         net.minecraft.server.v1_12_R1.ItemStack nmsItem;
         if (item != null) {
@@ -142,99 +143,113 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
         } else {
             nmsItem = null;
         }
-        PacketPlayOutSetSlot packet = new PacketPlayOutSetSlot(0, (short)slot+36, nmsItem);
-        ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
+        PacketPlayOutSetSlot packet = new PacketPlayOutSetSlot(0, (short) slot + 36, nmsItem);
+        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
     }
 
-    
+
     public void toggleLeverOrButton(Block block) {
         fallback.toggleLeverOrButton(block);
-        //net.minecraft.server.v1_9_R1.Block.getById(block.getType().getId()).interact(((CraftWorld)block.getWorld()).getHandle(), new BlockPosition(block.getX(), block.getY(), block.getZ()), null, 0, 0, 0, 0);
+        //net.minecraft.server.v1_9_R1.Block.getById(block.getType().getId()).interact(((CraftWorld)block.getWorld())
+        // .getHandle(), new BlockPosition(block.getX(), block.getY(), block.getZ()), null, 0, 0, 0, 0);
     }
 
-    
+
     public void pressPressurePlate(Block block) {
         fallback.pressPressurePlate(block);
         //block.setData((byte) (block.getData() ^ 0x1));
         //net.minecraft.server.v1_9_R1.World w = ((CraftWorld)block.getWorld()).getHandle();
-        //w.applyPhysics(block.getX(), block.getY(), block.getZ(), net.minecraft.server.v1_9_R1.Block.getById(block.getType().getId()));
-        //w.applyPhysics(block.getX(), block.getY()-1, block.getZ(), net.minecraft.server.v1_9_R1.Block.getById(block.getType().getId()));
+        //w.applyPhysics(block.getX(), block.getY(), block.getZ(), net.minecraft.server.v1_9_R1.Block.getById(block
+        // .getType().getId()));
+        //w.applyPhysics(block.getX(), block.getY()-1, block.getZ(), net.minecraft.server.v1_9_R1.Block.getById(block
+        // .getType().getId()));
     }
 
-    
+
     public boolean simulateTnt(Location target, LivingEntity source, float explosionSize, boolean fire) {
-        EntityTNTPrimed e = new EntityTNTPrimed(((CraftWorld)target.getWorld()).getHandle(), target.getX(), target.getY(), target.getZ(), ((CraftLivingEntity)source).getHandle());
+        EntityTNTPrimed e =
+                new EntityTNTPrimed(((CraftWorld) target.getWorld()).getHandle(), target.getX(), target.getY(),
+                        target.getZ(), ((CraftLivingEntity) source).getHandle());
         CraftTNTPrimed c = new CraftTNTPrimed((CraftServer) Bukkit.getServer(), e);
         ExplosionPrimeEvent event = new ExplosionPrimeEvent(c, explosionSize, fire);
         Bukkit.getServer().getPluginManager().callEvent(event);
         return event.isCancelled();
     }
 
-    
-    public boolean createExplosionByPlayer(Player player, Location location, float size, boolean fire, boolean breakBlocks) {
-        return !((CraftWorld)location.getWorld()).getHandle().createExplosion(((CraftPlayer)player).getHandle(), location.getX(), location.getY(), location.getZ(), size, fire, breakBlocks).wasCanceled;
+
+    public boolean createExplosionByPlayer(Player player, Location location, float size, boolean fire,
+                                           boolean breakBlocks) {
+        return !((CraftWorld) location.getWorld()).getHandle()
+                .createExplosion(((CraftPlayer) player).getHandle(), location.getX(), location.getY(), location.getZ(),
+                        size, fire, breakBlocks).wasCanceled;
     }
 
-    
+
     public void playExplosionEffect(Location location, float size) {
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-        PacketPlayOutExplosion packet = new PacketPlayOutExplosion(location.getX(), location.getY(), location.getZ(), size, new ArrayList(), null);
+        @SuppressWarnings({"rawtypes", "unchecked"})
+        PacketPlayOutExplosion packet =
+                new PacketPlayOutExplosion(location.getX(), location.getY(), location.getZ(), size, new ArrayList(),
+                        null);
         for (Player player : location.getWorld().getPlayers()) {
             if (player.getLocation().distanceSquared(location) < 50 * 50) {
-                ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
+                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
             }
         }
     }
 
-    
+
     public void setExperienceBar(Player player, int level, float percent) {
         PacketPlayOutExperience packet = new PacketPlayOutExperience(percent, player.getTotalExperience(), level);
-        ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
+        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
     }
 
-    
+
     public Fireball shootSmallFireball(Player player) {
-        net.minecraft.server.v1_12_R1.World w = ((CraftWorld)player.getWorld()).getHandle();
+        net.minecraft.server.v1_12_R1.World w = ((CraftWorld) player.getWorld()).getHandle();
         Location playerLoc = player.getLocation();
         Vector loc = player.getEyeLocation().toVector().add(player.getLocation().getDirection().multiply(10));
 
         double d0 = loc.getX() - playerLoc.getX();
         double d1 = loc.getY() - (playerLoc.getY() + 1.5);
         double d2 = loc.getZ() - playerLoc.getZ();
-        EntitySmallFireball entitysmallfireball = new EntitySmallFireball(w, ((CraftPlayer)player).getHandle(), d0, d1, d2);
+        EntitySmallFireball entitysmallfireball =
+                new EntitySmallFireball(w, ((CraftPlayer) player).getHandle(), d0, d1, d2);
 
         entitysmallfireball.locY = playerLoc.getY() + 1.5;
         w.addEntity(entitysmallfireball);
 
-        return (Fireball)entitysmallfireball.getBukkitEntity();
+        return (Fireball) entitysmallfireball.getBukkitEntity();
     }
 
-    
+
     public void setTarget(LivingEntity entity, LivingEntity target) {
         if (entity instanceof Creature) {
-            ((Creature)entity).setTarget(target);
+            ((Creature) entity).setTarget(target);
         }
-        ((EntityInsentient)((CraftLivingEntity)entity).getHandle()).setGoalTarget(((CraftLivingEntity)target).getHandle(), EntityTargetEvent.TargetReason.CUSTOM, true);
+        ((EntityInsentient) ((CraftLivingEntity) entity).getHandle())
+                .setGoalTarget(((CraftLivingEntity) target).getHandle(), EntityTargetEvent.TargetReason.CUSTOM, true);
     }
 
-    
+
     public void playSound(Location location, String sound, float volume, float pitch) {
         for (Player player : location.getWorld().getPlayers()) {
             playSound(player, location, sound, volume, pitch);
         }
     }
 
-    
+
     public void playSound(Player player, String sound, float volume, float pitch) {
         playSound(player, player.getLocation(), sound, volume, pitch);
     }
 
     private void playSound(Player player, Location loc, String sound, float volume, float pitch) {
-        PacketPlayOutCustomSoundEffect packet = new PacketPlayOutCustomSoundEffect(sound, SoundCategory.MASTER, loc.getX(), loc.getY(), loc.getZ(), volume, pitch);
-        ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
+        PacketPlayOutCustomSoundEffect packet =
+                new PacketPlayOutCustomSoundEffect(sound, SoundCategory.MASTER, loc.getX(), loc.getY(), loc.getZ(),
+                        volume, pitch);
+        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
     }
 
-    
+
     public ItemStack addFakeEnchantment(ItemStack item) {
         if (!(item instanceof CraftItemStack)) {
             item = CraftItemStack.asCraftCopy(item);
@@ -249,9 +264,9 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
         return setTag(item, tag);
     }
 
-    
+
     public void setFallingBlockHurtEntities(FallingBlock block, float damage, int max) {
-        EntityFallingBlock efb = ((CraftFallingBlock)block).getHandle();
+        EntityFallingBlock efb = ((CraftFallingBlock) block).getHandle();
         try {
             Field field = EntityFallingBlock.class.getDeclaredField("hurtEntities");
             field.setAccessible(true);
@@ -275,38 +290,41 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
     }
 
 
-    public void playEntityAnimation(final Location location, final EntityType entityType, final int animationId, boolean instant) {
-		final EntityLiving entity;
-		if (entityType == EntityType.VILLAGER) {
-			entity = new EntityVillager(((CraftWorld)location.getWorld()).getHandle());
-		} else if (entityType == EntityType.WITCH) {
-			entity = new EntityWitch(((CraftWorld)location.getWorld()).getHandle());
-		} else if (entityType == EntityType.OCELOT) {
-			entity = new EntityOcelot(((CraftWorld)location.getWorld()).getHandle());
-		} else {
-			entity = null;
-		}
-		if (entity == null) return;
-		
-		entity.setPosition(location.getX(), instant ? location.getY() : -5, location.getZ());
-		((CraftWorld)location.getWorld()).getHandle().addEntity(entity);
-		entity.addEffect(new MobEffect(MobEffectList.fromId(14), 40));
-		if (instant) {
-			((CraftWorld)location.getWorld()).getHandle().broadcastEntityEffect(entity, (byte)animationId);
-			entity.getBukkitEntity().remove();
-		} else {
-			entity.setPosition(location.getX(), location.getY(), location.getZ());
-			Bukkit.getScheduler().scheduleSyncDelayedTask(NECore.getPlugin(), () -> {
-                ((CraftWorld)location.getWorld()).getHandle().broadcastEntityEffect(entity, (byte)animationId);
+    public void playEntityAnimation(final Location location, final EntityType entityType, final int animationId,
+                                    boolean instant) {
+        final EntityLiving entity;
+        if (entityType == EntityType.VILLAGER) {
+            entity = new EntityVillager(((CraftWorld) location.getWorld()).getHandle());
+        } else if (entityType == EntityType.WITCH) {
+            entity = new EntityWitch(((CraftWorld) location.getWorld()).getHandle());
+        } else if (entityType == EntityType.OCELOT) {
+            entity = new EntityOcelot(((CraftWorld) location.getWorld()).getHandle());
+        } else {
+            entity = null;
+        }
+        if (entity == null) return;
+
+        entity.setPosition(location.getX(), instant ? location.getY() : -5, location.getZ());
+        ((CraftWorld) location.getWorld()).getHandle().addEntity(entity);
+        entity.addEffect(new MobEffect(MobEffectList.fromId(14), 40));
+        if (instant) {
+            ((CraftWorld) location.getWorld()).getHandle().broadcastEntityEffect(entity, (byte) animationId);
+            entity.getBukkitEntity().remove();
+        } else {
+            entity.setPosition(location.getX(), location.getY(), location.getZ());
+            Bukkit.getScheduler().scheduleSyncDelayedTask(NECore.getPlugin(), () -> {
+                ((CraftWorld) location.getWorld()).getHandle().broadcastEntityEffect(entity, (byte) animationId);
                 entity.getBukkitEntity().remove();
             }, 8);
-		}
+        }
     }
 
-    
-    public void createFireworksExplosion(Location location, boolean flicker, boolean trail, int type, int[] colors, int[] fadeColors, int flightDuration) {
+
+    public void createFireworksExplosion(Location location, boolean flicker, boolean trail, int type, int[] colors,
+                                         int[] fadeColors, int flightDuration) {
         // create item
-        net.minecraft.server.v1_12_R1.ItemStack item = new net.minecraft.server.v1_12_R1.ItemStack(Item.getById(401), 1, 0);
+        net.minecraft.server.v1_12_R1.ItemStack item =
+                new net.minecraft.server.v1_12_R1.ItemStack(Item.getById(401), 1, 0);
 
         // get tag
         NBTTagCompound tag = item.getTag();
@@ -316,15 +334,15 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
 
         // create explosion tag
         NBTTagCompound explTag = new NBTTagCompound();
-        explTag.setByte("Flicker", flicker ? (byte)1 : (byte)0);
-        explTag.setByte("Trail", trail ? (byte)1 : (byte)0);
-        explTag.setByte("Type", (byte)type);
+        explTag.setByte("Flicker", flicker ? (byte) 1 : (byte) 0);
+        explTag.setByte("Trail", trail ? (byte) 1 : (byte) 0);
+        explTag.setByte("Type", (byte) type);
         explTag.setIntArray("Colors", colors);
         explTag.setIntArray("FadeColors", fadeColors);
 
         // create fireworks tag
         NBTTagCompound fwTag = new NBTTagCompound();
-        fwTag.setByte("Flight", (byte)flightDuration);
+        fwTag.setByte("Flight", (byte) flightDuration);
         NBTTagList explList = new NBTTagList();
         explList.add(explTag);
         fwTag.set("Explosions", explList);
@@ -334,12 +352,14 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
         item.setTag(tag);
 
         // create fireworks entity
-        EntityFireworks fireworks = new EntityFireworks(((CraftWorld)location.getWorld()).getHandle(), location.getX(), location.getY(), location.getZ(), item);
-        ((CraftWorld)location.getWorld()).getHandle().addEntity(fireworks);
+        EntityFireworks fireworks =
+                new EntityFireworks(((CraftWorld) location.getWorld()).getHandle(), location.getX(), location.getY(),
+                        location.getZ(), item);
+        ((CraftWorld) location.getWorld()).getHandle().addEntity(fireworks);
 
         // cause explosion
         if (flightDuration == 0) {
-            ((CraftWorld)location.getWorld()).getHandle().broadcastEntityEffect(fireworks, (byte)17);
+            ((CraftWorld) location.getWorld()).getHandle().broadcastEntityEffect(fireworks, (byte) 17);
             fireworks.die();
         }
     }
@@ -351,13 +371,16 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
 
     Field[] packet63Fields = new Field[11];
     Map<String, EnumParticle> particleMap = new HashMap<String, EnumParticle>();
-    
-    public void playParticleEffect(Location location, String name, float spreadHoriz, float spreadVert, float speed, int count, int radius, float yOffset) {
+
+    public void playParticleEffect(Location location, String name, float spreadHoriz, float spreadVert, float speed,
+                                   int count, int radius, float yOffset) {
         playParticleEffect(location, name, spreadHoriz, spreadVert, spreadHoriz, speed, count, radius, yOffset);
     }
-    
-    public void playParticleEffect(Location location, String name, float spreadX, float spreadY, float spreadZ, float speed, int count, int radius, float yOffset) {
-        //location.getWorld().spawnParticle(null, location.getX(), location.getY() + yOffset, location.getZ(), count, spreadX, spreadY, spreadZ, speed);
+
+    public void playParticleEffect(Location location, String name, float spreadX, float spreadY, float spreadZ,
+                                   float speed, int count, int radius, float yOffset) {
+        //location.getWorld().spawnParticle(null, location.getX(), location.getY() + yOffset, location.getZ(), count,
+        // spreadX, spreadY, spreadZ, speed);
         PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles();
         EnumParticle particle = particleMap.get(name);
         int[] data = null;
@@ -378,9 +401,9 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
         }
         try {
             packet63Fields[0].set(packet, particle);
-            packet63Fields[1].setFloat(packet, (float)location.getX());
-            packet63Fields[2].setFloat(packet, (float)location.getY() + yOffset);
-            packet63Fields[3].setFloat(packet, (float)location.getZ());
+            packet63Fields[1].setFloat(packet, (float) location.getX());
+            packet63Fields[2].setFloat(packet, (float) location.getY() + yOffset);
+            packet63Fields[3].setFloat(packet, (float) location.getZ());
             packet63Fields[4].setFloat(packet, spreadX);
             packet63Fields[5].setFloat(packet, spreadY);
             packet63Fields[6].setFloat(packet, spreadZ);
@@ -388,13 +411,13 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
             packet63Fields[8].setInt(packet, count);
             packet63Fields[9].setBoolean(packet, radius >= 30);
             if (data != null) {
-                packet63Fields[10].set(packet,data);
+                packet63Fields[10].set(packet, data);
             }
             int rSq = radius * radius;
 
             for (Player player : location.getWorld().getPlayers()) {
                 if (player.getLocation().distanceSquared(location) <= rSq) {
-                    ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
+                    ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
                 } else {
                 }
             }
@@ -403,39 +426,40 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
         }
     }
 
-    
+
     public void playDragonDeathEffect(Location location) {
-        EntityEnderDragon dragon = new EntityEnderDragon(((CraftWorld)location.getWorld()).getHandle());
+        EntityEnderDragon dragon = new EntityEnderDragon(((CraftWorld) location.getWorld()).getHandle());
         dragon.setPositionRotation(location.getX(), location.getY(), location.getZ(), location.getYaw(), 0F);
 
         PacketPlayOutSpawnEntityLiving packet24 = new PacketPlayOutSpawnEntityLiving(dragon);
-        PacketPlayOutEntityStatus packet38 = new PacketPlayOutEntityStatus(dragon, (byte)3);
-        final PacketPlayOutEntityDestroy packet29 = new PacketPlayOutEntityDestroy(dragon.getBukkitEntity().getEntityId());
+        PacketPlayOutEntityStatus packet38 = new PacketPlayOutEntityStatus(dragon, (byte) 3);
+        final PacketPlayOutEntityDestroy packet29 =
+                new PacketPlayOutEntityDestroy(dragon.getBukkitEntity().getEntityId());
 
         BoundingBox box = new BoundingBox(location, 64);
         final List<Player> players = new ArrayList<Player>();
         for (Player player : location.getWorld().getPlayers()) {
             if (box.contains(player)) {
                 players.add(player);
-                ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet24);
-                ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet38);
+                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet24);
+                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet38);
             }
         }
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(NECore.getPlugin(), () -> {
             for (Player player : players) {
                 if (player.isValid()) {
-                    ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet29);
+                    ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet29);
                 }
             }
         }, 250);
     }
 
-    
+
     public void setKiller(LivingEntity entity, Player killer) {
-        ((CraftLivingEntity)entity).getHandle().killer = ((CraftPlayer)killer).getHandle();
+        ((CraftLivingEntity) entity).getHandle().killer = ((CraftPlayer) killer).getHandle();
     }
-    
+
     public ItemStack addAttributes(ItemStack item, String[] names, String[] types, double[] amounts, int[] operations) {
         if (!(item instanceof CraftItemStack)) {
             item = CraftItemStack.asCraftCopy(item);
@@ -463,7 +487,7 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
         return item;
     }
 
-    
+
     public ItemStack hideTooltipCrap(ItemStack item) {
         ItemMeta meta = item.getItemMeta();
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -476,7 +500,7 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
         return item;
     }
 
-    
+
     public void addEntityAttribute(LivingEntity entity, String attribute, double amount, int operation) {
         Attribute attr = null;
         if (attribute.equals("generic.maxHealth")) {
@@ -505,14 +529,15 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
             oper = Operation.ADD_SCALAR;
         }
         if (attr != null && oper != null) {
-            entity.getAttribute(attr).addModifier(new org.bukkit.attribute.AttributeModifier("MagicSpells " + attribute, amount, oper));
+            entity.getAttribute(attr)
+                    .addModifier(new org.bukkit.attribute.AttributeModifier("MagicSpells " + attribute, amount, oper));
         }
     }
 
-    
+
     public void resetEntityAttributes(LivingEntity entity) {
         try {
-            EntityLiving e = ((CraftLivingEntity)entity).getHandle();
+            EntityLiving e = ((CraftLivingEntity) entity).getHandle();
             Field field = EntityLiving.class.getDeclaredField("bp");
             field.setAccessible(true);
             field.set(e, null);
@@ -537,10 +562,10 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
     }
 
     @SuppressWarnings("rawtypes")
-    
+
     public void removeAI(LivingEntity entity) {
         try {
-            EntityInsentient ev = (EntityInsentient)((CraftLivingEntity)entity).getHandle();
+            EntityInsentient ev = (EntityInsentient) ((CraftLivingEntity) entity).getHandle();
 
             Field goalsField = EntityInsentient.class.getDeclaredField("goalSelector");
             goalsField.setAccessible(true);
@@ -548,11 +573,11 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
 
             Field listField = PathfinderGoalSelector.class.getDeclaredField("b");
             listField.setAccessible(true);
-            Set list = (Set)listField.get(goals);
+            Set list = (Set) listField.get(goals);
             list.clear();
             listField = PathfinderGoalSelector.class.getDeclaredField("c");
             listField.setAccessible(true);
-            list = (Set)listField.get(goals);
+            list = (Set) listField.get(goals);
             list.clear();
 
             goals.a(0, new PathfinderGoalFloat(ev));
@@ -561,10 +586,10 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
         }
     }
 
-    
+
     public void addAILookAtPlayer(LivingEntity entity, int range) {
         try {
-            EntityInsentient ev = (EntityInsentient)((CraftLivingEntity)entity).getHandle();
+            EntityInsentient ev = (EntityInsentient) ((CraftLivingEntity) entity).getHandle();
 
             Field goalsField = EntityInsentient.class.getDeclaredField("goalSelector");
             goalsField.setAccessible(true);
@@ -577,7 +602,7 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
     }
 
     public void saveSkinData(Player player, String name) {
-        GameProfile profile = ((CraftPlayer)player).getHandle().getProfile();
+        GameProfile profile = ((CraftPlayer) player).getHandle().getProfile();
         Collection<Property> props = profile.getProperties().get("textures");
         for (Property prop : props) {
             String skin = prop.getValue();
@@ -606,7 +631,7 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
         }
     }
 
-    
+
     public ItemStack setUnbreakable(ItemStack item) {
         ItemMeta meta = item.getItemMeta();
         meta.setUnbreakable(true);
@@ -614,35 +639,37 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
         return item;
     }
 
-    
+
     public void setArrowsStuck(LivingEntity entity, int count) {
         //((CraftLivingEntity)entity).getHandle().set
     }
 
-    
+
     public void sendTitleToPlayer(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {
-        PlayerConnection conn = ((CraftPlayer)player).getHandle().playerConnection;
-        PacketPlayOutTitle packet = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TIMES, null, fadeIn, stay, fadeOut);
+        PlayerConnection conn = ((CraftPlayer) player).getHandle().playerConnection;
+        PacketPlayOutTitle packet =
+                new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TIMES, null, fadeIn, stay, fadeOut);
         conn.sendPacket(packet);
         if (title != null) {
             packet = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.TITLE, new ChatComponentText(title));
             conn.sendPacket(packet);
         }
         if (subtitle != null) {
-            packet = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE, new ChatComponentText(subtitle));
+            packet = new PacketPlayOutTitle(PacketPlayOutTitle.EnumTitleAction.SUBTITLE,
+                    new ChatComponentText(subtitle));
             conn.sendPacket(packet);
         }
     }
 
-    
+
     public void sendActionBarMessage(Player player, String message) {
-        PlayerConnection conn = ((CraftPlayer)player).getHandle().playerConnection;
-        PacketPlayOutChat packet = new PacketPlayOutChat(new ChatComponentText(message), ChatMessageType.a((byte)2));
+        PlayerConnection conn = ((CraftPlayer) player).getHandle().playerConnection;
+        PacketPlayOutChat packet = new PacketPlayOutChat(new ChatComponentText(message), ChatMessageType.a((byte) 2));
         conn.sendPacket(packet);
     }
 
     public void setTabMenuHeaderFooter(Player player, String header, String footer) {
-        PlayerConnection conn = ((CraftPlayer)player).getHandle().playerConnection;
+        PlayerConnection conn = ((CraftPlayer) player).getHandle().playerConnection;
         PacketPlayOutPlayerListHeaderFooter packet = new PacketPlayOutPlayerListHeaderFooter();
         try {
             Field field1 = PacketPlayOutPlayerListHeaderFooter.class.getDeclaredField("a");
@@ -659,28 +686,30 @@ public class VolatileCode_v1_12_R1 implements VolatileCodeHandler {
     }
 
     public void setClientVelocity(Player player, Vector velocity) {
-        ((CraftPlayer)player).getHandle().playerConnection.sendPacket(new PacketPlayOutEntityVelocity(player.getEntityId(), velocity.getX(), velocity.getY(), velocity.getZ()));
+        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(
+                new PacketPlayOutEntityVelocity(player.getEntityId(), velocity.getX(), velocity.getY(),
+                        velocity.getZ()));
     }
 
-    
+
     public double getAbsorptionHearts(LivingEntity entity) {
-        return ((CraftLivingEntity)entity).getHandle().getAbsorptionHearts();
+        return ((CraftLivingEntity) entity).getHandle().getAbsorptionHearts();
     }
 
-    
+
     public void setOffhand(Player player, ItemStack item) {
         player.getInventory().setItemInOffHand(item);
     }
 
-    
+
     public ItemStack getOffhand(Player player) {
         return player.getInventory().getItemInOffHand();
     }
 
-    
+
     public void showItemCooldown(Player player, ItemStack item, int duration) {
         PacketPlayOutSetCooldown packet = new PacketPlayOutSetCooldown(Item.getById(item.getTypeId()), duration);
-        ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
+        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
     }
 
     public String getItemStackInfo(ItemStack itemStack) {

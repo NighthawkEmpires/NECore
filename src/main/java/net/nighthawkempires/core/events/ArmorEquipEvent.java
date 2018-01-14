@@ -14,7 +14,8 @@ public class ArmorEquipEvent extends PlayerEvent implements Cancellable {
     private final ArmorType type;
     private ItemStack oldArmourPiece, newArmourPiece;
 
-    public ArmorEquipEvent(final Player player, final EquipMethod equipType, final ArmorType type, final ItemStack oldArmourPiece, final ItemStack newArmourPiece){
+    public ArmorEquipEvent(final Player player, final EquipMethod equipType, final ArmorType type,
+                           final ItemStack oldArmourPiece, final ItemStack newArmourPiece) {
         super(player);
         this.equipType = equipType;
         this.type = type;
@@ -22,43 +23,43 @@ public class ArmorEquipEvent extends PlayerEvent implements Cancellable {
         this.newArmourPiece = newArmourPiece;
     }
 
-    public final static HandlerList getHandlerList(){
+    public final static HandlerList getHandlerList() {
         return handlers;
     }
 
-    public final HandlerList getHandlers(){
+    public final HandlerList getHandlers() {
         return handlers;
     }
 
-    public final void setCancelled(final boolean cancel){
+    public final void setCancelled(final boolean cancel) {
         this.cancel = cancel;
     }
 
-    public final boolean isCancelled(){
+    public final boolean isCancelled() {
         return cancel;
     }
 
-    public final ArmorType getType(){
+    public final ArmorType getType() {
         return type;
     }
 
-    public final ItemStack getOldArmourPiece(){
+    public final ItemStack getOldArmourPiece() {
         return oldArmourPiece;
     }
 
-    public final void setOldArmourPiece(final ItemStack oldArmourPiece){
+    public final void setOldArmourPiece(final ItemStack oldArmourPiece) {
         this.oldArmourPiece = oldArmourPiece;
     }
 
-    public final ItemStack getNewArmourPiece(){
+    public final ItemStack getNewArmourPiece() {
         return newArmourPiece;
     }
 
-    public final void setNewArmourPiece(final ItemStack newArmourPiece){
+    public final void setNewArmourPiece(final ItemStack newArmourPiece) {
         this.newArmourPiece = newArmourPiece;
     }
 
-    public EquipMethod getMethod(){
+    public EquipMethod getMethod() {
         return equipType;
     }
 
@@ -77,13 +78,13 @@ public class ArmorEquipEvent extends PlayerEvent implements Cancellable {
 
         private final int slot;
 
-        ArmorType(int slot){
+        ArmorType(int slot) {
             this.slot = slot;
         }
 
-        public final static ArmorType matchType(final ItemStack itemStack){
-            if(itemStack == null) { return null; }
-            switch (itemStack.getType()){
+        public final static ArmorType matchType(final ItemStack itemStack) {
+            if (itemStack == null) { return null; }
+            switch (itemStack.getType()) {
                 case DIAMOND_HELMET:
                 case GOLD_HELMET:
                 case IRON_HELMET:
@@ -113,7 +114,7 @@ public class ArmorEquipEvent extends PlayerEvent implements Cancellable {
             }
         }
 
-        public int getSlot(){
+        public int getSlot() {
             return slot;
         }
     }

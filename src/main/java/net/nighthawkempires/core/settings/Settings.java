@@ -1,7 +1,6 @@
 package net.nighthawkempires.core.settings;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import net.nighthawkempires.core.NECore;
 import net.nighthawkempires.core.file.FileType;
 import net.nighthawkempires.core.server.Server;
@@ -43,7 +42,8 @@ public class Settings {
     public Settings() {
         server = Server.valueOf(getConfig().getString("settings.server", "HUB"));
         consoleUUID = UUID.fromString(getConfig().getString("settings.console.uuid"));
-        consoleDisplay = ChatColor.translateAlternateColorCodes('&', getConfig().getString("settings.console.display-name"));
+        consoleDisplay =
+                ChatColor.translateAlternateColorCodes('&', getConfig().getString("settings.console.display-name"));
         bannedWords = ImmutableList.copyOf(getConfig().getStringList("settings.banned-words"));
 
         mongoEnabled = getConfig().getBoolean("databases.mongodb.enabled", false);

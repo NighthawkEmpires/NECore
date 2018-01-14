@@ -20,7 +20,7 @@ public class Server {
     }
 
     public static Server[] values() {
-        return new Server[] { HUB, SUR, FRB, PRS, MIN, TEST };
+        return new Server[]{HUB, SUR, FRB, PRS, MIN, TEST};
     }
 
     public static Server valueOf(String name) {
@@ -42,7 +42,12 @@ public class Server {
     }
 
     public enum ServerTypes {
-        HUB(Server.HUB), SURVIVAL(Server.SUR), FREEBUILD(Server.FRB), PRISON(Server.PRS), MINIGAMES(Server.MIN), TEST(Server.TEST);
+        HUB(Server.HUB),
+        SURVIVAL(Server.SUR),
+        FREEBUILD(Server.FRB),
+        PRISON(Server.PRS),
+        MINIGAMES(Server.MIN),
+        TEST(Server.TEST);
 
         private Server server;
 

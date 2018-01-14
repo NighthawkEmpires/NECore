@@ -26,18 +26,24 @@ public class PlayerListener implements Listener {
             case HUB:
                 if (!user.playedHub()) {
                     user.setPlayedHub(true);
-                    broadcastNewJoin(Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
-                            ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC + " to the " +
-                            ChatColor.RED + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "HUB" + ChatColor.GRAY + "."));
+                    broadcastNewJoin(
+                            Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
+                                    ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC +
+                                    " to the " +
+                                    ChatColor.RED + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "HUB" +
+                                    ChatColor.GRAY + "."));
                 }
                 break;
             case SURVIVAL:
                 if (!user.playedSurvival()) {
                     user.setPlayedSurvival(true);
-                    broadcastNewJoin(Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
-                            ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC + " to " +
-                            ChatColor.DARK_BLUE + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Nighthawk" +
-                            ChatColor.DARK_RED + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + " Survival" + ChatColor.GRAY + "."));
+                    broadcastNewJoin(
+                            Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
+                                    ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC +
+                                    " to " +
+                                    ChatColor.DARK_BLUE + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Nighthawk" +
+                                    ChatColor.DARK_RED + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + " Survival" +
+                                    ChatColor.GRAY + "."));
                     if (LocationUtil.hasSpawn(player.getWorld())) {
                         player.teleport(LocationUtil.getSpawn(player.getWorld()));
                     }
@@ -45,14 +51,18 @@ public class PlayerListener implements Listener {
                 String[] motd = new String[]{
                         Lang.HEADER.getServerHeader(),
                         ChatColor.GRAY + "Welcome to " + ChatColor.DARK_BLUE + "" + ChatColor.ITALIC + "Nighthawk " +
-                                ChatColor.DARK_RED + "" + ChatColor.ITALIC + "Survival" + ChatColor.GRAY + ", " + ChatColor.BLUE +
+                                ChatColor.DARK_RED + "" + ChatColor.ITALIC + "Survival" + ChatColor.GRAY + ", " +
+                                ChatColor.BLUE +
                                 player.getName() + ChatColor.GRAY + ".",
-                        ChatColor.GRAY + "Use " + ChatColor.RED + "/help " + ChatColor.GRAY + "or visit the help section at " +
+                        ChatColor.GRAY + "Use " + ChatColor.RED + "/help " + ChatColor.GRAY +
+                                "or visit the help section at " +
                                 ChatColor.RED + "/warp help" + ChatColor.GRAY + " for help.",
-                        ChatColor.GRAY + "There are currently " + ChatColor.GOLD + Bukkit.getOnlinePlayers().size() + ChatColor.DARK_GRAY +
+                        ChatColor.GRAY + "There are currently " + ChatColor.GOLD + Bukkit.getOnlinePlayers().size() +
+                                ChatColor.DARK_GRAY +
                                 "/" + ChatColor.GOLD + Bukkit.getMaxPlayers() + ChatColor.GRAY + " player(s) online.",
                         "",
-                        ChatColor.DARK_GRAY + "**" + ChatColor.GRAY + ChatColor.ITALIC + " The server is currently in testing, if you find" +
+                        ChatColor.DARK_GRAY + "**" + ChatColor.GRAY + ChatColor.ITALIC +
+                                " The server is currently in testing, if you find" +
                                 " any bugs/glitches please report them to a Staff Member" + ChatColor.DARK_GRAY + " **",
                         Lang.FOOTER.getMessage(),
                 };
@@ -61,18 +71,24 @@ public class PlayerListener implements Listener {
             case TEST:
                 if (!user.playedTest()) {
                     user.setPlayedTest(true);
-                    broadcastNewJoin(Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
-                            ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC + " to " +
-                            ChatColor.DARK_RED + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Test" + ChatColor.GRAY + "."));
+                    broadcastNewJoin(
+                            Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
+                                    ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC +
+                                    " to " +
+                                    ChatColor.DARK_RED + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Test" +
+                                    ChatColor.GRAY + "."));
                 }
                 break;
             case PRISON:
                 if (!user.playedPrison()) {
                     user.setPlayedPrison(true);
-                    broadcastNewJoin(Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
-                            ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC + " to " +
-                            ChatColor.GRAY + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Hawkeye " +
-                            ChatColor.GOLD + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Prison" + ChatColor.GRAY + "."));
+                    broadcastNewJoin(
+                            Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
+                                    ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC +
+                                    " to " +
+                                    ChatColor.GRAY + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Hawkeye " +
+                                    ChatColor.GOLD + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Prison" +
+                                    ChatColor.GRAY + "."));
                     if (LocationUtil.hasSpawn(player.getWorld())) {
                         player.teleport(LocationUtil.getSpawn(player.getWorld()));
                     }
@@ -81,9 +97,12 @@ public class PlayerListener implements Listener {
             case FREEBUILD:
                 if (!user.playedFreebuild()) {
                     user.setPlayedFreebuild(true);
-                    broadcastNewJoin(Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
-                            ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC + " to " +
-                            ChatColor.GREEN + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Freebuild" + ChatColor.GRAY + "."));
+                    broadcastNewJoin(
+                            Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
+                                    ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC +
+                                    " to " +
+                                    ChatColor.GREEN + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Freebuild" +
+                                    ChatColor.GRAY + "."));
                     if (LocationUtil.hasSpawn(player.getWorld())) {
                         player.teleport(LocationUtil.getSpawn(player.getWorld()));
                     }
@@ -92,9 +111,12 @@ public class PlayerListener implements Listener {
             case MINIGAMES:
                 if (!user.playedMinigames()) {
                     user.setPlayedMinigames(true);
-                    broadcastNewJoin(Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
-                            ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC + " to " +
-                            ChatColor.AQUA + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Minigames" + ChatColor.GRAY + "."));
+                    broadcastNewJoin(
+                            Lang.CHAT_TAG.getServerMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "Welcome " +
+                                    ChatColor.BLUE + "" + player.getName() + ChatColor.GRAY + "" + ChatColor.ITALIC +
+                                    " to " +
+                                    ChatColor.AQUA + "" + ChatColor.BOLD + "" + ChatColor.ITALIC + "Minigames" +
+                                    ChatColor.GRAY + "."));
                     if (LocationUtil.hasSpawn(player.getWorld())) {
                         player.teleport(LocationUtil.getSpawn(player.getWorld()));
                     }
@@ -103,32 +125,44 @@ public class PlayerListener implements Listener {
         }
 
         String joinMessage;
-        String joinTag = ChatColor.DARK_GRAY + " [" + ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "+" + ChatColor.DARK_GRAY + "] ";
+        String joinTag =
+                ChatColor.DARK_GRAY + " [" + ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "+" + ChatColor.DARK_GRAY +
+                        "] ";
         if (player.hasPermission("ne.staff")) {
             String staffTag = ChatColor.AQUA + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "Staff ";
-            joinMessage = joinTag + staffTag + ChatColor.translateAlternateColorCodes('&', user.getDisplayName()) + ChatColor.GRAY + " joined the game.";
+            joinMessage = joinTag + staffTag + ChatColor.translateAlternateColorCodes('&', user.getDisplayName()) +
+                    ChatColor.GRAY + " joined the game.";
         } else {
-            joinMessage = joinTag + ChatColor.translateAlternateColorCodes('&', user.getDisplayName()) + ChatColor.GRAY + " joined the game.";
+            joinMessage =
+                    joinTag + ChatColor.translateAlternateColorCodes('&', user.getDisplayName()) + ChatColor.GRAY +
+                            " joined the game.";
         }
         player.setDisplayName(ChatColor.translateAlternateColorCodes('&', user.getDisplayName()));
         getScoreboardManager().startBoards(player);
-        getCodeHandler().setTabMenuHeaderFooter(player, Lang.HEADER.getServerHeader() + ChatColor.RESET + "\n  ","    \n" + ChatColor.DARK_GRAY + "»» " + ChatColor.GRAY + "play.nighthawkempires.net" + ChatColor.DARK_GRAY + " ««" + "\n" + Lang.FOOTER.getMessage());
+        getCodeHandler().setTabMenuHeaderFooter(player, Lang.HEADER.getServerHeader() + ChatColor.RESET + "\n  ",
+                "    \n" + ChatColor.DARK_GRAY + "»» " + ChatColor.GRAY + "play.nighthawkempires.net" +
+                        ChatColor.DARK_GRAY + " ««" + "\n" + Lang.FOOTER.getMessage());
         BossBarUtil.setDefaultBar(player);
         event.setJoinMessage(joinMessage);
     }
 
-    @EventHandler (priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         UserModel user = NECore.getUserRegistry().getUser(player.getUniqueId());
 
         String quitMessage;
-        String quitTag = ChatColor.DARK_GRAY + " [" + ChatColor.DARK_RED + "" + ChatColor.BOLD + "-" + ChatColor.DARK_GRAY + "] ";
+        String quitTag =
+                ChatColor.DARK_GRAY + " [" + ChatColor.DARK_RED + "" + ChatColor.BOLD + "-" + ChatColor.DARK_GRAY +
+                        "] ";
         if (player.hasPermission("ne.staff")) {
-                String staffTag = ChatColor.AQUA + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "Staff ";
-                quitMessage = quitTag + staffTag + ChatColor.translateAlternateColorCodes('&', user.getDisplayName()) + ChatColor.GRAY + " left the game.";
+            String staffTag = ChatColor.AQUA + "" + ChatColor.ITALIC + "" + ChatColor.BOLD + "Staff ";
+            quitMessage = quitTag + staffTag + ChatColor.translateAlternateColorCodes('&', user.getDisplayName()) +
+                    ChatColor.GRAY + " left the game.";
         } else {
-                quitMessage = quitTag + ChatColor.translateAlternateColorCodes('&', user.getDisplayName()) + ChatColor.GRAY + " left the game.";
+            quitMessage =
+                    quitTag + ChatColor.translateAlternateColorCodes('&', user.getDisplayName()) + ChatColor.GRAY +
+                            " left the game.";
         }
         getScoreboardManager().stopBoards(player);
         event.setQuitMessage(quitMessage);
@@ -137,7 +171,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        if (getMuteManager().isMuted(player.getUniqueId())){
+        if (getMuteManager().isMuted(player.getUniqueId())) {
             player.sendMessage(getMuteManager().getMuteInfo(player.getUniqueId()));
             event.setCancelled(true);
             return;

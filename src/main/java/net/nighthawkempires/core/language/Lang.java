@@ -147,7 +147,8 @@ public enum Lang {
     }
 
     public String getCommand(String name, String args, String desc) {
-        return ChatColor.AQUA + "/" + name + " " + ChatColor.DARK_AQUA + args + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY + desc + ".";
+        return ChatColor.AQUA + "/" + name + " " + ChatColor.DARK_AQUA + args + ChatColor.DARK_GRAY + " - " +
+                ChatColor.GRAY + desc + ".";
     }
 
     public String getHelpTopic(String topic) {
@@ -155,7 +156,8 @@ public enum Lang {
     }
 
     public String getHelpLine(int page, int total) {
-        return ChatColor.DARK_GRAY + "Help Topic Page" + ChatColor.GRAY + ": " + ChatColor.DARK_GRAY + "[" + ChatColor.GOLD + "" + ChatColor.UNDERLINE + page + ChatColor.DARK_GRAY + "/" + ChatColor.GOLD
+        return ChatColor.DARK_GRAY + "Help Topic Page" + ChatColor.GRAY + ": " + ChatColor.DARK_GRAY + "[" +
+                ChatColor.GOLD + "" + ChatColor.UNDERLINE + page + ChatColor.DARK_GRAY + "/" + ChatColor.GOLD
                 + "" + ChatColor.UNDERLINE + total + ChatColor.DARK_GRAY + "]";
     }
 
@@ -176,15 +178,18 @@ public enum Lang {
     }
 
     public String formatMSGIn(Player player, String message) {
-        return ChatColor.DARK_GRAY + ">[" + ChatColor.BLUE + player.getName() + ChatColor.DARK_GRAY + "]--> " + ChatColor.GRAY + message;
+        return ChatColor.DARK_GRAY + ">[" + ChatColor.BLUE + player.getName() + ChatColor.DARK_GRAY + "]--> " +
+                ChatColor.GRAY + message;
     }
 
     public String formatMSGIn(String string, String message) {
-        return ChatColor.DARK_GRAY + ">[" + ChatColor.BLUE + string + ChatColor.DARK_GRAY + "]--> " + ChatColor.GRAY + message;
+        return ChatColor.DARK_GRAY + ">[" + ChatColor.BLUE + string + ChatColor.DARK_GRAY + "]--> " + ChatColor.GRAY +
+                message;
     }
 
     public String formatMSGOut(Player player, String message) {
-        return ChatColor.DARK_GRAY + "<--[" + ChatColor.BLUE + player.getName() + ChatColor.DARK_GRAY + "]< " + ChatColor.GRAY + message;
+        return ChatColor.DARK_GRAY + "<--[" + ChatColor.BLUE + player.getName() + ChatColor.DARK_GRAY + "]< " +
+                ChatColor.GRAY + message;
     }
 
     public class Words {
@@ -194,10 +199,14 @@ public enum Lang {
         private List<String> nameFriendly;
 
         public Words() {
-            bannedWords = Lists.newArrayList("Ass", "Bitch", "Hoe", "Nigger", "Nigga", "Damn", "Fuck", "Dammit", "Pussy", "Cock", "Cunt", "Vagina", "Dick", "Shit", "Penis", "Staff", "Server", "Console");
+            bannedWords =
+                    Lists.newArrayList("Ass", "Bitch", "Hoe", "Nigger", "Nigga", "Damn", "Fuck", "Dammit", "Pussy",
+                            "Cock", "Cunt", "Vagina", "Dick", "Shit", "Penis", "Staff", "Server", "Console");
             numbers = Lists.newArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
-            nameFriendly = Lists.newArrayList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
-                    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
+            nameFriendly =
+                    Lists.newArrayList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
+                            "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+                            "1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
         }
 
         public List<String> getBannedWords() {

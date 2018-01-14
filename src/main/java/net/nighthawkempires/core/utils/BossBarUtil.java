@@ -3,13 +3,9 @@ package net.nighthawkempires.core.utils;
 import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarFlag;
-import org.bukkit.boss.BarStyle;
-import org.bukkit.boss.BossBar;
+import org.bukkit.boss.*;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 
@@ -54,15 +50,22 @@ public class BossBarUtil {
     public static void setDefaultBar(Player player) {
         BossBar bossBar = playerBar.get(player.getUniqueId());
         if (bossBar == null) {
-            bossBar = Bukkit.createBossBar(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "* " + ChatColor.GRAY  + "" + ChatColor.ITALIC + "Donate"
-                            + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + " * " + ChatColor.BLUE + "" + ChatColor.ITALIC + "" + ChatColor.UNDERLINE + "store.nighthawkempires.net"
-                            + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + " * " + ChatColor.GRAY  + "" + ChatColor.ITALIC + "50% off" + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + " * ",
+            bossBar = Bukkit.createBossBar(
+                    ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "* " + ChatColor.GRAY + "" + ChatColor.ITALIC +
+                            "Donate"
+                            + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + " * " + ChatColor.BLUE + "" +
+                            ChatColor.ITALIC + "" + ChatColor.UNDERLINE + "store.nighthawkempires.net"
+                            + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + " * " + ChatColor.GRAY + "" +
+                            ChatColor.ITALIC + "50% off" + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + " * ",
                     BarColor.BLUE, BarStyle.SOLID);
             playerBar.put(player.getUniqueId(), bossBar);
         }
-        bossBar.setTitle(ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "* " + ChatColor.GRAY  + "" + ChatColor.ITALIC + "Donate"
-                + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + " * " + ChatColor.BLUE + "" + ChatColor.ITALIC + "" + ChatColor.UNDERLINE + "store.nighthawkempires.net"
-                + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + " * " + ChatColor.GRAY  + "" + ChatColor.ITALIC + "50% off" + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + " * ");
+        bossBar.setTitle(
+                ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "* " + ChatColor.GRAY + "" + ChatColor.ITALIC + "Donate"
+                        + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + " * " + ChatColor.BLUE + "" + ChatColor.ITALIC +
+                        "" + ChatColor.UNDERLINE + "store.nighthawkempires.net"
+                        + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + " * " + ChatColor.GRAY + "" + ChatColor.ITALIC +
+                        "50% off" + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + " * ");
         bossBar.setColor(BarColor.BLUE);
         bossBar.setStyle(BarStyle.SOLID);
         bossBar.setProgress(1.0);

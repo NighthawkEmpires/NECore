@@ -69,61 +69,50 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
 
     public void remove(String key) {
         REGISTERED_DATA.asMap().remove(key);
-        synchronized (COLLECTION) {
-            COLLECTION.deleteOne(Filters.eq("key", key));
-        }
+        COLLECTION.deleteOne(Filters.eq("key", key));
     }
 
     public void saveToDb(String key) {
         Optional<Document> loaded = loadFromDb(key);
         if (REGISTERED_DATA.asMap().containsKey(key)) {
             Model model = REGISTERED_DATA.asMap().get(key);
-            Document document;
-            if (!loaded.isPresent()) {
-                document = mapToDocument(model.serialize());
-                document.put("key", key);
-            } else {
-                document = overwriteDocument(loaded.get(), model.serialize());
-                document.put("key", key);
+            if (loaded.isPresent()) {
+                COLLECTION.deleteMany(Filters.eq("key", key));
             }
-            synchronized (COLLECTION) {
-                COLLECTION.insertOne(document);
-            }
+            Document document = mapToDocument(model.serialize());
+            document.put("key", key);
+            COLLECTION.insertOne(document);
         }
     }
 
     @SuppressWarnings("unchecked")
     public Optional<Document> loadFromDb(String key) {
-        synchronized (COLLECTION) {
-            Document document = COLLECTION.find(Filters.eq("key", key)).first();
-            if (document != null) {
-                REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(document)));
-                return Optional.of(document);
-            }
+        Document document = COLLECTION.find(Filters.eq("key", key)).first();
+        if (document != null) {
+            REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(document)));
+            return Optional.of(document);
         }
         return Optional.empty();
     }
 
     @SuppressWarnings("ConstantConditions")
     public Map<String, T> loadAllFromDb() {
-        synchronized (COLLECTION) {
-            MongoCursor<Document> cursor = COLLECTION.find().iterator();
-            try {
-                while (cursor.hasNext()) {
-                    Document document = cursor.next();
-                    String key = document.getString("key");
-                    if (key != null) {
-                        try {
-                            UUID.fromString(key);
-                            REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(document)));
-                        } catch (Exception oops) {
-                            oops.printStackTrace();
-                        }
+        MongoCursor<Document> cursor = COLLECTION.find().iterator();
+        try {
+            while (cursor.hasNext()) {
+                Document document = cursor.next();
+                String key = document.getString("key");
+                if (key != null) {
+                    try {
+                        UUID.fromString(key);
+                        REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(document)));
+                    } catch (Exception oops) {
+                        oops.printStackTrace();
                     }
                 }
-            } finally {
-                cursor.close();
             }
+        } finally {
+            cursor.close();
         }
         return REGISTERED_DATA.asMap();
     }
@@ -135,8 +124,8 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
 
     // -- UTILITY METHODS -- //
 
-    public static Document overwriteDocument(Document document, Map<String, Object> map) {
-        document.clear();
+    public static Document mapToDocument(Map<String, Object> map) {
+        Document document = new Document();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             if (entry.getValue() instanceof Map) {
                 document.put(entry.getKey(), mapToDocument((Map) entry.getValue()));
@@ -145,10 +134,6 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
             }
         }
         return document;
-    }
-
-    public static Document mapToDocument(Map<String, Object> map) {
-        return overwriteDocument(new Document(), map);
     }
 
     public static Map<String, Object> documentToMap(Document document) {

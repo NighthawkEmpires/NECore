@@ -1,7 +1,6 @@
 package net.nighthawkempires.core.scoreboard;
 
 import com.google.common.collect.Lists;
-
 import com.google.common.collect.Maps;
 import net.nighthawkempires.core.NECore;
 import net.nighthawkempires.core.scoreboard.def.NameScoreboards;
@@ -35,7 +34,7 @@ public class ScoreboardManager {
         final int[] board = {0};
         final int[] stopBoard = {0};
         int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(NECore.getPlugin(), () -> {
-            if (!player.isOnline())return;
+            if (!player.isOnline()) return;
 
             if (board[0] == scoreboardMap.get(player.getUniqueId()).size()) {
                 board[0] = 0;
@@ -45,10 +44,10 @@ public class ScoreboardManager {
                 board[0] = 0;
             }
 
-            stopBoard[0] = board[0] -1;
+            stopBoard[0] = board[0] - 1;
 
             if (stopBoard[0] == -1) {
-                stopBoard[0] = scoreboardMap.get(player.getUniqueId()).size() -1;
+                stopBoard[0] = scoreboardMap.get(player.getUniqueId()).size() - 1;
             }
 
             try {
@@ -57,7 +56,7 @@ public class ScoreboardManager {
 
             player.setScoreboard(scoreboardMap.get(player.getUniqueId()).get(board[0]).getFor(player));
             board[0]++;
-        }, 0 , 20*15);
+        }, 0, 20 * 15);
         repeatFor.put(player.getUniqueId(), taskId);
     }
 

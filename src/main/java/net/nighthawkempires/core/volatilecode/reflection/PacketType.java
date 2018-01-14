@@ -1,6 +1,6 @@
 package net.nighthawkempires.core.volatilecode.reflection;
 
-public enum  PacketType {
+public enum PacketType {
 
     PlayOut("PlayOut"), PlayIn("PlayIn");
 

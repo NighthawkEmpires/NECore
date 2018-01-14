@@ -1,7 +1,6 @@
 package net.nighthawkempires.core.enchantment;
 
 import com.google.common.collect.Lists;
-import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 
 import java.lang.reflect.Field;

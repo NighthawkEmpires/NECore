@@ -1,6 +1,5 @@
 package net.nighthawkempires.core.volatilecode;
 
-import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterators;
@@ -42,10 +41,13 @@ public class Attributes {
         public static final AttributeType GENERIC_MAX_HEALTH = new AttributeType("generic.maxHealth").register();
         public static final AttributeType GENERIC_FOLLOW_RANGE = new AttributeType("generic.followRange").register();
         public static final AttributeType GENERIC_ATTACK_DAMAGE = new AttributeType("generic.attackDamage").register();
-        public static final AttributeType GENERIC_MOVEMENT_SPEED = new AttributeType("generic.movementSpeed").register();
-        public static final AttributeType GENERIC_KNOCKBACK_RESISTANCE = new AttributeType("generic.knockbackResistance").register();
+        public static final AttributeType GENERIC_MOVEMENT_SPEED =
+                new AttributeType("generic.movementSpeed").register();
+        public static final AttributeType GENERIC_KNOCKBACK_RESISTANCE =
+                new AttributeType("generic.knockbackResistance").register();
         public static final AttributeType GENERIC_ARMOR = new AttributeType("generic.armor").register();
-        public static final AttributeType GENERIC_ARMOR_TOUGHNESS = new AttributeType("generic.armorToughness").register();
+        public static final AttributeType GENERIC_ARMOR_TOUGHNESS =
+                new AttributeType("generic.armorToughness").register();
 
         private final String minecraftId;
 
@@ -132,9 +134,11 @@ public class Attributes {
             data.put("UUIDLeast", id.getLeastSignificantBits());
             data.put("UUIDMost", id.getMostSignificantBits());
         }
+
         public String getSlot() {
             return data.getString("Slot", null);
         }
+
         public void setSlot(String slot) {
             Preconditions.checkNotNull(slot, "slot cannot be NULL.");
             data.put("Slot", slot);

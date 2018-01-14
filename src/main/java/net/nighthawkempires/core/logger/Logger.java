@@ -14,7 +14,9 @@ public class Logger {
     }
 
     public void info(Plugin plugin, String message) {
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.BLUE + plugin.getName() + ChatColor.DARK_GRAY + "] " + ChatColor.GREEN + message);
+        Bukkit.getConsoleSender().sendMessage(
+                ChatColor.DARK_GRAY + "[" + ChatColor.BLUE + plugin.getName() + ChatColor.DARK_GRAY + "] " +
+                        ChatColor.GREEN + message);
     }
 
     public void info(String message) {
@@ -22,7 +24,9 @@ public class Logger {
     }
 
     public void warn(Plugin plugin, String message) {
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.BLUE + plugin.getName() + ChatColor.DARK_GRAY + "] " + ChatColor.RED + message);
+        Bukkit.getConsoleSender().sendMessage(
+                ChatColor.DARK_GRAY + "[" + ChatColor.BLUE + plugin.getName() + ChatColor.DARK_GRAY + "] " +
+                        ChatColor.RED + message);
     }
 
     public void warn(String message) {

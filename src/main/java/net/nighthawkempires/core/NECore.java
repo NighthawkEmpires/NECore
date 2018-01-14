@@ -1,9 +1,6 @@
 package net.nighthawkempires.core;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
+import com.mongodb.*;
 import com.mongodb.client.MongoDatabase;
 import de.slikey.effectlib.EffectLib;
 import de.slikey.effectlib.EffectManager;
@@ -27,15 +24,12 @@ import net.nighthawkempires.core.settings.Settings;
 import net.nighthawkempires.core.sql.MySQL;
 import net.nighthawkempires.core.sql.SQLConnector;
 import net.nighthawkempires.core.task.SQLTask;
-import net.nighthawkempires.core.users.registry.FUserRegistry;
-import net.nighthawkempires.core.users.registry.MUserRegistry;
-import net.nighthawkempires.core.users.registry.UserRegistry;
+import net.nighthawkempires.core.users.registry.*;
 import net.nighthawkempires.core.volatilecode.VolatileCodeHandler;
 import net.nighthawkempires.core.volatilecode.code.VolatileCodeDisabled;
 import net.nighthawkempires.core.volatilecode.code.VolatileCode_v1_12_R1;
 import net.nighthawkempires.core.volatilecode.glow.GlowManager;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -108,9 +102,11 @@ public class NECore extends JavaPlugin {
 
         try {
             if (getSettings().mysqlEnabled) {
-                sql = new MySQL(getSettings().mysqlHostname, "3306", getSettings().mysqlDatabase, getSettings().mysqlUsername, getSettings().mysqlPassword);
+                sql = new MySQL(getSettings().mysqlHostname, "3306", getSettings().mysqlDatabase,
+                        getSettings().mysqlUsername, getSettings().mysqlPassword);
                 sql.openConnection();
-                connector = new SQLConnector(getSettings().mysqlHostname, getSettings().mysqlDatabase, getSettings().mysqlUsername, getSettings().mysqlPassword);
+                connector = new SQLConnector(getSettings().mysqlHostname, getSettings().mysqlDatabase,
+                        getSettings().mysqlUsername, getSettings().mysqlPassword);
                 connector.getConnection();
             }
         } catch (Exception e) {

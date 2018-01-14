@@ -22,7 +22,7 @@ public class DefaultPlayerTag extends PlayerTag {
     }
 
     public TextComponent getComponentFor(Player tagSource) {
-        if(tagSource.hasPermission(permissionNode)) {
+        if (tagSource.hasPermission(permissionNode)) {
             return tagText;
         }
         return null;

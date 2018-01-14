@@ -42,7 +42,8 @@ public class AnnouncementManager {
                 for (String announcement : getConfig().getConfigurationSection("announcements").getKeys(false)) {
                     ConfigurationSection section = getConfig().getConfigurationSection("announcements." + announcement);
                     String id = announcement.substring(announcement.length() - 1);
-                    getAnnouncements().add(new Announcement(Integer.valueOf(id), ListArraySetUtil.getStringArray(section.getStringList("lines"))));
+                    getAnnouncements().add(new Announcement(Integer.valueOf(id),
+                            ListArraySetUtil.getStringArray(section.getStringList("lines"))));
                 }
             }
         }
@@ -53,7 +54,8 @@ public class AnnouncementManager {
         if (getConfig().getBoolean("settings.enable", true)) {
             ConfigurationSection section = getConfig().getConfigurationSection("announcements");
             for (Announcement announcement : getAnnouncements()) {
-                section.set("announcement" + announcement.getId() + ".lines", ListArraySetUtil.getStringList(announcement.getLines()));
+                section.set("announcement" + announcement.getId() + ".lines",
+                        ListArraySetUtil.getStringList(announcement.getLines()));
             }
             getFileManager().save(FileType.ANNOUNCEMENT, true);
         }
@@ -65,13 +67,15 @@ public class AnnouncementManager {
                 Bukkit.getScheduler().cancelTask(taskId);
             }
 
-            this.taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(NECore.getPlugin(), this::broadcastAnnouncement, delay * 20L, delay * 20L);
+            this.taskId = Bukkit.getScheduler()
+                    .scheduleSyncRepeatingTask(NECore.getPlugin(), this::broadcastAnnouncement, delay * 20L,
+                            delay * 20L);
         }
     }
 
     public void broadcastAnnouncement() {
         Announcement announcement = pickAnnouncement();
-        if (announcement == null)return;
+        if (announcement == null) return;
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.sendMessage(Lang.HEADER.getServerHeader());
@@ -81,7 +85,7 @@ public class AnnouncementManager {
     }
 
     public Announcement pickAnnouncement() {
-        if (getAnnouncements().isEmpty())return null;
+        if (getAnnouncements().isEmpty()) return null;
 
         id++;
         if (id >= getAnnouncements().size()) {

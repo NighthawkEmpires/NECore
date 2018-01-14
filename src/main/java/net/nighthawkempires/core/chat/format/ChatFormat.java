@@ -1,13 +1,9 @@
 package net.nighthawkempires.core.chat.format;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.google.common.collect.*;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.nighthawkempires.core.chat.tag.ConsoleTag;
-import net.nighthawkempires.core.chat.tag.PlayerTag;
-import net.nighthawkempires.core.chat.tag.ServerTag;
+import net.nighthawkempires.core.chat.tag.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;

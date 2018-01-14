@@ -5,9 +5,7 @@ import net.nighthawkempires.core.volatilecode.util.ReflectionUtil;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.UUID;
+import java.util.*;
 
 public class TeamUtil {
 
@@ -42,8 +40,7 @@ public class TeamUtil {
 
             changePacketCollisionType(packetTeamObject);
 
-            if (!getSecurePlayers().contains(player))
-                ReflectionUtil.Packets.sendPacket(player, packetTeamObject);
+            if (!getSecurePlayers().contains(player)) { ReflectionUtil.Packets.sendPacket(player, packetTeamObject); }
 
         } catch (Exception ex) {
             ex.printStackTrace();

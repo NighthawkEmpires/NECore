@@ -49,7 +49,8 @@ public class FileManager {
                         config.addDefault("settings.console.uuid", "12ea1659-5da0-4ec0-9c8d-15350261e2d5");
                         config.addDefault("settings.console.display-name", "&8&l&o*&7&l&oHawkeye&8&l&o*");
                         config.addDefault("settings.banned-words", Lists.newArrayList("Pussy", "Cock", "Fuck", "Shit",
-                                "Ass", "Dick", "Penis", "Vagina", "Cunt", "Bitch", "Nigger", "Phil", "Staff", "Server", "Console", "Disowned"));
+                                "Ass", "Dick", "Penis", "Vagina", "Cunt", "Bitch", "Nigger", "Phil", "Staff", "Server",
+                                "Console", "Disowned"));
                         config.options().header("MongoDB Connection Info");
                         config.options().copyHeader(true);
                         config.addDefault("databases.mongodb.enabled", false);
@@ -91,7 +92,7 @@ public class FileManager {
     }
 
     public void save(FileType fileType) {
-        if (!loaded(fileType))return;
+        if (!loaded(fileType)) return;
         try {
             get(fileType).save(fileType.getFile());
         } catch (IOException ignored) {}
@@ -123,7 +124,7 @@ public class FileManager {
 
             configMap.put(name, config);
             fileMap.put(config, file);
-        } catch (Exception ignored){}
+        } catch (Exception ignored) {}
     }
 
     public FileConfiguration getFile(String name) {

@@ -12,7 +12,6 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.BlockIterator;
 import org.bukkit.util.Vector;
 
@@ -84,7 +83,7 @@ public class LocationUtil {
     }
 
     public static Location getWarp(String name) {
-        if (!warpExists(name))return null;
+        if (!warpExists(name)) return null;
         ConfigurationSection section = getLocationFile().getConfigurationSection("warp." + name.toLowerCase());
         World world = Bukkit.getWorld(section.getString("world"));
         int x = section.getInt("cord-x"), y = section.getInt("cord-y"), z = section.getInt("cord-z");
@@ -109,7 +108,7 @@ public class LocationUtil {
     }
 
     public static void deleteWarp(String name) {
-        if (!warpExists(name))return;
+        if (!warpExists(name)) return;
         getLocationFile().set("warp." + name.toLowerCase(), null);
         saveLocationFile();
     }
@@ -119,8 +118,9 @@ public class LocationUtil {
     }
 
     public static Location getHome(UUID uuid, World world) {
-        if (!homeExists(uuid, world))return null;
-        ConfigurationSection section = getHomesFile().getConfigurationSection("homes." + uuid.toString() + "." + world.getName());
+        if (!homeExists(uuid, world)) return null;
+        ConfigurationSection section =
+                getHomesFile().getConfigurationSection("homes." + uuid.toString() + "." + world.getName());
         int x = section.getInt("cord-x"), y = section.getInt("cord-y"), z = section.getInt("cord-z");
         float yaw = Float.parseFloat(section.getString("yaw")), pitch = Float.parseFloat(section.getString("pitch"));
         return new Location(world, getBlockCenter(x), getBlockCenter(y), getBlockCenter(z), yaw, pitch);
@@ -130,8 +130,10 @@ public class LocationUtil {
         getHomesFile().set("homes." + uuid.toString() + "." + world.getName() + ".cord-x", location.getBlockX());
         getHomesFile().set("homes." + uuid.toString() + "." + world.getName() + ".cord-y", location.getBlockY());
         getHomesFile().set("homes." + uuid.toString() + "." + world.getName() + ".cord-z", location.getBlockZ());
-        getHomesFile().set("homes." + uuid.toString() + "." + world.getName() + ".yaw", String.valueOf(location.getYaw()));
-        getHomesFile().set("homes." + uuid.toString() + "." + world.getName() + ".pitch", String.valueOf(location.getPitch()));
+        getHomesFile()
+                .set("homes." + uuid.toString() + "." + world.getName() + ".yaw", String.valueOf(location.getYaw()));
+        getHomesFile().set("homes." + uuid.toString() + "." + world.getName() + ".pitch",
+                String.valueOf(location.getPitch()));
         saveHomesFile();
     }
 
@@ -180,7 +182,8 @@ public class LocationUtil {
     }
 
 
-    public static void poofBlocks(Block center, int radius, List<Material> searched, Material replacement, Effect effect) {
+    public static void poofBlocks(Block center, int radius, List<Material> searched, Material replacement,
+                                  Effect effect) {
         for (int x = -(radius); x <= radius; x++) {
             for (int y = -(radius); y <= radius; y++) {
                 for (int z = -(radius); z <= radius; z++) {
@@ -248,9 +251,11 @@ public class LocationUtil {
             final double newTargetDistance2_feed = somePlayerLocation_feed.distanceSquared(fromLocation);
 
             if (newTargetDistance2_middle <= maxRange2) {
-                final Vector toTarget_middle = somePlayerLocation_middle.toVector().subtract(playerVectorPos).normalize();
+                final Vector toTarget_middle =
+                        somePlayerLocation_middle.toVector().subtract(playerVectorPos).normalize();
                 final double dotProduct_middle = toTarget_middle.dot(playerDirection);
-                if (dotProduct_middle > precision && player.hasLineOfSight(somePlayer) && (target == null || newTargetDistance2_middle < targetDistance2)) {
+                if (dotProduct_middle > precision && player.hasLineOfSight(somePlayer) &&
+                        (target == null || newTargetDistance2_middle < targetDistance2)) {
                     target = somePlayer;
                     targetDistance2 = newTargetDistance2_middle;
                     continue;
@@ -259,7 +264,8 @@ public class LocationUtil {
             if (newTargetDistance2_eye <= maxRange2) {
                 final Vector toTarget_eye = somePlayerLocation_eye.toVector().subtract(playerVectorPos).normalize();
                 final double dotProduct_eye = toTarget_eye.dot(playerDirection);
-                if (dotProduct_eye > precision && player.hasLineOfSight(somePlayer) && (target == null || newTargetDistance2_eye < targetDistance2)) {
+                if (dotProduct_eye > precision && player.hasLineOfSight(somePlayer) &&
+                        (target == null || newTargetDistance2_eye < targetDistance2)) {
                     target = somePlayer;
                     targetDistance2 = newTargetDistance2_eye;
                     continue;
@@ -268,7 +274,8 @@ public class LocationUtil {
             if (newTargetDistance2_feed <= maxRange2) {
                 final Vector toTarget_feed = somePlayerLocation_feed.toVector().subtract(playerVectorPos).normalize();
                 final double dotProduct_feed = toTarget_feed.dot(playerDirection);
-                if (dotProduct_feed > precision && player.hasLineOfSight(somePlayer) && (target == null || newTargetDistance2_feed < targetDistance2)) {
+                if (dotProduct_feed > precision && player.hasLineOfSight(somePlayer) &&
+                        (target == null || newTargetDistance2_feed < targetDistance2)) {
                     target = somePlayer;
                     targetDistance2 = newTargetDistance2_feed;
                 }
@@ -276,6 +283,7 @@ public class LocationUtil {
         }
         return target;
     }
+
     public static Location getMiddleLocationOfPlayer(final Player player) {
         return player.getLocation().add(0, player.getEyeHeight() / 2, 0);
     }

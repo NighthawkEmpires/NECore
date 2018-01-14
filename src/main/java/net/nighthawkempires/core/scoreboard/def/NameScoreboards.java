@@ -44,12 +44,14 @@ public class NameScoreboards extends Scoreboards {
         tokens.setPrefix("");
         tokens.setSuffix("");
 
-        objective[0].getScore(ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "------------").setScore(10);
+        objective[0].getScore(ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "------------")
+                .setScore(10);
         objective[0].getScore(ChatColor.GRAY + "" + ChatColor.BOLD + " Name" + ChatColor.GRAY + ": ").setScore(9);
         objective[0].getScore(ChatColor.GRAY + " ➛   " + ChatColor.BLUE + "" + ChatColor.BOLD).setScore(8);
         name.setSuffix(player.getName());
         objective[0].getScore(ChatColor.DARK_PURPLE + " ").setScore(7);
-        objective[0].getScore(ChatColor.GRAY + "" + ChatColor.BOLD + " Display Name" + ChatColor.GRAY + ": ").setScore(6);
+        objective[0].getScore(ChatColor.GRAY + "" + ChatColor.BOLD + " Display Name" + ChatColor.GRAY + ": ")
+                .setScore(6);
         objective[0].getScore(ChatColor.GRAY + " ➛   " + ChatColor.GRAY + "" + ChatColor.BOLD).setScore(5);
         try {
             display.setSuffix(ChatColor.translateAlternateColorCodes('&', user.getDisplayName()));
@@ -60,18 +62,22 @@ public class NameScoreboards extends Scoreboards {
         objective[0].getScore(ChatColor.GRAY + "" + ChatColor.BOLD + " Tokens" + ChatColor.GRAY + ": ").setScore(3);
         objective[0].getScore(ChatColor.GRAY + " ➛   " + ChatColor.GOLD + "" + ChatColor.BOLD).setScore(2);
         tokens.setSuffix(user.getTokens() + "");
-        objective[0].getScore(ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "-----------").setScore(1);
+        objective[0].getScore(ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + "" + ChatColor.BOLD + "-----------")
+                .setScore(1);
 
         this.task = Bukkit.getScheduler().scheduleSyncRepeatingTask(NECore.getPlugin(), () -> {
             name.setSuffix(player.getName());
             try {
                 display.setSuffix(ChatColor.translateAlternateColorCodes('&', user.getDisplayName()));
             } catch (IllegalArgumentException e) {
-                display.setSuffix(ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', user.getDisplayName())));
+                display.setSuffix(
+                        ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', user.getDisplayName())));
             }
             tokens.setSuffix(user.getTokens() + "");
         }, 0, 5);
-        Bukkit.getScheduler().scheduleSyncDelayedTask(NECore.getPlugin(), () -> Bukkit.getScheduler().cancelTask(this.task), 14*20);
+        Bukkit.getScheduler()
+                .scheduleSyncDelayedTask(NECore.getPlugin(), () -> Bukkit.getScheduler().cancelTask(this.task),
+                        14 * 20);
         return scoreboard[0];
     }
 }

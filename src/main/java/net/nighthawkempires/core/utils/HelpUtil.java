@@ -10,12 +10,9 @@ import org.bukkit.plugin.Plugin;
 
 import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class HelpUtil {
-
 
 
     public static List<String> getPlugins(Player player) {
@@ -46,9 +43,13 @@ public class HelpUtil {
         List<String> commands = Lists.newArrayList();
         for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
             if (plugin.getDescription().getCommands() != null) {
-                plugins.add(ChatColor.BLUE + plugin.getName() + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY + (plugin.getDescription().getDescription() != null ? plugin.getDescription().getDescription() : ""));
+                plugins.add(ChatColor.BLUE + plugin.getName() + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY +
+                        (plugin.getDescription().getDescription() != null ? plugin.getDescription().getDescription() :
+                                ""));
                 for (String s : plugin.getDescription().getCommands().keySet()) {
-                    commands.add(ChatColor.AQUA + "/" + s + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY + (Bukkit.getPluginCommand(s).getDescription() != null ? Bukkit.getPluginCommand(s).getDescription() : ""));
+                    commands.add(ChatColor.AQUA + "/" + s + ChatColor.DARK_GRAY + " - " + ChatColor.GRAY +
+                            (Bukkit.getPluginCommand(s).getDescription() != null ?
+                                    Bukkit.getPluginCommand(s).getDescription() : ""));
                 }
             }
         }
@@ -69,7 +70,7 @@ public class HelpUtil {
 
     public static void sendPage(Player player, int page) {
         int displayPage = page;
-        page = page -1;
+        page = page - 1;
 
         int start = 10 * page;
         int finish;
@@ -85,7 +86,7 @@ public class HelpUtil {
             cmds.add(getHelpTopics(player).get(i));
         }
 
-        String[] help = new String[] {
+        String[] help = new String[]{
                 Lang.HEADER.getServerHeader(),
                 Lang.HELP.getHelpLine(displayPage, getTotalPages(player)),
                 Lang.FOOTER.getMessage(),
@@ -99,7 +100,7 @@ public class HelpUtil {
 
     public static void sendPage(ConsoleCommandSender console, int page) {
         int displayPage = page;
-        page = page -1;
+        page = page - 1;
 
         int start = 10 * page;
         int finish;
@@ -115,7 +116,7 @@ public class HelpUtil {
             cmds.add(getHelpTopics(null).get(i));
         }
 
-        String[] help = new String[] {
+        String[] help = new String[]{
                 Lang.HEADER.getServerHeader(),
                 Lang.HELP.getHelpLine(displayPage, getTotalPages(null)),
                 Lang.FOOTER.getMessage(),

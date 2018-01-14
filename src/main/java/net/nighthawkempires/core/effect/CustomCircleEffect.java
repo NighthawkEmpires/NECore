@@ -18,7 +18,8 @@ public class CustomCircleEffect extends Effect {
         if (getLocation() != null) {
             for (int x = -radius; x < radius; x++) {
                 for (int z = -radius; z < radius; z++) {
-                    Location location = getLocation().getBlock().getRelative(x, getLocation().getBlockY(), z).getLocation();
+                    Location location =
+                            getLocation().getBlock().getRelative(x, getLocation().getBlockY(), z).getLocation();
                     this.display(this.effect, location);
                 }
             }

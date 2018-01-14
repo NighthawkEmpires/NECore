@@ -45,13 +45,16 @@ public interface VolatileCodeHandler {
 
     void playEntityAnimation(Location location, EntityType entityType, int animationId, boolean instant);
 
-    void createFireworksExplosion(Location location, boolean flicker, boolean trail, int type, int[] colors, int[] fadeColors, int flightDuration);
+    void createFireworksExplosion(Location location, boolean flicker, boolean trail, int type, int[] colors,
+                                  int[] fadeColors, int flightDuration);
 
     void setHeldItemSlot(Player player, int slot);
 
-    void playParticleEffect(Location location, String name, float spreadHoriz, float spreadVert, float speed, int count, int radius, float yOffset);
+    void playParticleEffect(Location location, String name, float spreadHoriz, float spreadVert, float speed, int count,
+                            int radius, float yOffset);
 
-    void playParticleEffect(Location location, String name, float spreadX, float spreadY, float spreadZ, float speed, int count, int radius, float yOffset);
+    void playParticleEffect(Location location, String name, float spreadX, float spreadY, float spreadZ, float speed,
+                            int count, int radius, float yOffset);
 
     void setKiller(LivingEntity entity, Player killer);
 

@@ -7,12 +7,9 @@ import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.LeatherArmorMeta;
-import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.inventory.meta.*;
 
 import java.util.*;
-import java.util.List;
 
 public class ItemUtil {
 
@@ -41,30 +38,45 @@ public class ItemUtil {
     private static Set<Material> meats;
 
     static {
-        axes = Sets.newHashSet(Material.WOOD_AXE, Material.STONE_AXE, Material.IRON_AXE, Material.GOLD_AXE, Material.DIAMOND_AXE);
-        hoes = Sets.newHashSet(Material.WOOD_HOE, Material.STONE_HOE, Material.IRON_HOE, Material.GOLD_HOE, Material.DIAMOND_HOE);
-        pickaxes = Sets.newHashSet(Material.WOOD_PICKAXE, Material.STONE_PICKAXE, Material.IRON_PICKAXE, Material.GOLD_PICKAXE, Material.DIAMOND_PICKAXE);
-        spades = Sets.newHashSet(Material.WOOD_SPADE, Material.STONE_SPADE, Material.IRON_SPADE, Material.GOLD_SPADE, Material.DIAMOND_SPADE);
-        swords = Sets.newHashSet(Material.WOOD_SWORD, Material.STONE_SWORD, Material.IRON_SWORD, Material.GOLD_SWORD, Material.DIAMOND_SWORD);
+        axes = Sets.newHashSet(Material.WOOD_AXE, Material.STONE_AXE, Material.IRON_AXE, Material.GOLD_AXE,
+                Material.DIAMOND_AXE);
+        hoes = Sets.newHashSet(Material.WOOD_HOE, Material.STONE_HOE, Material.IRON_HOE, Material.GOLD_HOE,
+                Material.DIAMOND_HOE);
+        pickaxes = Sets.newHashSet(Material.WOOD_PICKAXE, Material.STONE_PICKAXE, Material.IRON_PICKAXE,
+                Material.GOLD_PICKAXE, Material.DIAMOND_PICKAXE);
+        spades = Sets.newHashSet(Material.WOOD_SPADE, Material.STONE_SPADE, Material.IRON_SPADE, Material.GOLD_SPADE,
+                Material.DIAMOND_SPADE);
+        swords = Sets.newHashSet(Material.WOOD_SWORD, Material.STONE_SWORD, Material.IRON_SWORD, Material.GOLD_SWORD,
+                Material.DIAMOND_SWORD);
 
-        helmets = Sets.newHashSet(Material.LEATHER_HELMET, Material.CHAINMAIL_HELMET, Material.IRON_HELMET, Material.GOLD_HELMET, Material.DIAMOND_HELMET);
-        chestplates = Sets.newHashSet(Material.LEATHER_CHESTPLATE, Material.CHAINMAIL_CHESTPLATE, Material.IRON_CHESTPLATE, Material.GOLD_CHESTPLATE,
-                Material.DIAMOND_CHESTPLATE, Material.ELYTRA);
-        leggings = Sets.newHashSet(Material.LEATHER_LEGGINGS, Material.CHAINMAIL_LEGGINGS, Material.IRON_LEGGINGS, Material.GOLD_LEGGINGS, Material.DIAMOND_LEGGINGS);
-        boots = Sets.newHashSet(Material.LEATHER_BOOTS, Material.CHAINMAIL_BOOTS, Material.IRON_BOOTS, Material.GOLD_BOOTS, Material.DIAMOND_BOOTS);
+        helmets = Sets.newHashSet(Material.LEATHER_HELMET, Material.CHAINMAIL_HELMET, Material.IRON_HELMET,
+                Material.GOLD_HELMET, Material.DIAMOND_HELMET);
+        chestplates =
+                Sets.newHashSet(Material.LEATHER_CHESTPLATE, Material.CHAINMAIL_CHESTPLATE, Material.IRON_CHESTPLATE,
+                        Material.GOLD_CHESTPLATE,
+                        Material.DIAMOND_CHESTPLATE, Material.ELYTRA);
+        leggings = Sets.newHashSet(Material.LEATHER_LEGGINGS, Material.CHAINMAIL_LEGGINGS, Material.IRON_LEGGINGS,
+                Material.GOLD_LEGGINGS, Material.DIAMOND_LEGGINGS);
+        boots = Sets.newHashSet(Material.LEATHER_BOOTS, Material.CHAINMAIL_BOOTS, Material.IRON_BOOTS,
+                Material.GOLD_BOOTS, Material.DIAMOND_BOOTS);
 
         fruits = Sets.newHashSet(Material.APPLE, Material.GOLDEN_APPLE, Material.MELON);
-        vegetables = Sets.newHashSet(Material.CARROT, Material.GOLDEN_CARROT, Material.BEETROOT, Material.BAKED_POTATO, Material.POTATO, Material.POISONOUS_POTATO);
-        raw_foods = Sets.newHashSet(Material.RAW_BEEF, Material.RAW_CHICKEN, Material.RAW_FISH, Material.PORK, Material.MUTTON, Material.RABBIT);
+        vegetables = Sets.newHashSet(Material.CARROT, Material.GOLDEN_CARROT, Material.BEETROOT, Material.BAKED_POTATO,
+                Material.POTATO, Material.POISONOUS_POTATO);
+        raw_foods = Sets.newHashSet(Material.RAW_BEEF, Material.RAW_CHICKEN, Material.RAW_FISH, Material.PORK,
+                Material.MUTTON, Material.RABBIT);
         grown_foods = Sets.newHashSet(Material.MELON);
-        cooked_foods = Sets.newHashSet(Material.GRILLED_PORK, Material.COOKED_BEEF, Material.COOKED_CHICKEN, Material.COOKED_FISH, Material.COOKED_MUTTON, Material.COOKED_MUTTON);
+        cooked_foods = Sets.newHashSet(Material.GRILLED_PORK, Material.COOKED_BEEF, Material.COOKED_CHICKEN,
+                Material.COOKED_FISH, Material.COOKED_MUTTON, Material.COOKED_MUTTON);
         baked_foods = Sets.newHashSet(Material.BAKED_POTATO, Material.PUMPKIN_PIE, Material.CAKE, Material.COOKIE);
         stew_foods = Sets.newHashSet(Material.RABBIT_STEW, Material.BEETROOT_SOUP, Material.MUSHROOM_SOUP);
         poisonus_foods = Sets.newHashSet(Material.POISONOUS_POTATO, Material.ROTTEN_FLESH, Material.SPIDER_EYE);
 
         tools = ListArraySetUtil.addMaterials(axes, hoes, pickaxes, spades);
         armor = ListArraySetUtil.addMaterials(helmets, chestplates, leggings, boots);
-        foods = ListArraySetUtil.addMaterials(fruits, vegetables, raw_foods, grown_foods, cooked_foods, baked_foods, stew_foods, poisonus_foods);
+        foods = ListArraySetUtil
+                .addMaterials(fruits, vegetables, raw_foods, grown_foods, cooked_foods, baked_foods, stew_foods,
+                        poisonus_foods);
         meats = ListArraySetUtil.addMaterials(raw_foods, cooked_foods);
     }
 
@@ -213,7 +225,8 @@ public class ItemUtil {
         return stack;
     }
 
-    public static ItemStack customItem(Material material, int amount, short durability, String displayName, List<String> lore) {
+    public static ItemStack customItem(Material material, int amount, short durability, String displayName,
+                                       List<String> lore) {
         ItemStack stack = customItem(material, amount, displayName);
         stack.setAmount(amount);
         stack.setDurability(durability);
@@ -228,7 +241,8 @@ public class ItemUtil {
         return stack;
     }
 
-    public static ItemStack coloredItem(Colorable colorable, Color color, String name, ArrayList<String> lore, int amount) {
+    public static ItemStack coloredItem(Colorable colorable, Color color, String name, ArrayList<String> lore,
+                                        int amount) {
         ItemStack itemStack = new ItemStack(colorable.getMaterial(), amount, (short) 0, (byte) color.getCode());
         ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(name);
@@ -275,7 +289,8 @@ public class ItemUtil {
         p.updateInventory();
     }
 
-    public static ItemStack getEnchantedItem(Material material, int amount, String name, Map<Enchantment, Integer> map) {
+    public static ItemStack getEnchantedItem(Material material, int amount, String name,
+                                             Map<Enchantment, Integer> map) {
         ItemStack stack = new ItemStack(material);
         stack.setAmount(amount);
 
@@ -340,11 +355,13 @@ public class ItemUtil {
     }
 
     public static ItemStack getBackArrow(String name, int amount) {
-        return getSkull(Bukkit.getOfflinePlayer(UUID.fromString("6ac68253-f6d4-4caa-90f4-c5fc9db0ad03")).getName(), name, amount);
+        return getSkull(Bukkit.getOfflinePlayer(UUID.fromString("6ac68253-f6d4-4caa-90f4-c5fc9db0ad03")).getName(),
+                name, amount);
     }
 
     public static ItemStack getNextArrow(String name, int amount) {
-        return getSkull(Bukkit.getOfflinePlayer(UUID.fromString("e6ae8e4c-09a8-461d-91f1-2bedf8789b1b")).getName(), name, amount);
+        return getSkull(Bukkit.getOfflinePlayer(UUID.fromString("e6ae8e4c-09a8-461d-91f1-2bedf8789b1b")).getName(),
+                name, amount);
     }
 
     public static ItemStack getItem(String string) {
@@ -373,7 +390,8 @@ public class ItemUtil {
     }
 
     public static String itemToString(ItemStack itemStack) {
-        String string = itemStack.getType().name() + "-" + itemStack.getAmount() + "-" + itemStack.getItemMeta().getDisplayName() + "-" + itemStack.getDurability();
+        String string = itemStack.getType().name() + "-" + itemStack.getAmount() + "-" +
+                itemStack.getItemMeta().getDisplayName() + "-" + itemStack.getDurability();
         return string;
     }
 
@@ -426,7 +444,7 @@ public class ItemUtil {
 
         private int code;
 
-        Color(int code){
+        Color(int code) {
             this.code = code;
         }
 
