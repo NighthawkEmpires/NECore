@@ -185,9 +185,38 @@ public class ItemUtil {
         return itemStack;
     }
 
+    public static ItemStack customItem(Material material, int amount, short durability, String displayName) {
+        ItemStack itemStack = new ItemStack(material);
+        itemStack.setAmount(amount);
+        itemStack.setDurability(durability);
+
+        ItemMeta meta = itemStack.getItemMeta();
+
+        meta.setDisplayName(displayName);
+
+        itemStack.setItemMeta(meta);
+
+        return itemStack;
+    }
+
     public static ItemStack customItem(Material material, int amount, String displayName, List<String> lore) {
         ItemStack stack = customItem(material, amount, displayName);
         stack.setAmount(amount);
+
+        ItemMeta meta = stack.getItemMeta();
+        ArrayList<String> lor = (ArrayList<String>) lore;
+
+        meta.setLore(lor);
+
+        stack.setItemMeta(meta);
+
+        return stack;
+    }
+
+    public static ItemStack customItem(Material material, int amount, short durability, String displayName, List<String> lore) {
+        ItemStack stack = customItem(material, amount, displayName);
+        stack.setAmount(amount);
+        stack.setDurability(durability);
 
         ItemMeta meta = stack.getItemMeta();
         ArrayList<String> lor = (ArrayList<String>) lore;

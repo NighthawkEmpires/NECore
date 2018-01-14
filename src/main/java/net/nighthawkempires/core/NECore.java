@@ -15,6 +15,7 @@ import net.nighthawkempires.core.chat.tag.NameTag;
 import net.nighthawkempires.core.enchantment.EnchantmentManager;
 import net.nighthawkempires.core.file.FileFolder;
 import net.nighthawkempires.core.file.FileManager;
+import net.nighthawkempires.core.inventory.InventoryManager;
 import net.nighthawkempires.core.kit.KitManager;
 import net.nighthawkempires.core.listener.PlayerListener;
 import net.nighthawkempires.core.logger.Logger;
@@ -53,6 +54,7 @@ public class NECore extends JavaPlugin {
     private static EnchantmentManager enchantmentManager;
     private static FileManager fileManager;
     private static GlowManager glowManager = new GlowManager();
+    private static InventoryManager inventoryManager;
     private static KitManager kitManager;
     private static MuteManager muteManager;
     private static PluginManager pluginManager;
@@ -93,6 +95,7 @@ public class NECore extends JavaPlugin {
         scoreboardManager = new ScoreboardManager();
         scoreboardManager.addScoreboard(new NameScoreboards());
         enchantmentManager = new EnchantmentManager();
+        inventoryManager = new InventoryManager();
         recipeManager = new RecipeManager();
         banManager = new BanManager();
         bungeeManager = new BungeeManager();
