@@ -8,9 +8,7 @@ import net.nighthawkempires.core.utils.LocationUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
+import org.bukkit.event.*;
 import org.bukkit.event.player.*;
 
 import java.util.UUID;
@@ -18,14 +16,6 @@ import java.util.UUID;
 import static net.nighthawkempires.core.NECore.*;
 
 public class PlayerListener implements Listener {
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onLogin(PlayerLoginEvent event) {
-        Player player = event.getPlayer();
-        if (!NECore.getUserRegistry().getRegisteredData().containsKey(player.getUniqueId().toString())) {
-            NECore.getUserRegistry().loadFromDb(player.getUniqueId().toString());
-        }
-    }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
