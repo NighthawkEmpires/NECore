@@ -69,7 +69,9 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
 
     public void remove(String key) {
         REGISTERED_DATA.asMap().remove(key);
-        COLLECTION.deleteOne(Filters.eq("key", key));
+        synchronized (COLLECTION) {
+            COLLECTION.deleteOne(Filters.eq("key", key));
+        }
     }
 
     public void saveToDb(String key) {
@@ -84,38 +86,44 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
                 document = overwriteDocument(loaded.get(), model.serialize());
                 document.put("key", key);
             }
-            COLLECTION.insertOne(document);
+            synchronized (COLLECTION) {
+                COLLECTION.insertOne(document);
+            }
         }
     }
 
     @SuppressWarnings("unchecked")
     public Optional<Document> loadFromDb(String key) {
-        Document document = COLLECTION.find(Filters.eq("key", key)).first();
-        if (document != null) {
-            REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(document)));
-            return Optional.of(document);
+        synchronized (COLLECTION) {
+            Document document = COLLECTION.find(Filters.eq("key", key)).first();
+            if (document != null) {
+                REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(document)));
+                return Optional.of(document);
+            }
         }
         return Optional.empty();
     }
 
     @SuppressWarnings("ConstantConditions")
     public Map<String, T> loadAllFromDb() {
-        MongoCursor<Document> cursor = COLLECTION.find().iterator();
-        try {
-            while (cursor.hasNext()) {
-                Document document = cursor.next();
-                String key = document.getString("key");
-                if (key != null) {
-                    try {
-                        UUID.fromString(key);
-                        REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(document)));
-                    } catch (Exception oops) {
-                        oops.printStackTrace();
+        synchronized (COLLECTION) {
+            MongoCursor<Document> cursor = COLLECTION.find().iterator();
+            try {
+                while (cursor.hasNext()) {
+                    Document document = cursor.next();
+                    String key = document.getString("key");
+                    if (key != null) {
+                        try {
+                            UUID.fromString(key);
+                            REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(document)));
+                        } catch (Exception oops) {
+                            oops.printStackTrace();
+                        }
                     }
                 }
+            } finally {
+                cursor.close();
             }
-        } finally {
-            cursor.close();
         }
         return REGISTERED_DATA.asMap();
     }
