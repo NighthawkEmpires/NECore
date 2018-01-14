@@ -97,20 +97,22 @@ public abstract class AbstractFileRegistry<T extends Model> implements Registry<
     }
 
     @SuppressWarnings("unchecked")
-    public void loadFromDb(String key) {
+    public Optional<FJsonSection> loadFromDb(String key) {
         Gson gson = new GsonBuilder().create();
         try {
             File file = new File(FOLDER.getPath() + "/" + key + ".json");
             if (file.exists()) {
                 FileInputStream inputStream = new FileInputStream(file);
                 InputStreamReader reader = new InputStreamReader(inputStream);
-                DataSection section = new FJsonSection(gson.fromJson(reader, Map.class));
+                FJsonSection section = new FJsonSection(gson.fromJson(reader, Map.class));
                 REGISTERED_DATA.put(key, fromDataSection(key, section));
                 reader.close();
+                return Optional.of(section);
             }
         } catch (Exception oops) {
             oops.printStackTrace();
         }
+        return Optional.empty();
     }
 
     @SuppressWarnings("ConstantConditions")

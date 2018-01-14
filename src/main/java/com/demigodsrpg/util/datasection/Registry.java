@@ -12,9 +12,10 @@ public interface Registry<T extends Model> {
 
     void remove(String key);
 
+    @Deprecated
     void saveToDb(String key);
 
-    void loadFromDb(String key);
+    Optional<? extends Map<String, Object>> loadFromDb(String key);
 
     Map<String, T> loadAllFromDb();
 

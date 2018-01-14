@@ -73,20 +73,28 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
     }
 
     public void saveToDb(String key) {
+        Optional<Document> loaded = loadFromDb(key);
         if (REGISTERED_DATA.asMap().containsKey(key)) {
             Model model = REGISTERED_DATA.asMap().get(key);
-            Document document = mapToDocument(model.serialize());
-            document.put("key", key);
+            Document document;
+            if (!loaded.isPresent()) {
+                document = mapToDocument(model.serialize());
+                document.put("key", key);
+            } else {
+                document = loaded.get();
+            }
             COLLECTION.insertOne(document);
         }
     }
 
     @SuppressWarnings("unchecked")
-    public void loadFromDb(String key) {
+    public Optional<Document> loadFromDb(String key) {
         Document document = COLLECTION.find(Filters.eq("key", key)).first();
         if (document != null) {
             REGISTERED_DATA.put(key, fromDataSection(key, new MJsonSection(document)));
+            return Optional.of(document);
         }
+        return Optional.empty();
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -118,15 +126,19 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
 
     // -- UTILITY METHODS -- //
 
-    public static Document mapToDocument(Map<String, Object> map) {
-        Document document = new Document();
+    public static Document overwriteDocument(Document document, Map<String, Object> map) {
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             if (entry.getValue() instanceof Map) {
-                map.put(entry.getKey(), mapToDocument((Map) entry.getValue()));
+                document.put(entry.getKey(), mapToDocument((Map) entry.getValue()));
+            } else {
+                document.put(entry.getKey(), entry.getValue());
             }
-            document.put(entry.getKey(), entry.getValue());
         }
         return document;
+    }
+
+    public static Document mapToDocument(Map<String, Object> map) {
+        return overwriteDocument(new Document(), map);
     }
 
     public static Map<String, Object> documentToMap(Document document) {
