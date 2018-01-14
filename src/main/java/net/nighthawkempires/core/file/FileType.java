@@ -11,6 +11,7 @@ public enum FileType {
     LOCATION(FileFolder.CONFIG_PATH, "locations.yml"),
     KITS(FileFolder.CONFIG_PATH, "locations.yml"),
     PORTAL(FileFolder.CONFIG_PATH, "portals.yml"),
+    PRICES(FileFolder.CONFIG_PATH, "prices.yml"),
     REGION(FileFolder.CONFIG_PATH, "regions.yml"),
     SHOP(FileFolder.CONFIG_PATH, "shops.yml");
 
