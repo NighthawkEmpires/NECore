@@ -81,7 +81,7 @@ public abstract class AbstractMongoRegistry<T extends Model> implements Registry
                 document = mapToDocument(model.serialize());
                 document.put("key", key);
             } else {
-                document = loaded.get();
+                document = overwriteDocument(loaded.get(), model.serialize());
             }
             COLLECTION.insertOne(document);
         }
