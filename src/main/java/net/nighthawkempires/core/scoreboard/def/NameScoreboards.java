@@ -1,7 +1,7 @@
 package net.nighthawkempires.core.scoreboard.def;
 
 import net.nighthawkempires.core.NECore;
-import net.nighthawkempires.core.language.Lang;
+import net.nighthawkempires.core.language.Messages;
 import net.nighthawkempires.core.scoreboard.Scoreboards;
 import net.nighthawkempires.core.users.UserModel;
 import org.bukkit.Bukkit;
@@ -30,7 +30,7 @@ public class NameScoreboards extends Scoreboards {
         Scoreboard[] scoreboard = {Bukkit.getScoreboardManager().getNewScoreboard()};
         Objective[] objective = {scoreboard[0].registerNewObjective("test", "dummy")};
         objective[0].setDisplaySlot(DisplaySlot.SIDEBAR);
-        objective[0].setDisplayName(Lang.SCOREBOARD.getServerBoard());
+        objective[0].setDisplayName(Messages.SCOREBOARD_HEADER.getMessage());
         Team name = scoreboard[0].registerNewTeam("name");
         name.addEntry(ChatColor.GRAY + " ➛   " + ChatColor.BLUE + "" + ChatColor.BOLD);
         name.setPrefix("");

@@ -1,0 +1,18 @@
+MESSAGES:
+  HEADER: "&7&l&m----------&8&l&m-<<--<%SERVER_TAG%&8&l&m>-->>-&7&l&m----------"
+  FOOTER: "&7&l&m-------------------------------------------"
+  BLANK: ""
+  CHAT: "%SERVER_TAG%&8&l&o> "
+  NO_PERMISSIONS: "&cSorry, you do not have enough permissions to execute this."
+  INVALID_PLAYER: "&cThat player is offline or does not exist."
+  SYNTAX_ERROR: "&cThere has been an error in the syntax used for this command."
+  INSUFFICIENT_FUNDS: "&cYou do not have enough money to buy this item."
+  SCOREBOARD_HEADER: "&7&m-<<%SERVER_TAG%&7&m>>-"
+
+TAGS:
+  HUB: "&c&l&oHUB"
+  SURVIVAL: "&1&l&oN&4&l&oS"
+  FREEBUILD: "&a&l&oFREEBUILD"
+  PRISON: "&6&l&oPRISON"
+  MINIGAME: "&b&l&oMINIGAMES"
+  TEST: "&4&l&oTEST"

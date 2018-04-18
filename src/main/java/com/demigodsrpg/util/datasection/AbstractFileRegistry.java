@@ -24,12 +24,15 @@ package com.demigodsrpg.util.datasection;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.*;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
@@ -38,7 +41,7 @@ public abstract class AbstractFileRegistry<T extends Model> implements Registry<
     protected final Cache<String, T> REGISTERED_DATA;
 
     // -- FILE -- //
-    private File FOLDER;
+    public File FOLDER;
     private boolean PRETTY;
 
     public AbstractFileRegistry(String path, String folder, boolean pretty, int expireMins) {

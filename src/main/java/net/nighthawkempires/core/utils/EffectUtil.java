@@ -15,6 +15,7 @@ public class EffectUtil {
     }
 
     public static void playSpigotEffect(Location location, Effect effect) {
+        location.getWorld().spigot().playEffect(location, effect);
     }
 
     public static void playSpigtEffect(Player player, Effect effect) {

@@ -3,10 +3,10 @@ package net.nighthawkempires.core.server;
 public class Server {
 
     public static final Server HUB = new Server("HUB");
-    public static final Server SUR = new Server("SURVIVAL");
-    public static final Server FRB = new Server("FREEBUILD");
-    public static final Server PRS = new Server("PRISON");
-    public static final Server MIN = new Server("MINIGAME");
+    public static final Server SURVIVAL = new Server("SURVIVAL");
+    public static final Server FREEBUILD = new Server("FREEBUILD");
+    public static final Server PRISON = new Server("PRISON");
+    public static final Server MINIGAME = new Server("MINIGAME");
     public static final Server TEST = new Server("TEST");
 
     private String name;
@@ -20,7 +20,7 @@ public class Server {
     }
 
     public static Server[] values() {
-        return new Server[]{HUB, SUR, FRB, PRS, MIN, TEST};
+        return new Server[]{HUB, SURVIVAL, FREEBUILD, PRISON, MINIGAME, TEST};
     }
 
     public static Server valueOf(String name) {
@@ -32,26 +32,26 @@ public class Server {
         return null;
     }
 
-    public ServerTypes getFrom(Server server) {
-        for (ServerTypes types : ServerTypes.values()) {
+    public ServerType getFrom(Server server) {
+        for (ServerType types : ServerType.values()) {
             if (types.getServer() == server) {
                 return types;
             }
         }
-        return ServerTypes.HUB;
+        return ServerType.HUB;
     }
 
-    public enum ServerTypes {
+    public enum ServerType {
         HUB(Server.HUB),
-        SURVIVAL(Server.SUR),
-        FREEBUILD(Server.FRB),
-        PRISON(Server.PRS),
-        MINIGAMES(Server.MIN),
+        SURVIVAL(Server.SURVIVAL),
+        FREEBUILD(Server.FREEBUILD),
+        PRISON(Server.PRISON),
+        MINIGAME(Server.MINIGAME),
         TEST(Server.TEST);
 
         private Server server;
 
-        ServerTypes(Server server) {
+        ServerType(Server server) {
             this.server = server;
         }
 

@@ -2,16 +2,16 @@ package net.nighthawkempires.core.announcer;
 
 public class Announcement {
 
-    private int id;
+    private String name;
     private String[] lines;
 
-    public Announcement(int id, String[] lines) {
-        this.id = id;
+    public Announcement(String name, String[] lines) {
+        this.name = name;
         this.lines = lines;
     }
 
-    public int getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
     public String[] getLines() {

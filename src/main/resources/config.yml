@@ -1,0 +1,32 @@
+##SERVER SETTINGS##
+#SERVER TYPES: HUB, SURVIVAL, FREEBUILD, PRISON, MINIGAME, TEST
+SERVER_TYPE: HUB
+
+##CONSOLE SETTINGS##
+CON_UUID: '12ea1659-5da0-4ec0-9c8d-15350261e2d5'
+CON_DISPLAY_NAME: '&8&l&o*&7&l&oHawkeye&8&l&o'
+
+##DATABASE TYPES: MYSQL, MONGO, FILE
+USE_DATABASE: true
+DB_TYPE: MONGO
+DB_HOSTNAME: localhost
+DB_PORT: 27017
+DB_DATABASE: default
+DB_USERNAME: u$er
+DB_PASSWORD: p@ss
+
+##WORD FILTER
+BANNED_WORDS:
+  - "Pussy"
+  - "Cock"
+  - "Fuck"
+  - "Shit"
+  - "Ass"
+  - "Dick"
+  - "Penis"
+  - "Vagina"
+  - "Cunt"
+  - "Bitch"
+  - "Nigger"
+  - "Console"
+  - "Staff"

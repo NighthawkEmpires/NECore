@@ -16,7 +16,7 @@ public class ServerTag extends PlayerTag {
     public TextComponent getComponentFor(Player player) {
         TextComponent tag = new TextComponent("[");
         tag.setColor(ChatColor.DARK_GRAY);
-        if (NECore.getSettings().server.equals(Server.HUB)) {
+        if (NECore.getSettings().SERVER.equals(Server.HUB)) {
             TextComponent mid = new TextComponent("HUB");
             mid.setColor(ChatColor.RED);
             mid.setBold(true);
@@ -25,7 +25,7 @@ public class ServerTag extends PlayerTag {
             tag.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
                     TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&',
                             "&r&8&lServer&7&l: &c&l&oHUB"))));
-        } else if (NECore.getSettings().server.equals(Server.SUR)) {
+        } else if (NECore.getSettings().SERVER.equals(Server.SURVIVAL)) {
             TextComponent n = new TextComponent("N");
             n.setColor(ChatColor.DARK_BLUE);
             n.setBold(true);
@@ -39,7 +39,7 @@ public class ServerTag extends PlayerTag {
             tag.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
                     TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&',
                             "&r&8&lServer&7&l: &1&l&oNighthawk&r &4&l&oSurvival"))));
-        } else if (NECore.getSettings().server.equals(Server.FRB)) {
+        } else if (NECore.getSettings().SERVER.equals(Server.FREEBUILD)) {
             TextComponent mid = new TextComponent("FRB");
             mid.setColor(ChatColor.GREEN);
             mid.setBold(true);
@@ -48,7 +48,7 @@ public class ServerTag extends PlayerTag {
             tag.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
                     TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&',
                             "&r&8&lServer&7&l: &a&l&oFreebuild"))));
-        } else if (NECore.getSettings().server.equals(Server.PRS)) {
+        } else if (NECore.getSettings().SERVER.equals(Server.PRISON)) {
             TextComponent mid = new TextComponent("PRS");
             mid.setColor(ChatColor.GOLD);
             mid.setBold(true);
@@ -57,7 +57,7 @@ public class ServerTag extends PlayerTag {
             tag.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
                     TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&',
                             "&r&8&lServer&7&l: &6&l&oPrison"))));
-        } else if (NECore.getSettings().server.equals(Server.MIN)) {
+        } else if (NECore.getSettings().SERVER.equals(Server.MINIGAME)) {
             TextComponent mid = new TextComponent("MIN");
             mid.setColor(ChatColor.AQUA);
             mid.setBold(true);
@@ -66,7 +66,7 @@ public class ServerTag extends PlayerTag {
             tag.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
                     TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&',
                             "&r&8&lServer&7&l: &b&l&oMinigames"))));
-        } else if (NECore.getSettings().server.equals(Server.TEST)) {
+        } else if (NECore.getSettings().SERVER.equals(Server.TEST)) {
             TextComponent mid = new TextComponent("TEST");
             mid.setColor(ChatColor.DARK_RED);
             mid.setBold(true);

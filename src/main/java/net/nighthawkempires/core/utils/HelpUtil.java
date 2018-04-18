@@ -1,7 +1,7 @@
 package net.nighthawkempires.core.utils;
 
 import com.google.common.collect.Lists;
-import net.nighthawkempires.core.language.Lang;
+import net.nighthawkempires.core.language.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
@@ -87,15 +87,15 @@ public class HelpUtil {
         }
 
         String[] help = new String[]{
-                Lang.HEADER.getServerHeader(),
-                Lang.HELP.getHelpLine(displayPage, getTotalPages(player)),
-                Lang.FOOTER.getMessage(),
+                Messages.HEADER.getMessage(),
+                Messages.BLANK.getHelpLine(displayPage, getTotalPages(player)),
+                Messages.FOOTER.getMessage()
         };
         player.sendMessage(help);
         for (String string : cmds) {
             player.sendMessage(string);
         }
-        player.sendMessage(Lang.FOOTER.getMessage());
+        player.sendMessage(Messages.FOOTER.getMessage());
     }
 
     public static void sendPage(ConsoleCommandSender console, int page) {
@@ -117,14 +117,14 @@ public class HelpUtil {
         }
 
         String[] help = new String[]{
-                Lang.HEADER.getServerHeader(),
-                Lang.HELP.getHelpLine(displayPage, getTotalPages(null)),
-                Lang.FOOTER.getMessage(),
+                Messages.HEADER.getMessage(),
+                Messages.BLANK.getHelpLine(displayPage, getTotalPages(null)),
+                Messages.FOOTER.getMessage()
         };
         console.sendMessage(help);
         for (String string : cmds) {
             console.sendMessage(string);
         }
-        console.sendMessage(Lang.FOOTER.getMessage());
+        console.sendMessage(Messages.FOOTER.getMessage());
     }
 }

@@ -1,6 +1,7 @@
 package net.nighthawkempires.core.bungee;
 
 import net.nighthawkempires.core.NECore;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class BungeeServer {
@@ -21,9 +22,13 @@ public class BungeeServer {
 
     public BungeeServer build(Player player) {
         NECore.getBungeeManager().ping(player, getName());
-        this.ip = NECore.getBungeeManager().getIp();
-        this.port = NECore.getBungeeManager().getPort();
-        this.online = NECore.getBungeeManager().online(getIP(), getPort());
+        Bukkit.getScheduler().scheduleSyncDelayedTask(NECore.getPlugin(), () -> {
+            this.ip = NECore.getBungeeManager().getIp();
+            this.port = NECore.getBungeeManager().getPort();
+        }, 10);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(NECore.getPlugin(), () -> {
+            this.online = NECore.getBungeeManager().online(getIP(), getPort());
+        }, 15);
         return this;
     }
 

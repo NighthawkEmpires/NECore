@@ -5,25 +5,29 @@ import com.mongodb.client.MongoDatabase;
 import de.slikey.effectlib.EffectLib;
 import de.slikey.effectlib.EffectManager;
 import net.nighthawkempires.core.announcer.AnnouncementManager;
-import net.nighthawkempires.core.ban.BanManager;
+import net.nighthawkempires.core.ban.registry.BanRegistry;
+import net.nighthawkempires.core.ban.registry.FBanRegistry;
+import net.nighthawkempires.core.ban.registry.MBanRegistry;
 import net.nighthawkempires.core.bungee.BungeeManager;
 import net.nighthawkempires.core.chat.format.ChatFormat;
 import net.nighthawkempires.core.chat.tag.NameTag;
+import net.nighthawkempires.core.database.DatabaseType;
 import net.nighthawkempires.core.enchantment.EnchantmentManager;
 import net.nighthawkempires.core.file.FileFolder;
 import net.nighthawkempires.core.file.FileManager;
 import net.nighthawkempires.core.inventory.InventoryManager;
 import net.nighthawkempires.core.kit.KitManager;
 import net.nighthawkempires.core.listener.PlayerListener;
-import net.nighthawkempires.core.logger.Logger;
-import net.nighthawkempires.core.mute.MuteManager;
+import net.nighthawkempires.core.logger.LogManager;
+import net.nighthawkempires.core.mute.registry.FMuteRegistry;
+import net.nighthawkempires.core.mute.registry.MMuteRegistry;
+import net.nighthawkempires.core.mute.registry.MuteRegistry;
 import net.nighthawkempires.core.recipe.RecipeManager;
 import net.nighthawkempires.core.scoreboard.ScoreboardManager;
 import net.nighthawkempires.core.scoreboard.def.NameScoreboards;
 import net.nighthawkempires.core.settings.Settings;
-import net.nighthawkempires.core.sql.MySQL;
 import net.nighthawkempires.core.sql.SQLConnector;
-import net.nighthawkempires.core.task.SQLTask;
+import net.nighthawkempires.core.task.HeartbeatTask;
 import net.nighthawkempires.core.users.registry.*;
 import net.nighthawkempires.core.volatilecode.VolatileCodeHandler;
 import net.nighthawkempires.core.volatilecode.code.VolatileCodeDisabled;
@@ -42,7 +46,6 @@ public class NECore extends JavaPlugin {
     private static Plugin plugin;
 
     private static AnnouncementManager announcementManager;
-    private static BanManager banManager;
     private static BungeeManager bungeeManager;
     private static EffectManager effectManager;
     private static EnchantmentManager enchantmentManager;
@@ -50,7 +53,6 @@ public class NECore extends JavaPlugin {
     private static GlowManager glowManager = new GlowManager();
     private static InventoryManager inventoryManager;
     private static KitManager kitManager;
-    private static MuteManager muteManager;
     private static PluginManager pluginManager;
     private static RecipeManager recipeManager;
     private static ScoreboardManager scoreboardManager;
@@ -59,17 +61,16 @@ public class NECore extends JavaPlugin {
 
     private static EffectLib effectLib;
 
-    private static Logger logger;
-
     private static Settings settings;
 
     private static VolatileCodeHandler codeHandler;
 
-    private static MySQL sql;
     private static SQLConnector connector;
     private static MongoDatabase mongoDatabase;
 
     private static UserRegistry userRegistry;
+    private static BanRegistry banRegistry;
+    private static MuteRegistry muteRegistry;
 
     private BukkitRunnable sqlTask;
 
@@ -91,20 +92,14 @@ public class NECore extends JavaPlugin {
         enchantmentManager = new EnchantmentManager();
         inventoryManager = new InventoryManager();
         recipeManager = new RecipeManager();
-        banManager = new BanManager();
         bungeeManager = new BungeeManager();
-        muteManager = new MuteManager();
         effectLib = EffectLib.instance();
         effectManager = new EffectManager(effectLib);
         glowManager = new GlowManager();
         kitManager = new KitManager();
-        logger = new Logger();
 
-        try {
+        /**try {
             if (getSettings().mysqlEnabled) {
-                sql = new MySQL(getSettings().mysqlHostname, "3306", getSettings().mysqlDatabase,
-                        getSettings().mysqlUsername, getSettings().mysqlPassword);
-                sql.openConnection();
                 connector = new SQLConnector(getSettings().mysqlHostname, getSettings().mysqlDatabase,
                         getSettings().mysqlUsername, getSettings().mysqlPassword);
                 connector.getConnection();
@@ -112,38 +107,53 @@ public class NECore extends JavaPlugin {
         } catch (Exception e) {
             getLoggers().warn("Could not connect to Database.");
         }
-        sqlTask = getSQLTask();
+        sqlTask = getHeartbeatTask();*/
 
-        if (NECore.getSettings().mongoEnabledGuilds) {
-            try {
-                String hostname = NECore.getSettings().mongoHostnameGuilds;
-                String username = NECore.getSettings().mongoUsernameGuilds;
-                String password = NECore.getSettings().mongoPasswordGuilds;
-                ServerAddress address = new ServerAddress(hostname, 27017);
-                MongoCredential credential =
-                        MongoCredential.createCredential("core", "ne_core", password.toCharArray());
-                mongoDatabase =
-                        new MongoClient(address, credential, new MongoClientOptions.Builder().build())
-                                .getDatabase("ne_core");
-                userRegistry = new MUserRegistry(mongoDatabase);
-                NECore.getLoggers().info(this, "MongoDB enabled.");
-            } catch (Exception oops) {
-                oops.printStackTrace();
-                NECore.getLoggers().warn("MongoDB connection failed. Disabling plugin.");
-                Bukkit.getPluginManager().disablePlugin(this);
-                return;
+        if (NECore.getSettings().DB_USE) {
+            String pluginName = getPlugin().getName().toLowerCase().replaceFirst("NE", "");
+            if (NECore.getSettings().DB_TYPE == DatabaseType.MONGO) {
+                try {
+                    String hostname = NECore.getSettings().DB_HOSTNAME;
+                    int port = NECore.getSettings().DB_PORT;
+                    String database = NECore.getSettings().DB_DATABASE.replaceAll("%PLUGIN%", pluginName.toLowerCase());
+                    String username = NECore.getSettings().DB_USERNAME.replaceAll("%PLUGIN%", pluginName.toLowerCase());
+                    String password = NECore.getSettings().DB_PASSWORD;
+
+                    ServerAddress address = new ServerAddress(hostname, 27017);
+                    MongoCredential credential =
+                            MongoCredential.createCredential(username, database, password.toCharArray());
+                    mongoDatabase =
+                            new MongoClient(address, credential, new MongoClientOptions.Builder().build()).getDatabase(database);
+                    userRegistry = new MUserRegistry(mongoDatabase);
+                    banRegistry = new MBanRegistry(mongoDatabase);
+                    muteRegistry = new MMuteRegistry(mongoDatabase);
+                    LogManager.info(this, "MongoDB enabled.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    LogManager.warn("MongoDB connection failed. Disabling plugin.");
+                    Bukkit.getPluginManager().disablePlugin(this);
+                    return;
+                }
+            } else if (NECore.getSettings().DB_TYPE == DatabaseType.MYSQL) {
+                //TODO: Integrate MySQL
+            } else {
+                userRegistry = new FUserRegistry(FileFolder.PLAYER_PATH.getPath());
+                banRegistry = new FBanRegistry(FileFolder.BAN_PATH.getPath());
+                muteRegistry = new FMuteRegistry(FileFolder.MUTE_PATH.getPath());
             }
         } else {
             userRegistry = new FUserRegistry(FileFolder.PLAYER_PATH.getPath());
+            banRegistry = new FBanRegistry(FileFolder.BAN_PATH.getPath());
+            muteRegistry = new FMuteRegistry(FileFolder.MUTE_PATH.getPath());
         }
 
         try {
             Class.forName("net.minecraft.server.v1_12_R1.MinecraftServer");
             codeHandler = new VolatileCode_v1_12_R1();
-            getLoggers().info("Volatile Code hooked into v1_12_R1.");
+            LogManager.info("Volatile Code hooked into v1_12_R1.");
         } catch (Exception e) {
             codeHandler = new VolatileCodeDisabled();
-            getLoggers().warn("Volatile Code disabled, compatibility lost.");
+            LogManager.warn("Volatile Code disabled, compatibility lost.");
         }
 
         kitManager.loadKits();
@@ -152,13 +162,14 @@ public class NECore extends JavaPlugin {
         registerListeners();
 
         userRegistry.loadAllFromDb();
+        banRegistry.loadAllFromDb();
+        muteRegistry.loadAllFromDb();
     }
 
     public void onDisable() {
         getKitManager().saveKits();
         announcementManager.saveAnnouncements();
         enchantmentManager.unregisterEnchants();
-        getMySQL().closeConnection();
     }
 
     private void registerListeners() {
@@ -167,8 +178,8 @@ public class NECore extends JavaPlugin {
         this.getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", bungeeManager);
     }
 
-    private BukkitRunnable getSQLTask() {
-        BukkitRunnable runnable = new SQLTask();
+    private BukkitRunnable getHeartbeatTask() {
+        BukkitRunnable runnable = new HeartbeatTask();
         runnable.runTaskTimer(this, 1200, 1200);
         return runnable;
     }
@@ -205,24 +216,8 @@ public class NECore extends JavaPlugin {
         return scoreboardManager;
     }
 
-    public static BanManager getBanManager() {
-        return banManager;
-    }
-
     public static VolatileCodeHandler getCodeHandler() {
         return codeHandler;
-    }
-
-    public static MySQL getMySQL() {
-        return sql;
-    }
-
-    public static Logger getLoggers() {
-        return logger;
-    }
-
-    public static MuteManager getMuteManager() {
-        return muteManager;
     }
 
     public static KitManager getKitManager() {
@@ -263,5 +258,13 @@ public class NECore extends JavaPlugin {
 
     public static UserRegistry getUserRegistry() {
         return userRegistry;
+    }
+
+    public static BanRegistry getBanRegistry() {
+        return banRegistry;
+    }
+
+    public static MuteRegistry getMuteRegistry() {
+        return muteRegistry;
     }
 }

@@ -1,6 +1,7 @@
 package net.nighthawkempires.core.sql;
 
 import net.nighthawkempires.core.NECore;
+import net.nighthawkempires.core.logger.LogManager;
 
 import java.sql.*;
 
@@ -56,7 +57,7 @@ public class SQLConnector {
             int usedPort = port != 0 ? port : DEFAULT_PORT;
             connection = DriverManager
                     .getConnection("jdbc:mysql://" + address + ":" + usedPort + "/" + name, username, password);
-            NECore.getLoggers().info(NECore.getPlugin(), "Connected to SQL");
+            LogManager.info(NECore.getPlugin(), "Connected to SQL");
         } catch (SQLException e) {
             throw new RuntimeException("Failed to connect to database at " + connectionAddress + "!", e);
         }

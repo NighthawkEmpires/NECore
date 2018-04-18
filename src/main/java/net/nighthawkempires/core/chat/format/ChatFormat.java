@@ -93,7 +93,6 @@ public class ChatFormat {
         component.setColor(net.md_5.bungee.api.ChatColor.GRAY);
         TextComponent next = new TextComponent("» ");
         next.setColor(net.md_5.bungee.api.ChatColor.DARK_GRAY);
-        component.addExtra(new ServerTag().getComponentFor(null));
         component.addExtra(new ConsoleTag().getComponentFor(null));
         component.addExtra(next);
         String finalMessage = ChatColor.WHITE + message;

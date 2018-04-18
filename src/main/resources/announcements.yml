@@ -1,0 +1,12 @@
+##ANNOUNCEMENT SETTINGS
+ENABLED: true
+MESSAGE_DELAY: 120
+
+##ANNOUNCEMENTS
+ANNOUNCEMENTS:
+  DEFAULT:
+    LINES:
+      - ' '
+      - '&cMake sure to register on the forums!'
+      - '&b&nwww.nighthawkempires.net'
+      - ' '

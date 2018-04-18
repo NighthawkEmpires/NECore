@@ -10,6 +10,7 @@ public enum FileType {
     HOMES(FileFolder.CONFIG_PATH, "homes.yml"),
     LOCATION(FileFolder.CONFIG_PATH, "locations.yml"),
     KITS(FileFolder.CONFIG_PATH, "locations.yml"),
+    MESSAGES(FileFolder.CONFIG_PATH, "messages.yml"),
     PORTAL(FileFolder.CONFIG_PATH, "portals.yml"),
     PRICES(FileFolder.CONFIG_PATH, "prices.yml"),
     REGION(FileFolder.CONFIG_PATH, "regions.yml"),

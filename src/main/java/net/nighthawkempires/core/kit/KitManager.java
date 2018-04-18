@@ -2,6 +2,7 @@ package net.nighthawkempires.core.kit;
 
 import com.google.common.collect.Lists;
 import net.nighthawkempires.core.NECore;
+import net.nighthawkempires.core.logger.LogManager;
 import net.nighthawkempires.core.utils.ItemUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -28,7 +29,7 @@ public class KitManager {
                         ItemUtil.getItems(section.getStringList("items"))));
             }
         } catch (Exception e) {
-            NECore.getLoggers().warn("There are no kits to load in!");
+            LogManager.warn("Could not find any kits to load!");
         }
     }
 
